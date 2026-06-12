@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charm Discovery Deck</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0e0e13;
+    color: #1a1a1a;
+    overflow: hidden;
+  }
+  /* ===== Slide frame ===== */
+  .stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .slide {
+    display: none;
+    width: min(100%, 177vh);
+    aspect-ratio: 16 / 9;
+    background: white;
+    border-radius: 18px;
+    padding: 5.5% 6.5%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 60px rgba(0,0,0,0.5);
+    flex-direction: column;
+  }
+  .slide.active { display: flex; }
+  .slide::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(900px 300px at 85% -10%, rgba(243,236,255,0.8), transparent);
+  }
+  .slide > * { position: relative; z-index: 1; }
+  .kicker {
+    font-size: clamp(11px, 1.1vw, 15px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8733ed;
+    margin-bottom: 1.2vh;
+  }
+  .kicker::before { content: "\2726  "; color: #cda4ff; }
+  .slide.cs-accent .kicker { color: #2da57c; }
+  .slide.cs-accent .kicker::before { color: #7fe3c4; }
+  h1.title {
+    font-size: clamp(26px, 3.6vw, 54px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 3.5vh;
+    letter-spacing: -0.5px;
+  }
+  .bottom-line {
+    margin-top: auto;
+    padding-top: 2.5vh;
+    border-top: 2px solid #ececec;
+    font-size: clamp(15px, 1.6vw, 24px);
+    color: #333;
+    text-align: center;
+  }
+  .bottom-line strong { color: #8733ed; }
+  .cs-accent .bottom-line strong { color: #2da57c; }
+  .slide-logo {
+    position: absolute;
+    bottom: 4.5%;
+    right: 6.5%;
+    height: clamp(14px, 1.6vw, 22px);
+    opacity: 0.35;
+  }
+  /* ===== Cover ===== */
+  #s-cover {
+    align-items: center; justify-content: center; text-align: center;
+    background:
+      radial-gradient(1.5px 1.5px at 16% 24%, rgba(135,51,237,0.35), transparent),
+      radial-gradient(1px 1px at 78% 30%, rgba(171,181,255,0.8), transparent),
+      radial-gradient(1.5px 1.5px at 64% 74%, rgba(205,164,255,0.7), transparent),
+      radial-gradient(1px 1px at 30% 68%, rgba(135,51,237,0.3), transparent),
+      radial-gradient(1000px 500px at 50% 120%, rgba(243,236,255,1), transparent),
+      white;
+  }
+  #s-cover .cover-logo { height: clamp(40px, 5vw, 72px); margin-bottom: 7vh; }
+  #s-cover .prepared { font-size: clamp(12px, 1.2vw, 17px); letter-spacing: 2.5px; text-transform: uppercase; color: #8733ed; margin-bottom: 1.5vh; }
+  #s-cover .prepared::before, #s-cover .prepared::after { content: " \2726 "; color: #cda4ff; }
+  #s-cover .company {
+    font-size: clamp(34px, 4.6vw, 70px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    outline: none;
+    border-bottom: 2px dashed transparent;
+  }
+  #s-cover .company:hover, #s-cover .company:focus { border-bottom-color: #d8d8e0; }
+  #s-cover .date { margin-top: 2.5vh; font-size: clamp(13px, 1.3vw, 18px); color: #999; outline: none; }
+  /* ===== Agenda ===== */
+  .agenda-list { display: flex; flex-direction: column; gap: 2.6vh; margin-top: 1vh; }
+  .agenda-item { display: flex; align-items: baseline; gap: 1.4vw; }
+  .agenda-num {
+    font-size: clamp(15px, 1.7vw, 25px);
+    font-weight: 800;
+    color: #8733ed;
+    min-width: 2ch;
+  }
+  .agenda-text { font-size: clamp(17px, 2.1vw, 32px); font-weight: 600; color: #222; }
+  /* ===== Market ===== */
+  .market-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 2vw; align-items: stretch; flex: 1; min-height: 0; }
+  .anx-card { border: 1px solid #e6e6ea; border-radius: 14px; padding: 2.6vw; display: flex; flex-direction: column; justify-content: center; }
+  .anx-card.op { background: #f3ecff; }
+  .anx-card.cost { background: #fff7ec; }
+  .anx-card h3 { font-size: clamp(15px, 1.7vw, 26px); margin-bottom: 1.4vh; }
+  .anx-card.op h3 { color: #8733ed; }
+  .anx-card.cost h3 { color: #b07207; }
+  .anx-card p { font-size: clamp(13px, 1.4vw, 21px); color: #444; line-height: 1.5; }
+  .market-center { display: flex; align-items: center; justify-content: center; max-width: 16vw; text-align: center; }
+  .market-center div { font-size: clamp(12px, 1.25vw, 19px); font-weight: 700; color: #333; line-height: 1.45; }
+  /* ===== Turn / Align (big statement slides) ===== */
+  .statement-slide {
+    justify-content: center;
+    color: white;
+    background:
+      radial-gradient(1.5px 1.5px at 12% 28%, rgba(205,164,255,0.9), transparent),
+      radial-gradient(1px 1px at 30% 70%, rgba(171,181,255,0.7), transparent),
+      radial-gradient(1.5px 1.5px at 55% 20%, rgba(255,255,255,0.55), transparent),
+      radial-gradient(1px 1px at 72% 62%, rgba(205,164,255,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 88% 34%, rgba(171,181,255,0.8), transparent),
+      radial-gradient(900px 420px at 50% 120%, rgba(135,51,237,0.35), transparent),
+      linear-gradient(155deg, #18131f 0%, #241a38 55%, #18131f 100%) !important;
+  }
+  .statement-slide::after { display: none; }
+  .statement-slide .slide-logo { display: none; }
+  .statement-slide .kicker { color: #abb5ff; }
+  .statement-slide .kicker::before { color: #cda4ff; }
+  .statement {
+    font-size: clamp(26px, 3.3vw, 52px);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    max-width: 92%;
+  }
+  .statement .accent {
+    background: linear-gradient(100deg, #abb5ff, #cda4ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cs-accent .statement .accent { background: linear-gradient(100deg, #7fe3c4, #abb5ff); -webkit-background-clip: text; background-clip: text; }
+  .statement-sub { margin-top: 3.5vh; font-size: clamp(15px, 1.7vw, 26px); color: #b6aec9; }
+  /* ===== Notes (parking) slide ===== */
+  #s-notes { align-items: center; justify-content: center; background: #fcfcfd; }
+  #s-notes img { height: clamp(36px, 4.5vw, 64px); opacity: 0.16; }
+  /* ===== Card trios ===== */
+  .trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.8vw; flex: 1; min-height: 0; }
+  .trio-card {
+    border: 1px solid #e9e4f7;
+    border-radius: 14px;
+    padding: 2.2vw;
+    background: #faf9fe;
+    display: flex;
+    flex-direction: column;
+  }
+  .trio-card .icon { font-size: clamp(22px, 2.6vw, 40px); margin-bottom: 1.6vh; }
+  .trio-card .num {
+    width: clamp(28px, 3vw, 44px); height: clamp(28px, 3vw, 44px);
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8733ed, #3c60cd); color: white;
+    font-weight: 800; font-size: clamp(13px, 1.5vw, 22px);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.6vh;
+  }
+  .trio-card.green .num { background: linear-gradient(135deg, #3dc796, #2da57c); }
+  .trio-card.amber .num { background: #f59e0b; }
+  .trio-card.violet .num { background: linear-gradient(135deg, #8733ed, #cda4ff); }
+  .trio-card h3 { font-size: clamp(15px, 1.8vw, 27px); margin-bottom: 1.2vh; }
+  .trio-card p { font-size: clamp(12px, 1.3vw, 19px); color: #555; line-height: 1.5; }
+  .trio-card.weighted { background: #fffaf0; border: 2px solid #f0c36d; box-shadow: 0 4px 18px rgba(240,195,109,0.25); }
+  .trio-card.ghost { border: 2px dashed #b9e6d4; background: #f2fbf7; align-items: center; justify-content: center; text-align: center; }
+  .trio-card.ghost .ph { font-size: clamp(16px, 2vw, 30px); color: #6fb89c; font-weight: 700; }
+  .trio-card.ghost p { color: #9fb3a9; margin-top: 1vh; }
+  /* ===== Blur slide ===== */
+  .infra-wrap { position: relative; flex: 1; min-height: 0; display: flex; }
+  .infra-mess {
+    flex: 1;
+    display: flex; flex-wrap: wrap; gap: 0.7vw; align-content: center; justify-content: center;
+    transition: filter 1.1s ease;
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(77,101,255,0.06), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(245,158,11,0.07), transparent 45%);
+    padding: 1vw;
+  }
+  .infra-mess.blurred { filter: blur(10px) saturate(0.8); }
+  .node {
+    font-size: clamp(10px, 1.05vw, 16px);
+    font-weight: 600;
+    padding: 0.6vw 0.9vw;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid #d8d8e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    color: #333;
+    white-space: nowrap;
+  }
+  .node.warn { border-color: #f0c36d; background: #fffaf0; }
+  .node.tech { border-color: #b9c4ff; background: #f6f8ff; }
+  .node:nth-child(3n) { transform: rotate(-1.6deg); }
+  .node:nth-child(3n+1) { transform: rotate(1.2deg); }
+  .node:nth-child(5n) { transform: rotate(2.2deg) translateY(3px); }
+  .node:nth-child(7n) { transform: rotate(-2.4deg) translateY(-2px); }
+  .blur-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 1.1s ease;
+    text-align: center;
+  }
+  .blur-overlay.show { opacity: 1; }
+  .blur-overlay .big {
+    font-size: clamp(28px, 3.6vw, 56px);
+    font-weight: 800;
+    color: #14141a;
+    text-shadow: 0 2px 18px rgba(255,255,255,0.95), 0 0 40px rgba(255,255,255,0.9);
+    margin-bottom: 1vh;
+  }
+  .blur-overlay .small {
+    font-size: clamp(15px, 1.7vw, 26px);
+    color: #444; font-weight: 600;
+    text-shadow: 0 1px 12px rgba(255,255,255,0.95);
+  }
+  .reveal-hint {
+    position: absolute; bottom: 4.5%; left: 6.5%;
+    font-size: clamp(10px, 1vw, 14px); color: #c9c9d1;
+  }
+  /* ===== Flex econ ===== */
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.8vw; }
+  .stat {
+    text-align: center; padding: 2.4vw 1.5vw;
+    background: #ecfaf4; border: 1px solid #c9eedd; border-radius: 14px;
+  }
+  .stat .big { font-size: clamp(30px, 4vw, 62px); font-weight: 800; color: #2da57c; margin-bottom: 0.8vh; }
+  .stat .label { font-size: clamp(12px, 1.3vw, 19px); color: #555; line-height: 1.45; }
+  .quote-band {
+    margin-top: auto;
+    background:
+      radial-gradient(1.5px 1.5px at 12% 30%, rgba(127,227,196,0.8), transparent),
+      radial-gradient(1px 1px at 80% 25%, rgba(171,181,255,0.7), transparent),
+      radial-gradient(600px 260px at 50% 140%, rgba(61,199,150,0.22), transparent),
+      linear-gradient(150deg, #18131f, #241a38); border-radius: 14px;
+    padding: 2.4vw 2.8vw;
+    color: white;
+  }
+  .quote-band .line { font-size: clamp(19px, 2.4vw, 38px); font-weight: 800; margin-bottom: 1vh; }
+  .quote-band p { font-size: clamp(12px, 1.3vw, 19px); color: #c9c9d1; line-height: 1.5; }
+  /* ===== Seasonality ===== */
+  .legend { display: flex; gap: 2.2vw; flex-wrap: wrap; margin-bottom: 1.6vh; }
+  .legend span { font-size: clamp(11px, 1.2vw, 17px); color: #444; display: flex; align-items: center; gap: 0.6vw; }
+  .swatch { display: inline-block; width: 2vw; min-width: 20px; height: 4px; border-radius: 2px; }
+  .chart-wrap { flex: 1; min-height: 0; display: flex; }
+  .chart-wrap svg { width: 100%; height: 100%; }
+  /* ===== Ribbon ===== */
+  .ribbon-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.6vw; align-items: center; flex: 1; min-height: 0; }
+  .wing {
+    border-radius: 14px; padding: 2vw;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .wing:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+  .wing.gtm { border: 2px solid #8733ed; background: #f3ecff; }
+  .wing.cs { border: 2px dashed #3dc796; background: #ecfaf4; }
+  .wing h4 { font-size: clamp(12px, 1.3vw, 19px); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.6vh; }
+  .wing.gtm h4 { color: #8733ed; }
+  .wing.cs h4 { color: #2da57c; }
+  .wing ul { margin-left: 1.4vw; }
+  .wing li { font-size: clamp(13px, 1.4vw, 21px); color: #333; line-height: 1.9; }
+  .wing.cs li { color: #777; }
+  .wing .wing-cta { margin-top: 1.6vh; font-size: clamp(10px, 1.05vw, 15px); color: #999; }
+  .knot { text-align: center; max-width: 13vw; }
+  .knot .k-label { font-size: clamp(10px, 1.05vw, 15px); font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1vh; }
+  .knot .k-flow { font-size: clamp(12px, 1.3vw, 19px); color: #444; font-weight: 600; line-height: 2; }
+  /* ===== Close ===== */
+  .journey { display: flex; gap: 0; flex: 1; min-height: 0; align-items: stretch; }
+  .j-step {
+    flex: 1; border: 1px solid #e6e6ea; border-radius: 14px;
+    padding: 2vw; background: #fafafb; position: relative;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .j-step + .j-step { margin-left: 3.2vw; }
+  .j-step + .j-step::before {
+    content: "→"; position: absolute; left: -2.4vw; top: 50%; transform: translateY(-50%);
+    font-size: clamp(18px, 2vw, 30px); color: #bbb;
+  }
+  .j-step.here { border: 2px solid #8733ed; background: #f3ecff; }
+  .j-step .j-label { font-size: clamp(10px, 1.05vw, 15px); font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #8733ed; margin-bottom: 1.2vh; }
+  .j-step h3 { font-size: clamp(15px, 1.8vw, 27px); margin-bottom: 1.2vh; }
+  .j-step p { font-size: clamp(12px, 1.3vw, 19px); color: #555; line-height: 1.5; }
+  /* ===== Draft watermark ===== */
+  .draft-mark {
+    position: absolute; top: 4.5%; right: 6.5%;
+    font-size: clamp(10px, 1vw, 14px); font-weight: 700;
+    color: #b07207; background: #fff3cd; border: 1px dashed #d4a72c;
+    padding: 4px 12px; border-radius: 14px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  /* ===== HUD ===== */
+  .hud {
+    position: fixed; bottom: 14px; right: 18px;
+    display: flex; gap: 8px; align-items: center;
+    z-index: 50;
+    font-size: 12px;
+  }
+  .hud button {
+    background: rgba(255,255,255,0.08); color: #bbb;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 7px; padding: 6px 11px;
+    font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit;
+  }
+  .hud button:hover { color: white; background: rgba(255,255,255,0.16); }
+  .hud button.on { background: #8733ed; border-color: #8733ed; color: white; }
+  .hud .counter { color: #888; min-width: 46px; text-align: center; }
+  .hud .mode-cs.on { background: #3dc796; border-color: #3dc796; }
+  /* ===== Notes bar ===== */
+  .notes-bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,14,0.94); color: #d8d8e0;
+    padding: 13px 22px 44px;
+    font-size: 14px; line-height: 1.5;
+    display: none;
+    z-index: 40;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .notes-bar.show { display: block; }
+  .notes-bar .nb-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #cda4ff; margin-bottom: 4px; }
+  /* ===== Menu overlay ===== */
+  .menu-overlay {
+    position: fixed; inset: 0;
+    background: rgba(10,10,14,0.92);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 60;
+  }
+  .menu-overlay.show { display: flex; }
+  .menu-box { max-width: 720px; width: 92%; }
+  .menu-box h2 { color: white; font-size: 18px; margin-bottom: 18px; }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 9px; }
+  .menu-grid button {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+    color: #ccc; border-radius: 8px; padding: 11px 14px;
+    font-size: 13px; font-weight: 600; text-align: left;
+    cursor: pointer; font-family: inherit;
+  }
+  .menu-grid button:hover { background: rgba(255,255,255,0.16); color: white; }
+  .menu-grid button .mg-num { color: #cda4ff; margin-right: 7px; }
+  .menu-box .menu-help { color: #777; font-size: 12px; margin-top: 16px; line-height: 1.7; }
+  .menu-box .menu-help b { color: #aaa; }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- 1. COVER -->
+  <section class="slide active" id="s-cover">
+    <img class="cover-logo" src="assets/charm-logo.svg" alt="Charm">
+    <div class="prepared">Prepared for</div>
+    <div class="company" contenteditable="true" spellcheck="false">[Prospect Company]</div>
+    <div class="date" contenteditable="true" spellcheck="false">[Date]</div>
+  </section>
+
+  <!-- 2. AGENDA -->
+  <section class="slide" id="s-agenda">
+    <div class="kicker">This call</div>
+    <h1 class="title">Here's everything we'll hit.</h1>
+    <div class="agenda-list">
+      <div class="agenda-item"><span class="agenda-num">1</span><span class="agenda-text">Where the market is right now</span></div>
+      <div class="agenda-item"><span class="agenda-num">2</span><span class="agenda-text">What's going on in your world</span></div>
+      <div class="agenda-item"><span class="agenda-num">3</span><span class="agenda-text">Where you're trying to go</span></div>
+      <div class="agenda-item"><span class="agenda-num">4</span><span class="agenda-text">What we'd do about it, if it makes sense</span></div>
+    </div>
+    <div class="bottom-line"><strong>Sound good?</strong></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 3. STATE OF THE MARKET -->
+  <section class="slide" id="s-market">
+    <div class="kicker">Where every operator is right now</div>
+    <h1 class="title">Caught between two things</h1>
+    <div class="market-grid">
+      <div class="anx-card op">
+        <h3>Operational anxiety</h3>
+        <p>"Should we be using these AI tools? At what velocity? What we knew six months ago is obsolete. Daily."</p>
+      </div>
+      <div class="market-center">
+        <div>The opportunity of a generation, and the fear of screwing it up</div>
+      </div>
+      <div class="anx-card cost">
+        <h3>Cost anxiety</h3>
+        <p>"What does adopting this cost? What does NOT adopting it cost? Either answer is expensive."</p>
+      </div>
+    </div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 4a. THE TURN (GTM) -->
+  <section class="slide statement-slide" id="s-turn-gtm">
+    <div class="kicker">The good news</div>
+    <div class="statement">Three channels. Email, phone, LinkedIn.<br><span class="accent">One unified sales cycle, built for the AI revolution.</span></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 4b. THE TURN (CS) -->
+  <section class="slide statement-slide cs-accent" id="s-turn-cs">
+    <div class="kicker">The good news</div>
+    <div class="statement">Your customer experience, scaled without the anxiety.<br><span class="accent">You only pay when a customer actually gets helped.</span></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- DISCOVERY PARKING SLIDE -->
+  <section class="slide" id="s-notes">
+    <img src="assets/charm-logo.svg" alt="Charm">
+  </section>
+
+  <!-- 5. THREE CHANNELS (GTM) -->
+  <section class="slide" id="s-channels">
+    <div class="kicker">How we reach your market</div>
+    <h1 class="title">Three channels. That's it.</h1>
+    <div class="trio">
+      <div class="trio-card">
+        <span class="icon">✉️</span>
+        <h3>Email</h3>
+        <p>Sequences that land in the inbox and read like a human wrote them. Because one did.</p>
+      </div>
+      <div class="trio-card">
+        <span class="icon">📞</span>
+        <h3>Phone</h3>
+        <p>Real conversations with people who know your offer cold.</p>
+      </div>
+      <div class="trio-card">
+        <span class="icon">💼</span>
+        <h3>LinkedIn</h3>
+        <p>Automation that feels personal, because the strategy behind it is.</p>
+      </div>
+    </div>
+    <div class="bottom-line">One integrated system. <strong>Not three vendors.</strong></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 6. THREE THINGS (GTM) -->
+  <section class="slide" id="s-things-gtm">
+    <div class="kicker">Across all three channels, we own three things</div>
+    <h1 class="title">What you're actually getting</h1>
+    <div class="trio">
+      <div class="trio-card green">
+        <div class="num">1</div>
+        <h3>Leads + Data</h3>
+        <p>We find your people, qualify them, and keep your CRM clean. You don't hunt. You close.</p>
+      </div>
+      <div class="trio-card amber weighted">
+        <div class="num">2</div>
+        <h3>Infrastructure</h3>
+        <p>Servers, domain reputation, warmup, deliverability, compliance. Invisible until it breaks. <strong>This is the one nobody else can give you.</strong></p>
+      </div>
+      <div class="trio-card violet">
+        <div class="num">3</div>
+        <h3>Strategy + Words</h3>
+        <p>What to say, how to say it, why it works. Tested, refined, repeatable. (We won the Clay World Cup. We're not guessing.)</p>
+      </div>
+    </div>
+    <div class="bottom-line">You could DIY #1 and #3. <strong>#2 is why you're here.</strong></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 7. BLUR THE COMPLEXITY (GTM) -->
+  <section class="slide" id="s-blur">
+    <div class="kicker">What's running underneath your outbound</div>
+    <h1 class="title" style="margin-bottom: 1.5vh;">All of this has to work. Every day.</h1>
+    <div class="infra-wrap">
+      <div class="infra-mess" id="infraMess">
+        <span class="node tech">Local servers</span>
+        <span class="node">Domain portfolio</span>
+        <span class="node tech">SPF records</span>
+        <span class="node tech">DKIM signing</span>
+        <span class="node tech">DMARC policy</span>
+        <span class="node warn">IP warmup schedules</span>
+        <span class="node">Mailbox rotation</span>
+        <span class="node warn">Deliverability monitoring</span>
+        <span class="node warn">Blacklist monitoring</span>
+        <span class="node">Inbox placement testing</span>
+        <span class="node">Bounce handling</span>
+        <span class="node">Spam-complaint loops</span>
+        <span class="node tech">DNS management</span>
+        <span class="node">Send-time optimization</span>
+        <span class="node">Volume ramping</span>
+        <span class="node tech">Data enrichment (Clay)</span>
+        <span class="node tech">Lead sourcing (Apollo)</span>
+        <span class="node">List verification</span>
+        <span class="node">CRM sync</span>
+        <span class="node">Reply detection &amp; routing</span>
+        <span class="node warn">CAN-SPAM compliance</span>
+        <span class="node warn">GDPR handling</span>
+        <span class="node">Sequencing engine</span>
+        <span class="node">LinkedIn safety limits</span>
+        <span class="node tech">Dialer infrastructure</span>
+        <span class="node">Number reputation</span>
+        <span class="node">Spam-trap avoidance</span>
+        <span class="node">A/B test tracking</span>
+        <span class="node">Domain rotation</span>
+        <span class="node warn">Reputation recovery</span>
+      </div>
+      <div class="blur-overlay" id="blurOverlay">
+        <div class="big">We handle all of this.</div>
+        <div class="small">You never think about it again.</div>
+      </div>
+    </div>
+    <div class="reveal-hint">→ to reveal</div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 8. CS THREE THINGS (placeholder) -->
+  <section class="slide cs-accent" id="s-things-cs">
+    <div class="draft-mark">Draft: awaiting client interviews</div>
+    <div class="kicker">Across your support, we own three things</div>
+    <h1 class="title">What you're actually getting</h1>
+    <div class="trio">
+      <div class="trio-card ghost">
+        <div class="ph">1. [ In our clients' words ]</div>
+        <p>Being written from client interviews: "what do you get from Charm?"</p>
+      </div>
+      <div class="trio-card ghost">
+        <div class="ph">2. [ In our clients' words ]</div>
+        <p>Do not invent. Chris fills these.</p>
+      </div>
+      <div class="trio-card ghost">
+        <div class="ph">3. [ In our clients' words ]</div>
+        <p>Do not invent. Chris fills these.</p>
+      </div>
+    </div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 9. FLEX ECONOMICS (CS) -->
+  <section class="slide cs-accent" id="s-flex">
+    <div class="kicker">Support staffing for e-commerce</div>
+    <h1 class="title">Flex: the whole model</h1>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="big">$2.50</div>
+        <div class="label">per ticket solved.<br>Not per hour, not per seat.</div>
+      </div>
+      <div class="stat">
+        <div class="big">~30%</div>
+        <div class="label">the cost of a typical<br>service agent.</div>
+      </div>
+      <div class="stat">
+        <div class="big">$0</div>
+        <div class="label">for tickets we don't resolve.<br>Our problem, not yours.</div>
+      </div>
+    </div>
+    <div class="quote-band">
+      <div class="line">"If you're not coaching, you're condoning."</div>
+      <p>QA, training, and coaching are built in. Advocates work in your brand voice; new advocates train on it before they ever touch a ticket. Your customers never know they're talking to us. They just know they got taken care of.</p>
+    </div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 9b. SEASONALITY (CS) -->
+  <section class="slide cs-accent" id="s-season">
+    <div class="kicker">Why hiring can't solve this</div>
+    <h1 class="title" style="margin-bottom: 1.2vh;">Demand isn't fixed. Your team is.</h1>
+    <div class="legend">
+      <span><span class="swatch" style="background:#14141a"></span> Your support volume</span>
+      <span><span class="swatch" style="background:#e05252"></span> In-house team (hiring staircase)</span>
+      <span><span class="swatch" style="background:#3dc796"></span> Charm flexible capacity</span>
+    </div>
+    <div class="chart-wrap">
+      <svg viewBox="0 0 800 330" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Support demand vs in-house staffing vs Charm flexible capacity across a year">
+        <line x1="50" y1="280" x2="780" y2="280" stroke="#ddd" stroke-width="1.5"/>
+        <line x1="50" y1="30" x2="50" y2="280" stroke="#ddd" stroke-width="1.5"/>
+        <g font-size="11" fill="#999" font-family="sans-serif" text-anchor="middle">
+          <text x="80" y="298">Jan</text><text x="140" y="298">Feb</text><text x="200" y="298">Mar</text>
+          <text x="260" y="298">Apr</text><text x="320" y="298">May</text><text x="380" y="298">Jun</text>
+          <text x="440" y="298">Jul</text><text x="500" y="298">Aug</text><text x="560" y="298">Sep</text>
+          <text x="620" y="298">Oct</text><text x="680" y="298">Nov</text><text x="740" y="298">Dec</text>
+        </g>
+        <path d="M 60 225 C 110 222, 150 226, 200 220 C 250 214, 280 200, 330 185 C 360 176, 390 182, 430 200 C 470 216, 520 214, 560 200 C 600 185, 630 140, 665 90 C 690 58, 715 52, 740 70"
+              fill="none" stroke="#14141a" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M 60 235 L 330 235 L 330 215 L 600 215 L 600 160 L 740 160"
+              fill="none" stroke="#e05252" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 60 212 C 110 209, 150 213, 200 207 C 250 201, 280 187, 330 172 C 360 163, 390 169, 430 187 C 470 203, 520 201, 560 187 C 600 172, 630 127, 665 77 C 690 45, 715 39, 740 57"
+              fill="none" stroke="#3dc796" stroke-width="3" stroke-dasharray="7 6" stroke-linecap="round"/>
+        <g font-family="sans-serif">
+          <line x1="668" y1="92" x2="668" y2="158" stroke="#e05252" stroke-width="1" stroke-dasharray="3 3"/>
+          <rect x="490" y="34" width="190" height="40" rx="6" fill="#fdecec"/>
+          <text x="585" y="51" font-size="12" font-weight="700" fill="#c43c3c" text-anchor="middle">The gap = slow replies,</text>
+          <text x="585" y="66" font-size="12" font-weight="700" fill="#c43c3c" text-anchor="middle">angry customers, churn</text>
+        </g>
+      </svg>
+    </div>
+    <div class="bottom-line">Flexible capacity isn't a perk. <strong>It's the whole point.</strong></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 10. THE RIBBON -->
+  <section class="slide" id="s-ribbon">
+    <div class="kicker">The whole revenue cycle</div>
+    <h1 class="title">Top-of-funnel, meet back-of-funnel</h1>
+    <div class="ribbon-grid">
+      <div class="wing gtm" data-jump="s-channels">
+        <h4>GTM · Acquisition</h4>
+        <ul>
+          <li>Leads + Data</li>
+          <li><strong>Infrastructure</strong></li>
+          <li>Strategy + Words</li>
+        </ul>
+        <div class="wing-cta">Click to walk this wing →</div>
+      </div>
+      <div class="knot">
+        <div class="k-label">The customer</div>
+        <div class="k-flow">acquired<br>↓<br>converted<br>↓<br>retained</div>
+      </div>
+      <div class="wing cs" data-jump="s-things-cs">
+        <h4>CS · Retention</h4>
+        <ul>
+          <li>[ Placeholder ]</li>
+          <li>[ Placeholder ]</li>
+          <li>[ Placeholder ]</li>
+        </ul>
+        <div class="wing-cta">← Click to walk this wing</div>
+      </div>
+    </div>
+    <div class="bottom-line">When it's all connected, <strong>your best outcomes occur.</strong></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 11. SECOND ALIGNMENT (the pivot) -->
+  <section class="slide statement-slide" id="s-align">
+    <div class="kicker">One more thing worth seeing</div>
+    <div class="statement">The best version of your revenue cycle happens when your top-of-funnel talks to your back-of-funnel.<br><span class="accent">When it's all connected, your best outcomes occur.</span></div>
+    <div class="statement-sub">Let me show you how we do that.</div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+  <!-- 12. TWO-CALL CLOSE -->
+  <section class="slide" id="s-close">
+    <div class="kicker">Where we are</div>
+    <h1 class="title">Two calls. That's the whole process.</h1>
+    <div class="journey">
+      <div class="j-step here">
+        <div class="j-label">You are here</div>
+        <h3>This call: the read</h3>
+        <p>You talk, we listen. We get our read on what's actually in the way of where you're trying to go.</p>
+      </div>
+      <div class="j-step">
+        <div class="j-label">3 to 5 days later</div>
+        <h3>Proposal call: the remedy</h3>
+        <p>We walk you through exactly what we'd take off your plate, the scope, and the investment.</p>
+      </div>
+      <div class="j-step">
+        <div class="j-label">If it's a fit</div>
+        <h3>Go live</h3>
+        <p>We build, we run it, you watch it work. The same machine, every time.</p>
+      </div>
+    </div>
+    <div class="bottom-line"><strong>Let's find a time this week.</strong></div>
+    <img class="slide-logo" src="assets/charm-logo.svg" alt="">
+  </section>
+
+</div>
+
+<!-- HUD -->
+<div class="hud">
+  <button id="btnGtm" class="on" title="GTM track (G)">GTM</button>
+  <button id="btnCs" class="mode-cs" title="CS track (C)">CS</button>
+  <button id="btnPivot" title="Toggle ribbon pivot (P)">Pivot</button>
+  <button id="btnNotes" title="Presenter notes (N)">Notes</button>
+  <button id="btnMenu" title="All slides (M)">Menu</button>
+  <button id="btnPrev" title="Previous (←)">‹</button>
+  <button id="btnNext" title="Next (→)">›</button>
+  <span class="counter" id="counter">1 / 9</span>
+</div>
+
+<!-- Notes bar -->
+<div class="notes-bar" id="notesBar">
+  <div class="nb-label">Presenter note</div>
+  <div id="notesText"></div>
+</div>
+
+<!-- Menu overlay -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-box">
+    <h2>Jump to any slide</h2>
+    <div class="menu-grid" id="menuGrid"></div>
+    <div class="menu-help">
+      <b>←/→ or space</b> navigate · <b>→ on the infrastructure slide</b> runs the blur reveal · <b>G / C</b> switch track · <b>P</b> toggle the ribbon pivot path · <b>N</b> presenter notes · <b>M</b> this menu · <b>Esc</b> close · Click the company name on the cover to edit it.<br><br>
+      <b>Per-call links (for the deployed deck):</b> add <b>?c=Acme+Co&amp;d=June+15&amp;t=cs</b> to the URL to preset the cover name, date, and track. One deployed deck, one link per call.
+    </div>
+  </div>
+</div>
+
+<script>
+const SLIDES = {
+  'a-cover':      { id: 's-cover',      name: 'Cover',                note: 'Open human: "What’s going on? What are you working on, and what made you take this call?" Rapport first, no business yet.' },
+  'b-agenda':     { id: 's-agenda',     name: 'Agenda',               note: 'Walk the four items, then land on "Sound good?" and wait for the yes. Map stated, pressure down.' },
+  'c-market':     { id: 's-market',     name: 'State of the Market',  note: 'Name both anxieties, then pause. Let them agree before you advance. Most will, hard.' },
+  'd-turn-gtm':   { id: 's-turn-gtm',   name: 'The Turn (GTM)',       note: '"What I’m going to show you today is how we use three channels, email, phone, and LinkedIn, to unify your whole sales cycle in the context of this AI revolution."' },
+  'd-turn-cs':    { id: 's-turn-cs',    name: 'The Turn (CS)',        note: '"What I’m going to show you today is how we take the most exposed part of that, your customer experience, and make it scale without the anxiety."' },
+  'e-notes':      { id: 's-notes',      name: 'Discovery (parking)',  note: 'Slides stay here for Phases 4 to 7: current state, goals, gap-sell, the read. Use silence. Write down their exact words. Gap-sell: "You already know the question I’m going to ask."' },
+  'f-channels':   { id: 's-channels',   name: 'Three Channels',       note: '"We keep this simple. There are three channels that matter: email, phone, LinkedIn. And we run all three as one system."' },
+  'g-things-gtm': { id: 's-things-gtm', name: 'Three Things (GTM)',   note: '"You could figure out Clay and Apollo and write the words yourself. What you’re really paying us to stop stressing about is number two. Let me show you what I mean."' },
+  'h-blur':       { id: 's-blur',       name: 'Blur the Complexity',  note: '"This is everything that has to be true for one cold email to land in an inbox." [beat] Press → to blur: "We handle all of this. You never think about it again."' },
+  'i-things-cs':  { id: 's-things-cs',  name: 'Three Things (CS)',    note: 'DRAFT. Do not present until filled from client interviews ("what do you get from Charm?"). Until then, carry the remedy on the Flex slide.' },
+  'j-flex':       { id: 's-flex',       name: 'Flex Economics',       note: 'Deliver the coaching line as conviction, not a slogan. Then tie back to 2 or 3 things they said, in their words.' },
+  'k-season':     { id: 's-season',     name: 'Seasonality Curve',    note: '"The black line is your volume. The red line is hiring: always late, never enough, overstaffed in January. We’re the green line. We just track your demand." Point at the spike: "that’s your November."' },
+  'l-ribbon':     { id: 's-ribbon',     name: 'The Ribbon',           note: 'Only after the read, and only if a cross-side gap surfaced. Quote what THEY said that opened the other wing. Click a wing to walk it.' },
+  'm-align':      { id: 's-align',      name: 'Second Alignment',     note: 'The pivot line. Then walk the other wing’s slides. Skip if the primary barely landed, you’re over time, or they own one side only.' },
+  'n-close':      { id: 's-close',      name: 'Two-Call Close',       note: '"Here’s the whole process. There’s no maze. Today was the read. Next call, I show you the remedy. Let me pull up my calendar. When’s good this week?"' },
+};
+
+const PATHS = {
+  'gtm':       ['a-cover','b-agenda','c-market','d-turn-gtm','e-notes','f-channels','g-things-gtm','h-blur','n-close'],
+  'gtm-pivot': ['a-cover','b-agenda','c-market','d-turn-gtm','e-notes','f-channels','g-things-gtm','h-blur','l-ribbon','m-align','i-things-cs','j-flex','k-season','n-close'],
+  'cs':        ['a-cover','b-agenda','c-market','d-turn-cs','e-notes','i-things-cs','j-flex','k-season','n-close'],
+  'cs-pivot':  ['a-cover','b-agenda','c-market','d-turn-cs','e-notes','i-things-cs','j-flex','k-season','l-ribbon','m-align','f-channels','g-things-gtm','h-blur','n-close'],
+};
+
+let mode = 'gtm';
+let pivot = false;
+let idx = 0;
+let blurred = false;
+
+const mess = document.getElementById('infraMess');
+const overlay = document.getElementById('blurOverlay');
+const notesBar = document.getElementById('notesBar');
+const notesText = document.getElementById('notesText');
+const menuOverlay = document.getElementById('menuOverlay');
+
+function path() { return PATHS[mode + (pivot ? '-pivot' : '')]; }
+function currentKey() { return path()[idx]; }
+
+function render() {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  const key = currentKey();
+  document.getElementById(SLIDES[key].id).classList.add('active');
+  document.getElementById('counter').textContent = (idx + 1) + ' / ' + path().length;
+  notesText.textContent = SLIDES[key].note;
+  document.getElementById('btnGtm').classList.toggle('on', mode === 'gtm');
+  document.getElementById('btnCs').classList.toggle('on', mode === 'cs');
+  document.getElementById('btnPivot').classList.toggle('on', pivot);
+  if (key !== 'h-blur') setBlur(false);
+}
+
+function setBlur(v) {
+  blurred = v;
+  mess.classList.toggle('blurred', v);
+  overlay.classList.toggle('show', v);
+}
+
+function next() {
+  if (currentKey() === 'h-blur' && !blurred) { setBlur(true); return; }
+  if (idx < path().length - 1) { idx++; render(); }
+}
+function prev() {
+  if (currentKey() === 'h-blur' && blurred) { setBlur(false); return; }
+  if (idx > 0) { idx--; render(); }
+}
+
+function jumpTo(key) {
+  if (!path().includes(key)) {
+    // Off-path slide: enable the pivot path; if still absent, switch track.
+    if (PATHS[mode + '-pivot'].includes(key)) pivot = true;
+    else { mode = (mode === 'gtm') ? 'cs' : 'gtm'; if (!path().includes(key)) pivot = true; }
+  }
+  idx = path().indexOf(key);
+  if (idx < 0) idx = 0;
+  render();
+}
+
+function setMode(m) {
+  const key = currentKey();
+  mode = m;
+  idx = path().includes(key) ? path().indexOf(key) : 0;
+  render();
+}
+
+function togglePivot() {
+  const key = currentKey();
+  pivot = !pivot;
+  idx = path().includes(key) ? path().indexOf(key) : 0;
+  render();
+}
+
+// HUD
+document.getElementById('btnGtm').onclick = () => setMode('gtm');
+document.getElementById('btnCs').onclick = () => setMode('cs');
+document.getElementById('btnPivot').onclick = togglePivot;
+document.getElementById('btnNotes').onclick = () => notesBar.classList.toggle('show');
+document.getElementById('btnMenu').onclick = () => menuOverlay.classList.toggle('show');
+document.getElementById('btnPrev').onclick = prev;
+document.getElementById('btnNext').onclick = next;
+
+// Menu
+const grid = document.getElementById('menuGrid');
+Object.keys(SLIDES).forEach((key, i) => {
+  const b = document.createElement('button');
+  b.innerHTML = '<span class="mg-num">' + (i + 1) + '</span>' + SLIDES[key].name;
+  b.onclick = () => { menuOverlay.classList.remove('show'); jumpTo(key); };
+  grid.appendChild(b);
+});
+menuOverlay.addEventListener('click', e => { if (e.target === menuOverlay) menuOverlay.classList.remove('show'); });
+
+// Ribbon wings
+document.querySelectorAll('.wing').forEach(w => {
+  w.addEventListener('click', () => jumpTo(w.dataset.jump === 's-channels' ? 'f-channels' : 'i-things-cs'));
+});
+
+// Keys
+document.addEventListener('keydown', e => {
+  if (e.target.isContentEditable) return;
+  if (menuOverlay.classList.contains('show') && e.key === 'Escape') { menuOverlay.classList.remove('show'); return; }
+  switch (e.key) {
+    case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); next(); break;
+    case 'ArrowLeft': case 'PageUp': e.preventDefault(); prev(); break;
+    case 'g': case 'G': setMode('gtm'); break;
+    case 'c': case 'C': setMode('cs'); break;
+    case 'p': case 'P': togglePivot(); break;
+    case 'n': case 'N': notesBar.classList.toggle('show'); break;
+    case 'm': case 'M': menuOverlay.classList.toggle('show'); break;
+    case 'b': case 'B': if (currentKey() === 'h-blur') setBlur(!blurred); break;
+    case 'Escape': menuOverlay.classList.remove('show'); break;
+  }
+});
+
+// Per-call setup via URL params, so one deployed deck serves every call:
+//   ?c=Acme+Co          sets the cover company name
+//   ?d=June+15          sets the cover date
+//   ?t=cs               starts in the CS track (default is GTM)
+// Example: https://deck.hirecharm.com/?c=Acme+Co&d=June+15&t=cs
+const q = new URLSearchParams(location.search);
+const qc = q.get('c') || q.get('company');
+const qd = q.get('d') || q.get('date');
+const qt = (q.get('t') || q.get('track') || '').toLowerCase();
+if (qc) document.querySelector('#s-cover .company').textContent = qc;
+if (qd) document.querySelector('#s-cover .date').textContent = qd;
+if (qt === 'cs') mode = 'cs';
+
+render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Booked | Charm</title>
+    <style>
+        :root {
+            --cs-green: #3dc796;
+            --cs-deep: #2da57c;
+            --ink: #18131f;
+            --ink-2: #241a38;
+            --purple: #8733ed;
+            --blue: #3c60cd;
+            --peri: #abb5ff;
+            --lav: #cda4ff;
+            --mist: #f3ecff;
+            --card: #faf9fe;
+            --card-border: #e9e4f7;
+            --text: #1d1828;
+            --muted: #6b6478;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: #f7f6fa;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        /* Top bar: white strip with the mark */
+        .topbar {
+            background: white;
+            padding: 22px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .topbar .logo { height: 30px; vertical-align: middle; }
+        /* Midnight hero with star specks */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 84px 0 92px;
+            color: white;
+            background:
+                radial-gradient(1.5px 1.5px at 12% 28%, rgba(205,164,255,0.9), transparent),
+                radial-gradient(1px 1px at 26% 64%, rgba(171,181,255,0.7), transparent),
+                radial-gradient(1.5px 1.5px at 41% 18%, rgba(255,255,255,0.55), transparent),
+                radial-gradient(1px 1px at 58% 72%, rgba(205,164,255,0.6), transparent),
+                radial-gradient(1.5px 1.5px at 71% 31%, rgba(171,181,255,0.8), transparent),
+                radial-gradient(1px 1px at 84% 58%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 92% 22%, rgba(205,164,255,0.7), transparent),
+                radial-gradient(900px 420px at 50% 115%, rgba(135,51,237,0.32), transparent),
+                linear-gradient(155deg, var(--ink) 0%, var(--ink-2) 55%, var(--ink) 100%);
+        }
+        .hero .tagline {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--peri);
+            margin-bottom: 16px;
+        }
+        .hero .tagline .spark { color: var(--lav); }
+        .hero h1 {
+            font-size: 50px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 28px;
+            line-height: 1.15;
+        }
+        .hero-statement {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.4;
+            max-width: 660px;
+            margin: 0 auto 18px;
+            color: #efecf7;
+        }
+        .hero-statement .accent {
+            background: linear-gradient(100deg, #7fe3c4, var(--peri));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .subheader {
+            font-size: 17px;
+            color: #b6aec9;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.55;
+        }
+        /* Sections */
+        section { padding: 64px 0; background: white; margin-bottom: 1px; }
+        section h2 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            margin-bottom: 14px;
+            line-height: 1.3;
+        }
+        section h2::before {
+            content: "✦";
+            color: var(--cs-green);
+            font-size: 0.55em;
+            vertical-align: 0.45em;
+            margin-right: 10px;
+        }
+        .section-intro { font-size: 16px; color: var(--muted); margin-bottom: 30px; line-height: 1.6; max-width: 720px; }
+        /* Review flag (draft annotation, REMOVE BEFORE LAUNCH) */
+        .review-flag {
+            background: #fff3cd;
+            border: 1px dashed #d4a72c;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #7a5c00;
+            margin: 18px 0;
+            line-height: 1.5;
+        }
+        /* Main VSL */
+        .vsl-block {
+            aspect-ratio: 16 / 9;
+            background: var(--ink);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 14px 44px rgba(60, 36, 102, 0.22);
+            border: 1px solid var(--card-border);
+        }
+        .vsl-block iframe { width: 100%; height: 100%; border: none; display: block; }
+        /* Moving logo reel on lavender mist */
+        .reel-section { background: var(--mist); padding: 44px 0; }
+        .reel-section h2 { text-align: center; font-size: 20px; }
+        .logo-marquee {
+            overflow: hidden;
+            padding: 30px 0 6px;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        }
+        .logo-track {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+        }
+        .logo-track img { height: 46px; opacity: 0.85; }
+        @keyframes marquee { to { transform: translateX(-50%); } }
+        /* Q&A videos */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 10px;
+        }
+        .video-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .video-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(60,36,102,0.14); }
+        .video-card .video-frame { aspect-ratio: 16 / 9; background: var(--ink); }
+        .video-card .video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+        .video-card .video-title { padding: 16px 20px 4px; font-size: 16px; font-weight: 700; color: var(--text); }
+        .video-card .video-sub { padding: 4px 20px 18px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+        /* Steps */
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 26px;
+            margin: 36px 0 10px;
+        }
+        .step { padding: 26px 24px; background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; }
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--cs-green), var(--cs-deep));
+            color: white; border-radius: 50%;
+            font-weight: 800; margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(61,199,150,0.35);
+        }
+        .step h3 { font-size: 16px; margin-bottom: 8px; color: var(--text); }
+        .step p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0 0;
+        }
+        .testimonial-card {
+            padding: 30px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            position: relative;
+        }
+        .testimonial-card::before {
+            content: "✦";
+            position: absolute;
+            top: 18px; right: 22px;
+            color: var(--lav);
+            font-size: 14px;
+        }
+        .quote { font-size: 16px; font-style: italic; margin-bottom: 20px; color: #3a3344; line-height: 1.6; }
+        .attribution { font-size: 14px; font-weight: 700; color: var(--text); }
+        .attribution-role { font-size: 12px; color: #9a92a8; margin-top: 4px; }
+        /* Founder */
+        .founder-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin: 30px 0 0;
+        }
+        .founder-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(150deg, var(--mist), #e4dcf5);
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+        }
+        .founder-bio h3 { font-size: 20px; margin-bottom: 16px; color: var(--text); }
+        .founder-bio p { font-size: 14px; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+        /* Flex stats */
+        .flex-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .stat {
+            text-align: center;
+            padding: 28px 20px;
+            background: #ecfaf4;
+            border: 1px solid #c9eedd;
+            border-radius: 12px;
+        }
+        .stat .stat-big { font-size: 34px; font-weight: 800; color: var(--cs-deep); margin-bottom: 6px; }
+        .stat .stat-label { font-size: 13.5px; color: #4f6a5f; line-height: 1.45; }
+        /* Coaching callout */
+        .coaching-callout {
+            margin: 34px 0 0;
+            padding: 32px 36px;
+            background:
+                radial-gradient(1.5px 1.5px at 14% 30%, rgba(127,227,196,0.8), transparent),
+                radial-gradient(1px 1px at 78% 26%, rgba(171,181,255,0.7), transparent),
+                radial-gradient(1.5px 1.5px at 90% 68%, rgba(205,164,255,0.6), transparent),
+                radial-gradient(700px 300px at 50% 130%, rgba(61,199,150,0.22), transparent),
+                linear-gradient(150deg, var(--ink), var(--ink-2));
+            border-radius: 14px;
+            color: white;
+        }
+        .coaching-callout .big-line {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .coaching-callout p { font-size: 14.5px; color: #bdb5cf; line-height: 1.6; }
+        footer {
+            background: var(--ink);
+            padding: 34px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #8b819e;
+        }
+        footer .spark { color: var(--lav); margin: 0 6px; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            section h2 { font-size: 24px; }
+            .founder-section { grid-template-columns: 1fr; }
+            .hero-statement { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- FUNNEL NOTE: This page sells CS-FLEX only ($2.50/resolved ticket). Tag these leads CS-Flex in GHL.
+         The dedicated-agents offer is deliberately NOT on this page. It's a post-read upsell Chris can
+         introduce on the call (see ribbon model in discovery-call-doc.md). -->
+
+    <!-- ===== 1. HERO ===== -->
+    <div class="topbar">
+        <img src="assets/charm-logo.svg" alt="Charm" class="logo">
+    </div>
+    <header class="hero">
+        <div class="container">
+            <div class="tagline"><span class="spark">✦</span> You're booked <span class="spark">✦</span></div>
+            <h1>Thanks for scheduling</h1>
+            <div class="hero-statement">Support is where customers decide to stay.<br><span class="accent">We make sure they do, for $2.50 a ticket.</span></div>
+            <p class="subheader">Going through this page lets us skip the basics, so the call goes straight to what's actually happening with your support. Consider it a head start on the magic.</p>
+        </div>
+    </header>
+
+    <!-- ===== 2. MAIN VSL ===== -->
+    <section>
+        <div class="container">
+            <h2>A quick hello from Chris</h2>
+            <p class="section-intro">Two minutes on who we are, what we're going to cover, and why this page exists.</p>
+            <!-- PLACEHOLDER: Replace with the main thank-you VSL Chris records (CS version) -->
+            <div class="vsl-block">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 3. LOGO REEL (moving, directly below VSL) ===== -->
+    <section class="reel-section">
+        <div class="container">
+            <h2>E-commerce teams using this model</h2>
+        </div>
+        <!-- PLACEHOLDER: Swap in real D2C/e-commerce client logos from Chris's folder. Currently mirroring the hirecharm.com homepage reel. -->
+        <div class="logo-marquee">
+            <div class="logo-track">
+                <img src="assets/client-1.svg" alt="Client logo">
+                <img src="assets/client-2.svg" alt="Client logo">
+                <img src="assets/client-3.svg" alt="Client logo">
+                <img src="assets/client-4.svg" alt="Client logo">
+                <img src="assets/client-5.svg" alt="Client logo">
+                <img src="assets/client-6.svg" alt="Client logo">
+                <img src="assets/client-7.svg" alt="Client logo">
+                <img src="assets/client-8.svg" alt="Client logo">
+                <img src="assets/client-9.svg" alt="Client logo">
+                <!-- duplicate set for seamless loop -->
+                <img src="assets/client-1.svg" alt="">
+                <img src="assets/client-2.svg" alt="">
+                <img src="assets/client-3.svg" alt="">
+                <img src="assets/client-4.svg" alt="">
+                <img src="assets/client-5.svg" alt="">
+                <img src="assets/client-6.svg" alt="">
+                <img src="assets/client-7.svg" alt="">
+                <img src="assets/client-8.svg" alt="">
+                <img src="assets/client-9.svg" alt="">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 4. Q&A VIDEOS ===== -->
+    <section>
+        <div class="container">
+            <h2>The questions everyone asks</h2>
+            <p class="section-intro">Short videos, a couple of minutes each. Watch what's relevant and skip what isn't.</p>
+
+            <div class="video-grid">
+                <!-- PLACEHOLDER: Replace each embed with the real Q&A video (CS versions; the first five may share footage with GTM) -->
+                <div class="video-card">
+                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe></div>
+                    <div class="video-title">Who is Charm?</div>
+                    <div class="video-sub">The short version of who we are and why we exist.</div>
+                </div>
+                <div class="video-card">
+                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe></div>
+                    <div class="video-title">What happens when you work with Charm?</div>
+                    <div class="video-sub">What actually happens when we take over your tickets: we read the situation first, then remedy it.</div>
+                </div>
+                <div class="video-card">
+                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe></div>
+                    <div class="video-title">How long is this going to take?</div>
+                    <div class="video-sub">What the call covers and how we use the time.</div>
+                </div>
+                <div class="video-card">
+                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe></div>
+                    <div class="video-title">Is this the right time?</div>
+                    <div class="video-sub">How to know if you're ready, and what to do if you're not sure.</div>
+                </div>
+                <div class="video-card">
+                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe></div>
+                    <div class="video-title">Who is Charm not for?</div>
+                    <div class="video-sub">We're not for everyone. Here's how to tell fast, before either of us spends an hour finding out.</div>
+                </div>
+                <div class="video-card">
+                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen="" loading="lazy"></iframe></div>
+                    <div class="video-title">The service-system story</div>
+                    <div class="video-sub">QA, coaching, advocates in your brand voice, and why $2.50 a ticket actually works.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 5. WHAT HAPPENS NEXT ===== -->
+    <section>
+        <div class="container">
+            <h2>What happens next</h2>
+            <p class="section-intro">No maze, no homework, no surprise steps.</p>
+
+            <div class="how-it-works">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>You show up to the call</h3>
+                    <p>That's it. That's the whole ask.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>We listen</h3>
+                    <p>Volume, peak times, what's burning your team out. You get the floor.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>We understand what's broken</h3>
+                    <p>We reflect back what we heard and where the gap is.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>If it's a fit, we put together a proposal</h3>
+                    <p>You see exactly how Flex maps to your volume. No mystery, no pressure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 6. HERE'S HOW IT WORKS (read and remedy) ===== -->
+    <section>
+        <div class="container">
+            <h2>Here's how it works</h2>
+            <p class="section-intro">Flex is simple. We set up the whole system: helpdesk, training, quality assurance, coaching. Our advocates resolve your tickets in your brand voice, and you only pay when a ticket is fully solved. We read first, then remedy.</p>
+
+            <div class="flex-stats">
+                <div class="stat">
+                    <div class="stat-big">$2.50</div>
+                    <div class="stat-label">per ticket solved.<br>Not per hour, not per seat.</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-big">~30%</div>
+                    <div class="stat-label">the cost of a typical<br>service agent.</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-big">$0</div>
+                    <div class="stat-label">for tickets that don't get<br>fully resolved. Our problem, not yours.</div>
+                </div>
+            </div>
+
+            <div class="how-it-works" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>First, the read</h3>
+                    <p>We get to know your support operation: volume, peaks, what's quietly leaking customers. No remedies until the read is done.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Then, the remedy</h3>
+                    <p>We set up the system, train advocates on your brand voice, and take the queue. Remedy, not package.</p>
+                </div>
+            </div>
+
+            <div class="coaching-callout">
+                <div class="big-line">"If you're not coaching, you're condoning."</div>
+                <p>Every advocate gets quality-assured, trained, and coached. Constantly. New advocates train on your brand voice before they ever touch a ticket. Your customers never know they're talking to us; they just know they got taken care of. That's the magic doing its job quietly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 7. TESTIMONIALS ===== -->
+    <section>
+        <div class="container">
+            <h2>Here's what others say</h2>
+            <!-- PLACEHOLDER: Insert real CS-Flex testimonials. Needs at least one real e-commerce customer name/category + one real metric. -->
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="quote">"[CS testimonial 1: resolution speed / customer-satisfaction angle]"</div>
+                    <div class="attribution">[Client Name]</div>
+                    <div class="attribution-role">[Title] at [D2C Company]</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote">"[CS testimonial 2: 'took the whole queue off our plate' angle]"</div>
+                    <div class="attribution">[Client Name]</div>
+                    <div class="attribution-role">[Title] at [D2C Company]</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote">"[Dream CS testimonial slot, reserved]"</div>
+                    <div class="attribution">[Client Name]</div>
+                    <div class="attribution-role">[Title] at [D2C Company]</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 8. MEET THE FOUNDER ===== -->
+    <section>
+        <div class="container">
+            <div class="founder-section">
+                <div class="founder-image">
+                    <!-- PLACEHOLDER: founder photo -->
+                </div>
+                <div class="founder-bio">
+                    <h3>Meet Chris Booth, CEO &amp; Founder</h3>
+                    <p>Chris built Charm because he watched teams get crushed by support volume. The issue was never the work. It was never having the capacity to do it right.</p>
+                    <p>Flex is his answer: advocates who sound like you, wizards who coach them relentlessly, and a price that only moves when a customer actually gets helped.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>✦<span class="spark"></span>&copy; 2026 Charm. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
