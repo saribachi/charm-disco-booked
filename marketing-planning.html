@@ -186,6 +186,30 @@
   .pod-card.cs .pod-open { color: #0a8f63; }
   .pod-clips { font-size: 11.5px; color: #777; margin-top: 9px; line-height: 1.5; }
   .pod-clips strong { color: #555; }
+  /* creative direction */
+  .cd-rule { background: #1a0b33; color: #efe8ff; border-radius: 10px; padding: 20px 24px; margin: 16px 0; }
+  .cd-rule .lab { font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #b794ff; margin-bottom: 8px; }
+  .cd-rule p { margin: 0; color: #fff; }
+  .cd-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  @media (max-width: 720px) { .cd-cols { grid-template-columns: 1fr; } }
+  .cd-do, .cd-dont { border-radius: 10px; padding: 16px 20px; }
+  .cd-do { background: #f4ecff; border: 1px solid #e3d3f7; }
+  .cd-dont { background: #faf6f6; border: 1px solid #ecdede; }
+  .cd-do h4, .cd-dont h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; margin: 0 0 10px; }
+  .cd-do h4 { color: #7a2fd0; }
+  .cd-dont h4 { color: #b03030; }
+  .cd-do ul, .cd-dont ul { margin: 0 0 0 18px; }
+  .cd-do li, .cd-dont li { font-size: 12.5px; line-height: 1.5; margin-bottom: 7px; color: #333; }
+  .cd-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 14px 0; }
+  @media (max-width: 720px) { .cd-pillars { grid-template-columns: 1fr; } }
+  .cd-pillar { background: #faf9fe; border: 1px solid #e9e4f7; border-top: 3px solid #8733ed; border-radius: 10px; padding: 16px 18px; }
+  .cd-pillar .pn { font-size: 14px; font-weight: 800; color: #14141a; margin-bottom: 4px; }
+  .cd-pillar .pd { font-size: 12.5px; color: #555; line-height: 1.5; }
+  .cd-check { list-style: none; margin: 12px 0 0 !important; }
+  .cd-check li { font-size: 13.5px; padding: 8px 0 8px 28px; position: relative; border-bottom: 1px solid #f0f0f3; color: #333; }
+  .cd-check li::before { content: "\2610"; position: absolute; left: 2px; top: 6px; color: #8733ed; font-weight: 700; font-size: 15px; }
+  .cd-check li.no::before { content: "\2715"; color: #b03030; }
+  .hat { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: #2a1147; color: #cda8ff; margin-left: 6px; }
 </style>
 </head>
 <body>
@@ -338,6 +362,95 @@
           </div>
         </div>
 
+        <!-- CREATIVE DIRECTION -->
+        <div class="ads-card">
+          <h2 style="font-size:24px;margin-bottom:4px;border:none;padding:0;">Creative Direction</h2>
+          <p style="font-size:13.5px;color:#555;margin-bottom:4px;line-height:1.6;">The filter every asset passes before it ships. Source: Chris x Sarah ad strategy sync, June 2026.</p>
+
+          <div class="cd-rule">
+            <div class="lab">Rule #1, non-negotiable</div>
+            <p style="font-size:16px;font-weight:600;line-height:1.5;">We are an agency. We are operators. <span style="color:#b794ff;">Not a sequencer, not a SaaS platform, not an inbox or domain vendor.</span></p>
+            <p style="font-size:13px;color:#cdbff0;margin-top:10px;line-height:1.55;">If a draft could be mistaken for a software product or an inbox vendor, it fails. Use agency language: <em>operators, we run, we manage, a team that knows how to manage the infrastructure, the whole system.</em></p>
+          </div>
+
+          <h3>The three pillars</h3>
+          <p style="font-size:13px;color:#666;margin-bottom:4px;">"In our world there are three things we ever do." Every asset maps to at least one.</p>
+          <div class="cd-pillars">
+            <div class="cd-pillar"><div class="pn">Infrastructure</div><div class="pd">We build and manage the technical backbone: domains, inboxes, deliverability, tooling.</div></div>
+            <div class="cd-pillar"><div class="pn">Strategy &amp; Copy</div><div class="pd">We write the words: messaging, sequences, campaign strategy.</div></div>
+            <div class="cd-pillar"><div class="pn">Lead Generation</div><div class="pd">We get the leads: targeting, list building, pipeline delivery.</div></div>
+          </div>
+
+          <h3 style="margin-top:24px;">Approved hook frameworks</h3>
+          <table>
+            <thead><tr><th>Type</th><th>Example</th><th>Why it works</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Contrarian statement</strong></td><td>"Cold email isn't a copy problem."</td><td>Opens a loop. Blunt, challenges conventional thinking, forces the viewer to keep watching.</td></tr>
+              <tr><td><strong>Aspirational question</strong></td><td>"If you could get in front of every decision maker, what would you say?"</td><td>Puts the prospect in the driver's seat. Validates them, then positions Charm as the missing piece.</td></tr>
+              <tr><td><strong>System reframe</strong></td><td>"Three problems. One system."</td><td>Simple, punchy. Communicates scope without overwhelming.</td></tr>
+              <tr><td><strong>Myth bust</strong></td><td>"The problem was never the SDR."</td><td>Challenges the blame game. Redirects from people to systems.</td></tr>
+              <tr><td><strong>Visual hook (video)</strong></td><td>Wizard hat on, "in the next 90 days..." then rapid question cuts</td><td>The hat is the visual hook. Question-based cuts hold engagement.</td></tr>
+            </tbody>
+          </table>
+
+          <div class="cd-cols">
+            <div class="cd-do">
+              <h4>Do</h4>
+              <ul>
+                <li>Design for sound-off. Subtitles on every video, visuals tell the story alone.</li>
+                <li>Lead with the visual, not the audio.</li>
+                <li>Use rapid visual cuts in video, questions layered on screen.</li>
+                <li>Lean into brand identity: purple + monochrome, wizard hat on Chris every time.</li>
+                <li>Frame everything around the three pillars.</li>
+                <li>Deliver sharp and authoritative, professional and energetic.</li>
+                <li>Use agency language: operators, we run, we manage.</li>
+              </ul>
+            </div>
+            <div class="cd-dont">
+              <h4>Don't</h4>
+              <ul>
+                <li>Look like a SaaS product. No feature lists, platform screenshots, or "sign up free" energy.</li>
+                <li>Look like an inbox or domain vendor.</li>
+                <li>Be Hypergen: static, corporate, HubSpot-sterile, forgettable.</li>
+                <li>Make entertaining-but-irrelevant content that doesn't connect to the offer.</li>
+                <li>Risk the personal brand. Sharp, not cheap.</li>
+                <li>Ship weak CTAs. Every CTA tight and action-oriented.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cd-rule">
+            <div class="lab">The wizard hat rule</div>
+            <p style="font-size:15px;font-weight:600;line-height:1.5;">Every piece of Chris-facing creative includes the wizard hat. Non-negotiable.</p>
+            <p style="font-size:13px;color:#cdbff0;margin-top:10px;line-height:1.55;">Hair Theory: people remember what is on your head, not what you do. The hat is instant visual recall against a sea of generic agency founder talking-heads. It appears in the hook, stays on through professional delivery, and ties to the Charm wizard brand.</p>
+          </div>
+
+          <h3>Format priority</h3>
+          <table>
+            <thead><tr><th>Format</th><th>Priority</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Static image</strong></td><td>Ship first</td><td>Fastest to produce, the #1 underutilized format for agencies right now. Generate and blast while video ramps.</td></tr>
+              <tr><td><strong>Short-form video</strong> (hook + cut)</td><td>High</td><td>Wizard hat hook, professional delivery, rapid visual cuts with subtitles. Pending Chris recording.</td></tr>
+              <tr><td><strong>Podcast-style video</strong></td><td>Future</td><td>Seated interview, wizard hat on, answering real questions. Needs camera comfort and studio time.</td></tr>
+            </tbody>
+          </table>
+
+          <h3 style="margin-top:24px;">Brand kit</h3>
+          <p style="font-size:13.5px;color:#333;line-height:1.6;margin-bottom:0;">Primary color <strong>purple (#8733ed)</strong>, monochrome, clean and brand-forward, never corporate-sterile. Signature visual: <strong>Chris in the wizard hat</strong>. Visual-first: every video works on mute with subtitles. (CTA language is being tightened with Bluewater input.)</p>
+
+          <h3 style="margin-top:24px;">Before any asset ships</h3>
+          <ul class="cd-check">
+            <li>Does it clearly position Charm as an agency / operator?</li>
+            <li class="no">Could it be mistaken for a SaaS product or inbox vendor? (must be NO)</li>
+            <li>Does it map to at least one of the three pillars?</li>
+            <li>Does the CTA drive a specific action?</li>
+            <li>If video: does it work on mute with subtitles?</li>
+            <li>If Chris is on screen: is the wizard hat on?</li>
+            <li>Purple + monochrome brand kit applied?</li>
+            <li>Would you remember this ad against competitors in the feed?</li>
+          </ul>
+        </div>
+
         <!-- GTM MOCKUPS -->
         <div class="ads-h">GTM Creative Mockups <span class="badge gtm">GTM</span></div>
         <div class="ads-sub">Cold email + LinkedIn. Lead with the whole system and the creative reframe, then the wound-first hooks, all resolving to the same place: leads, infrastructure, and words handled by one team.</div>
@@ -361,7 +474,7 @@
             <div class="ad-caption">
               <div class="nm">"Three Problems, One Agency"</div>
               <div class="meta">The core positioning. A full-service agency that does all three, not a tool or a sequencer. Infrastructure never stands alone.</div>
-              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span>
+              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span>
             </div>
           </div>
 
@@ -378,7 +491,7 @@
             <div class="ad-caption">
               <div class="nm">"What Would You Say?"</div>
               <div class="meta">Reframes the offer as creative freedom. Charm is the delivery layer, so the founder's only job is the message.</div>
-              <span class="ad-fmt">Founder to camera</span><span class="ad-fmt">Static</span>
+              <span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span><span class="ad-fmt">Static</span>
             </div>
           </div>
 
@@ -396,7 +509,7 @@
             <div class="ad-caption">
               <div class="nm">"The $8K SDR"</div>
               <div class="meta">The number and "one meeting" are the scroll-stoppers. Reframes blame onto infrastructure.</div>
-              <span class="ad-fmt">Founder to camera</span><span class="ad-fmt">Static</span>
+              <span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span><span class="ad-fmt">Static</span>
             </div>
           </div>
 
@@ -414,7 +527,7 @@
             <div class="ad-caption">
               <div class="nm">"Not Just a Copy Issue"</div>
               <div class="meta">Blunt and principled: we are a full-service agency, not a sequencer or an infra plan. The blur is the chaos a team takes off your plate.</div>
-              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span>
+              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span>
             </div>
           </div>
 
@@ -476,7 +589,7 @@
             <div class="ad-caption">
               <div class="nm">"90 Days, Every Decision Maker"</div>
               <div class="meta">The core promise as a clean claim. Big number, finite timeframe, concrete outcome.</div>
-              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span>
+              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span>
             </div>
           </div>
 
@@ -521,7 +634,7 @@
             <div class="ad-caption">
               <div class="nm">"Only Pay When Solved"</div>
               <div class="meta">The model itself is the hook because it is genuinely novel. Incentive alignment as the whole ad.</div>
-              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span>
+              <span class="ad-fmt">Static</span><span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span>
             </div>
           </div>
 
@@ -539,7 +652,7 @@
             <div class="ad-caption">
               <div class="nm">"It's 2am"</div>
               <div class="meta">Emotional, founder-specific. Pure pain, then "sounds like your brand."</div>
-              <span class="ad-fmt">Founder to camera</span>
+              <span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span>
             </div>
           </div>
 
@@ -575,7 +688,7 @@
             <div class="ad-caption">
               <div class="nm">"Is This AI?"</div>
               <div class="meta">Leans into the objection as the hook. Differentiates from the wave of AI-CS tools flooding the market.</div>
-              <span class="ad-fmt">Founder to camera</span><span class="ad-fmt">Static</span>
+              <span class="ad-fmt">Founder to camera</span><span class="ad-fmt">🪄 hat on</span><span class="ad-fmt">Static</span>
             </div>
           </div>
 
