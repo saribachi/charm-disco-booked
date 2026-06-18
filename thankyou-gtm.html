@@ -1,519 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You're Booked | Charm</title>
-    <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
-  
-        :root {
-            --ink: #18131f;
-            --ink-2: #241a38;
-            --purple: #8733ed;
-            --blue: #3c60cd;
-            --peri: #abb5ff;
-            --lav: #cda4ff;
-            --mist: #f3ecff;
-            --card: #faf9fe;
-            --card-border: #e9e4f7;
-            --text: #1d1828;
-            --muted: #6b6478;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background: #f7f6fa;
-        }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        /* Top bar: white strip with the mark */
-        .topbar {
-            background: white;
-            padding: 22px 0;
-            text-align: center;
-            border-bottom: 1px solid var(--card-border);
-        }
-        .topbar .logo { height: 30px; vertical-align: middle; }
-        /* Midnight hero with star specks */
-        .hero {
-            position: relative;
-            text-align: center;
-            padding: 84px 0 92px;
-            color: white;
-            background:
-                radial-gradient(1.5px 1.5px at 12% 28%, rgba(205,164,255,0.9), transparent),
-                radial-gradient(1px 1px at 26% 64%, rgba(171,181,255,0.7), transparent),
-                radial-gradient(1.5px 1.5px at 41% 18%, rgba(255,255,255,0.55), transparent),
-                radial-gradient(1px 1px at 58% 72%, rgba(205,164,255,0.6), transparent),
-                radial-gradient(1.5px 1.5px at 71% 31%, rgba(171,181,255,0.8), transparent),
-                radial-gradient(1px 1px at 84% 58%, rgba(255,255,255,0.5), transparent),
-                radial-gradient(1.5px 1.5px at 92% 22%, rgba(205,164,255,0.7), transparent),
-                radial-gradient(900px 420px at 50% 115%, rgba(135,51,237,0.32), transparent),
-                linear-gradient(155deg, var(--ink) 0%, var(--ink-2) 55%, var(--ink) 100%);
-        }
-        .hero .tagline {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--peri);
-            margin-bottom: 16px;
-        }
-        .hero .tagline .spark { color: var(--lav); }
-        .hero h1 {
-            font-size: 50px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 28px;
-            line-height: 1.15;
-        }
-        .hero-statement {
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.4;
-            max-width: 660px;
-            margin: 0 auto 18px;
-            color: #efecf7;
-        }
-        .hero-statement .accent {
-            background: linear-gradient(100deg, var(--peri), var(--lav));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .subheader {
-            font-size: 17px;
-            color: #b6aec9;
-            max-width: 620px;
-            margin: 0 auto;
-            line-height: 1.55;
-        }
-        /* Sections */
-        section { padding: 64px 0; background: white; margin-bottom: 1px; }
-        section h2 {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            margin-bottom: 14px;
-            line-height: 1.3;
-        }
-        section h2::before {
-            content: "✦";
-            color: var(--purple);
-            font-size: 0.55em;
-            vertical-align: 0.45em;
-            margin-right: 10px;
-        }
-        .section-intro { font-size: 16px; color: var(--muted); margin-bottom: 30px; line-height: 1.6; max-width: 720px; }
-        /* Review flag (draft annotation, REMOVE BEFORE LAUNCH) */
-        .review-flag {
-            background: #fff3cd;
-            border: 1px dashed #d4a72c;
-            border-radius: 8px;
-            padding: 12px 16px;
-            font-size: 13px;
-            color: #7a5c00;
-            margin: 18px 0;
-            line-height: 1.5;
-        }
-        /* Main VSL */
-        .vsl-block {
-            aspect-ratio: 16 / 9;
-            background: var(--ink);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 14px 44px rgba(60, 36, 102, 0.22);
-            border: 1px solid var(--card-border);
-        }
-        .vsl-block iframe { width: 100%; height: 100%; border: none; display: block; }
-        /* Moving logo reel on lavender mist */
-        .reel-section { background: var(--mist); padding: 44px 0; }
-        .reel-section h2 { text-align: center; font-size: 20px; }
-        .logo-marquee {
-            overflow: hidden;
-            padding: 30px 0 6px;
-            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-        }
-        .logo-track {
-            display: flex;
-            align-items: center;
-            gap: 64px;
-            width: max-content;
-            animation: marquee 30s linear infinite;
-        }
-        .logo-track img { height: 46px; opacity: 0.85; }
-        @keyframes marquee { to { transform: translateX(-50%); } }
-        /* Q&A videos */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 10px;
-        }
-        .video-card {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: box-shadow 0.25s ease, transform 0.25s ease;
-        }
-        .video-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(60,36,102,0.14); }
-        .video-card .video-frame { aspect-ratio: 16 / 9; background: var(--ink); }
-        .video-card .video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
-        .video-card .video-title { padding: 16px 20px 4px; font-size: 16px; font-weight: 700; color: var(--text); }
-        .video-card .video-sub { padding: 4px 20px 18px; font-size: 13px; color: var(--muted); line-height: 1.5; }
-        /* Steps */
-        .how-it-works {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 26px;
-            margin: 36px 0 10px;
-        }
-        .step { padding: 26px 24px; background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; }
-        .step-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--purple), var(--blue));
-            color: white; border-radius: 50%;
-            font-weight: 800; margin-bottom: 14px;
-            box-shadow: 0 4px 12px rgba(135,51,237,0.3);
-        }
-        .step h3 { font-size: 16px; margin-bottom: 8px; color: var(--text); }
-        .step p { font-size: 14px; color: var(--muted); line-height: 1.5; }
-        /* Testimonials */
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 30px 0 0;
-        }
-        .testimonial-card {
-            padding: 30px;
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            position: relative;
-        }
-        .testimonial-card::before {
-            content: "✦";
-            position: absolute;
-            top: 18px; right: 22px;
-            color: var(--lav);
-            font-size: 14px;
-        }
-        .quote { font-size: 16px; font-style: italic; margin-bottom: 20px; color: #3a3344; line-height: 1.6; }
-        .attribution { font-size: 14px; font-weight: 700; color: var(--text); }
-        .attribution-role { font-size: 12px; color: #9a92a8; margin-top: 4px; }
-        /* Founder */
-        .founder-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            margin: 30px 0 0;
-        }
-        .founder-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: linear-gradient(150deg, var(--mist), #e4dcf5);
-            border-radius: 14px;
-            border: 1px solid var(--card-border);
-        }
-        .founder-bio h3 { font-size: 20px; margin-bottom: 16px; color: var(--text); }
-        .founder-bio p { font-size: 14px; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
-        footer {
-            background: var(--ink);
-            padding: 34px 0;
-            text-align: center;
-            font-size: 12px;
-            color: #8b819e;
-        }
-        footer .spark { color: var(--lav); margin: 0 6px; }
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 32px; }
-            section h2 { font-size: 24px; }
-            .founder-section { grid-template-columns: 1fr; }
-            .hero-statement { font-size: 20px; }
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Call's Booked | Charm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f5fb;
+    --ink: #17181b;
+    --ink-2: #2a2a31;
+    --mute: #6b6772;
+    --mute-2: #9a96a5;
+    --line: #e8e6ed;
+    --line-2: #d5d1de;
+    --brand: #6f49b2;
+    --brand-deep: #380c83;
+    --brand-soft: #7d4cad;
+    --brand-tint: #f3edfb;
+    --dark: #17181b;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter Tight', -apple-system, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    background:
+      radial-gradient(1200px 820px at 12% 6%, rgba(189,154,247,0.06), transparent 58%),
+      radial-gradient(1100px 880px at 94% 40%, rgba(150,170,255,0.05), transparent 58%),
+      radial-gradient(1200px 900px at 6% 76%, rgba(205,164,255,0.06), transparent 58%),
+      linear-gradient(180deg, #ffffff 0%, #fcfbff 50%, #ffffff 100%);
+  }
+  .mono { font-family: 'Inter Tight', sans-serif; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 
-        /* ===== WIZARD PASS (v4): sprinkle, don't drown ===== */
-        :root {
-            --sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'%3E%3Cpath fill='%23cda4ff' d='M45 20c1.2 14 9.6 22.4 25 24-15.4 1.6-23.8 10-25 24-1.2-14-9.6-22.4-25-24 15.4-1.6 23.8-10 25-24z'/%3E%3C/svg%3E");
-        }
-        @keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: .9; } }
-        @keyframes glowpulse { 0%, 100% { opacity: .45; transform: translate(-50%,-50%) scale(1); } 50% { opacity: .8; transform: translate(-50%,-50%) scale(1.07); } }
+  /* ─── labels (✦ + brand purple) ─── */
+  .label {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px; font-weight: 600; color: var(--mute);
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .label.brand { color: var(--brand); }
+  .label .spark { color: var(--brand); font-size: 0.85em; }
+  .label.light { color: rgba(255,255,255,0.65); }
+  .label.light .spark { color: var(--brand-soft); }
+  .label .ico { width: 17px; height: 17px; flex: none; display: block; }
 
-        /* Hero depth: twinkling stars + glowing sparkle behind the headline */
-        .hero { overflow: hidden; }
-        .hero .container { position: relative; z-index: 2; }
-        .hero::before {
-            content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-            background:
-                radial-gradient(2px 2px at 18% 42%, #fff, transparent),
-                radial-gradient(2px 2px at 33% 78%, var(--lav), transparent),
-                radial-gradient(1.5px 1.5px at 64% 36%, var(--peri), transparent),
-                radial-gradient(2px 2px at 79% 70%, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 88% 46%, var(--lav), transparent);
-            animation: twinkle 4.5s ease-in-out infinite;
-        }
-        .hero::after {
-            content: ""; position: absolute; left: 50%; top: 47%; width: 520px; height: 520px;
-            pointer-events: none; z-index: 0; border-radius: 50%;
-            background: radial-gradient(circle, rgba(135,51,237,.40), transparent 62%);
-            filter: blur(6px); animation: glowpulse 6.5s ease-in-out infinite;
-        }
-        .hero .tagline .spark { display: inline-block; animation: twinkle 3s ease-in-out infinite; }
+  /* ─── ✦ flourish divider ─── */
+  .flourish { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 56px 0; }
+  .flourish::before, .flourish::after { content: ""; height: 1px; width: 70px; background: linear-gradient(to right, transparent, var(--line-2)); }
+  .flourish::after { background: linear-gradient(to left, transparent, var(--line-2)); }
+  .flourish .fx { color: var(--brand); font-size: 16px; }
 
-        /* Heading sparkle glow */
-        section h2::before { filter: drop-shadow(0 0 6px rgba(135,51,237,.45)); }
+  /* ─── utility bar ─── */
+  .utilbar {
+    background: linear-gradient(90deg, #6f49b2, #8a5fd0 50%, #6f49b2);
+    color: #fff;
+    text-align: center; padding: 11px 18px;
+    font-family: 'Inter Tight', sans-serif; font-size: 12px; letter-spacing: 0.03em;
+  }
+  .utilbar .spark { color: #f0e6ff; margin: 0 9px; }
 
-        /* Card lift + purple glow */
-        .video-card:hover { box-shadow: 0 12px 32px rgba(135,51,237,.20); }
-        .step { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-        .step:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(135,51,237,.16); border-color: var(--lav); }
-        .founder-image { box-shadow: 0 12px 44px rgba(135,51,237,.20); }
+  /* ─── brand bar ─── */
+  .brandbar {
+    text-align: center; padding: 20px 0; border-bottom: 1px solid rgba(232,230,237,0.7);
+    position: sticky; top: 0; background: rgba(255,255,255,0.7); backdrop-filter: blur(14px); z-index: 50;
+  }
+  .brandbar img { height: 24px; vertical-align: middle; }
 
-        /* The "magic" band: the read & remedy centerpiece */
-        section.magic {
-            color: #fff; position: relative; overflow: hidden;
-            background:
-                radial-gradient(900px 360px at 82% -12%, rgba(135,51,237,.32), transparent),
-                radial-gradient(700px 300px at 8% 120%, rgba(60,96,205,.26), transparent),
-                linear-gradient(155deg, var(--ink) 0%, var(--ink-2) 60%, var(--ink) 100%);
-        }
-        section.magic::before {
-            content: ""; position: absolute; inset: 0; pointer-events: none;
-            background-image: var(--sparkle); background-size: 120px 120px; opacity: .06;
-        }
-        section.magic .container { position: relative; z-index: 1; }
-        section.magic h2 { color: #fff; }
-        section.magic h2::before { color: var(--lav); filter: drop-shadow(0 0 8px rgba(205,164,255,.6)); }
-        section.magic .section-intro { color: #c3bad6; }
-        section.magic .step {
-            background: rgba(255,255,255,.05); border: 1px solid rgba(205,164,255,.22);
-            position: relative; overflow: hidden;
-        }
-        section.magic .step::before {
-            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, var(--lav), var(--peri), transparent);
-        }
-        section.magic .step:hover { border-color: rgba(205,164,255,.5); box-shadow: 0 12px 34px rgba(135,51,237,.35); }
-        section.magic .step h3 { color: #fff; }
-        section.magic .step p { color: #bcb3cf; }
-        section.magic .step-number { box-shadow: 0 4px 20px rgba(135,51,237,.6); }
+  /* ─── hero ─── */
+  .hero { position: relative; overflow: hidden; padding: 84px 0 68px; text-align: center; }
+  .hero::before {
+    content: ""; position: absolute; top: -240px; left: 50%; transform: translateX(-50%);
+    width: 920px; height: 640px; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse at center, var(--brand-tint), transparent 62%);
+    opacity: 0.95; animation: drift1 16s ease-in-out infinite alternate;
+  }
+  .hero::after {
+    content: ""; position: absolute; top: 60px; right: -140px; pointer-events: none; z-index: 0;
+    width: 460px; height: 460px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(154,106,224,0.12), transparent 66%);
+    animation: drift2 21s ease-in-out infinite alternate;
+  }
+  @keyframes drift1 { from { transform: translateX(-50%) translateY(0) scale(1); } to { transform: translateX(-50%) translateY(22px) scale(1.07); } }
+  @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-34px, 30px); } }
+  .hero .container { position: relative; z-index: 2; }
+  .hero .label { margin-bottom: 22px; }
 
-        /* Footer: faint brand-sparkle texture */
-        footer { position: relative; overflow: hidden; }
-        footer::before {
-            content: ""; position: absolute; inset: 0; pointer-events: none;
-            background-image: var(--sparkle); background-size: 150px 150px; opacity: .05;
-        }
-        footer .container { position: relative; z-index: 1; }
-    </style>
+  /* ─── sparkle constellation (tasteful magic) ─── */
+  .sparkles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .sparkles span { position: absolute; color: #c4a9ef; line-height: 1; }
+  .sparkles .s1 { top: 9%;  left: 11%; font-size: 18px; opacity: 0.55; animation: tw 4.5s ease-in-out infinite; }
+  .sparkles .s2 { top: 15%; right: 13%; font-size: 12px; opacity: 0.4; }
+  .sparkles .s3 { top: 33%; left: 6%;  font-size: 22px; opacity: 0.32; animation: tw 5.5s ease-in-out infinite 0.8s; }
+  .sparkles .s4 { top: 27%; right: 7%; font-size: 15px; opacity: 0.5; animation: tw 6s ease-in-out infinite 0.3s; }
+  .sparkles .s5 { bottom: 20%; left: 13%; font-size: 13px; opacity: 0.35; animation: tw 5s ease-in-out infinite 1.4s; }
+  .sparkles .s6 { bottom: 15%; right: 14%; font-size: 20px; opacity: 0.45; }
+  .sparkles .s7 { top: 7%; left: 46%; font-size: 11px; opacity: 0.35; animation: tw 4s ease-in-out infinite 0.6s; }
+  @keyframes tw { 0%, 100% { opacity: 0.2; transform: scale(0.9); } 50% { opacity: 0.7; transform: scale(1.1); } }
+  .hero h1 {
+    font-size: clamp(46px, 6.2vw, 84px); line-height: 1.0; font-weight: 700;
+    letter-spacing: -0.04em; margin: 0 auto 22px; max-width: 960px; color: var(--ink);
+  }
+  .hero h1 .accent {
+    display: block;
+    background: linear-gradient(100deg, var(--brand) 0%, #9a6ae0 50%, var(--brand) 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: shimmer 7s ease-in-out infinite;
+  }
+  @keyframes shimmer { 0% { background-position: 0% center; } 100% { background-position: 220% center; } }
+  .hero .sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--mute); margin: 0 auto; max-width: 580px; line-height: 1.55; }
+
+  /* ─── hero video (the centerpiece) ─── */
+  .hero-video { max-width: 940px; margin: 56px auto 0; }
+  .hero-video .frame {
+    position: relative; aspect-ratio: 16 / 9; border-radius: 22px; overflow: hidden;
+    background: var(--dark); border: 1px solid rgba(111,73,178,0.22);
+    box-shadow: 0 54px 110px -44px rgba(56,12,131,0.42), 0 18px 44px -18px rgba(0,0,0,0.16);
+    transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
+  }
+  .hero-video:hover .frame { transform: translateY(-6px); box-shadow: 0 64px 130px -44px rgba(56,12,131,0.5), 0 22px 54px -18px rgba(0,0,0,0.2); }
+  .hero-video .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .hero-video .cap { margin: 16px auto 0; font-family: 'Inter Tight', sans-serif; font-size: 12px; color: var(--mute); letter-spacing: 0.03em; }
+
+  /* ─── proof logo row ─── */
+  .logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px 48px; max-width: 760px; margin: 54px auto 0; }
+  .logos img { height: 30px; opacity: 0.46; filter: grayscale(1); transition: opacity .2s, filter .2s; }
+  .logos img:hover { opacity: 0.85; filter: grayscale(0); }
+  .hero .company { margin-top: 24px; color: var(--mute); }
+
+  /* ─── sections ─── */
+  section.s { padding: 104px 0; }
+  section.s.alt { background: transparent; }
+  section.s.dark { background: #141019; color: #fff; border-bottom: 0; position: relative; overflow: hidden; }
+  section.s.dark .container { position: relative; z-index: 2; }
+  section.s.dark h2 { color: #fff; }
+  section.s.dark .intro { color: rgba(255,255,255,0.62); }
+  section.s.dark .label.brand, section.s.dark .label.brand .spark { color: #c4a9ef; }
+  .sec-head { margin-bottom: 60px; text-align: center; }
+  .sec-head .label { margin-bottom: 16px; }
+  .sec-head h2 {
+    font-size: clamp(32px, 4vw, 56px); line-height: 1.04; font-weight: 700;
+    letter-spacing: -0.035em; margin: 0 auto; color: var(--ink); max-width: 800px;
+  }
+  .sec-head .intro { font-size: 17px; color: var(--mute); margin: 18px auto 0; max-width: 640px; line-height: 1.55; }
+
+  /* ─── promise statement ─── */
+  .promise { padding: 100px 0; border-bottom: 1px solid var(--line); text-align: center; }
+  .promise .label { margin-bottom: 30px; }
+  .promise .lazy {
+    font-size: clamp(16px, 1.8vw, 19px); color: var(--mute);
+    margin: 0 auto 22px; max-width: 620px; line-height: 1.5;
+  }
+  .promise .lazy .strike { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--brand-soft); color: var(--mute-2); }
+  .promise .truth {
+    font-size: clamp(34px, 5.4vw, 64px); font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1.02; color: var(--ink); margin: 0 auto 26px; max-width: 880px;
+  }
+  .promise .truth .em { color: var(--brand); }
+  .promise .def {
+    font-size: clamp(19px, 2.1vw, 26px); font-weight: 500; letter-spacing: -0.018em;
+    line-height: 1.42; color: var(--ink-2); margin: 0 auto; max-width: 700px;
+  }
+  .promise .def .em { color: var(--brand); font-weight: 600; }
+
+  /* ─── video bento (2-up) ─── */
+  .bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .vtile { background: #fff; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.7); border-radius: 18px; overflow: hidden; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.28), 0 2px 8px -4px rgba(56,12,131,0.08); transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+  .vtile:hover { transform: translateY(-6px); box-shadow: 0 36px 70px -30px rgba(56,12,131,0.36); }
+  .vtile:hover h3 { color: var(--brand); }
+  .vtile .frame { aspect-ratio: 16 / 9; background: var(--dark); position: relative; }
+  .vtile .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .vtile .body { padding: 22px 24px 26px; border-top: 1px solid var(--line); }
+  .vtile h3 { transition: color .25s ease; }
+  .vtile .vnum { font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.1em; color: var(--brand); margin-bottom: 8px; }
+  .vtile h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 6px; color: var(--ink); line-height: 1.25; }
+  .vtile p { font-size: 13.5px; color: var(--mute); margin: 0; line-height: 1.5; }
+
+  /* ─── numbered step columns (centered) ─── */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .steps .step { background: #fff; padding: 42px 28px 46px; text-align: center; border: 1px solid rgba(255,255,255,0.7); border-radius: 18px; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.26), 0 2px 8px -4px rgba(56,12,131,0.07); transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+  .steps .step:hover { transform: translateY(-6px); box-shadow: 0 34px 64px -30px rgba(56,12,131,0.34); }
+  .steps .step .n { font-family: 'Inter Tight', sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; background: linear-gradient(135deg, var(--brand), #9a6ae0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  .steps .step h3 { font-weight: 600; font-size: 17px; color: var(--ink); letter-spacing: -0.02em; line-height: 1.25; margin: 18px 0 8px; }
+  .steps .step p { font-size: 14px; color: var(--mute); line-height: 1.55; margin: 0; }
+  /* steps inside a dark section */
+  section.s.dark .steps { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.1); }
+  section.s.dark .steps .step { background: #141019; }
+  section.s.dark .steps .step .n { color: #c4a9ef; }
+  section.s.dark .steps .step h3 { color: #fff; }
+  section.s.dark .steps .step p { color: rgba(255,255,255,0.6); }
+
+  /* ─── two-up method ─── */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .duo .cell { background: #fff; padding: 50px 40px; text-align: center; border: 1px solid rgba(255,255,255,0.7); border-radius: 20px; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.26), 0 2px 8px -4px rgba(56,12,131,0.07); transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+  .duo .cell:hover { transform: translateY(-6px); box-shadow: 0 34px 64px -30px rgba(56,12,131,0.34); }
+  .duo .cell.tint { background: linear-gradient(160deg, #f6efff, #efe5fd); }
+  .duo .cell .step-n { font-family: 'Inter Tight', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--brand), #9a6ae0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  .duo .cell .step-n .spark { font-size: 0.6em; vertical-align: 0.5em; margin-left: 4px; -webkit-text-fill-color: var(--brand-soft); }
+  .duo .cell h3 { font-size: 19px; font-weight: 600; letter-spacing: -0.02em; margin: 16px 0 8px; color: var(--ink); }
+  .duo .cell p { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; margin: 0 auto; max-width: 380px; }
+
+  /* ─── testimonials ─── */
+  .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .quote-cell { background: #fff; padding: 42px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid rgba(255,255,255,0.7); border-radius: 18px; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.26), 0 2px 8px -4px rgba(56,12,131,0.07); transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+  .quote-cell:hover { transform: translateY(-6px); box-shadow: 0 34px 64px -30px rgba(56,12,131,0.34); }
+  .quote-cell.tint { background: linear-gradient(160deg, #f6efff, #efe5fd); }
+  .quote-cell .qmark { font-family: Georgia, serif; font-size: 44px; line-height: 0.4; color: var(--brand); opacity: 0.5; height: 26px; }
+  .quote-cell .q { font-size: 16px; color: var(--ink); line-height: 1.55; margin: 0 0 22px; font-weight: 500; letter-spacing: -0.01em; flex: 1; }
+  .quote-cell .who { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .quote-cell .role { font-family: 'Inter Tight', sans-serif; font-size: 11.5px; color: var(--mute); margin-top: 5px; letter-spacing: 0.02em; }
+
+  /* ─── founder (centered) ─── */
+  .founder { max-width: 640px; margin: 0 auto; text-align: center; }
+  .founder .photo {
+    width: 170px; height: 170px; margin: 0 auto 26px; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--bg-soft); box-shadow: 0 18px 44px -22px rgba(56,12,131,0.3);
+  }
+  .founder .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .founder .bio .label { margin-bottom: 16px; }
+  .founder .bio p { font-size: 15.5px; color: var(--ink-2); margin: 0 auto 14px; line-height: 1.65; max-width: 560px; }
+  .founder .bio p:last-child { margin-bottom: 0; }
+
+  /* ─── footer ─── */
+  footer.bot { padding: 48px 0; background: transparent; border-top: 1px solid var(--line); color: var(--mute); }
+  footer.bot .row { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer.bot img.charm { height: 18px; opacity: 0.7; }
+  footer.bot .note { font-family: 'Inter Tight', sans-serif; font-size: 11.5px; letter-spacing: 0.04em; color: var(--mute); }
+  footer.bot .note .spark { color: var(--brand); margin: 0 7px; }
+
+  /* ─── reveal ─── */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero::before, .hero::after, .hero h1 .accent { animation: none !important; }
+    .hero h1 .accent { background-position: 0 center; }
+  }
+  @media (max-width: 880px) {
+    .container { padding: 0 20px; }
+    section.s, .promise { padding: 56px 0; }
+    .bento { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .duo { grid-template-columns: 1fr; }
+    .quotes { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- ===== 1. HERO ===== -->
-    <div class="topbar">
-        <img src="assets/charm-logo.svg" alt="Charm" class="logo">
+<!-- ═══ UTILITY BAR ═══ -->
+<div class="utilbar">Watch the video below before your call <span class="spark">✦</span> it makes the conversation ten times better</div>
+
+<!-- ═══ BRAND BAR ═══ -->
+<div class="brandbar">
+  <img src="assets/charm-logo.svg" alt="Charm">
+</div>
+
+<!-- ═══ HERO + MAIN VIDEO ═══ -->
+<header class="hero">
+  <div class="container">
+    <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3.5v3.5M16 3.5v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9 14.6l2.2 2.2 4-4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Your call is booked</span>
+    <h1>You're on the calendar.<span class="accent">Here's your head start.</span></h1>
+    <p class="sub">Going through this page before we talk lets us skip the basics, so the call goes straight to the good stuff. Start with the two-minute video.</p>
+    <!-- PLACEHOLDER: Replace with the main thank-you VSL Chris records -->
+    <div class="hero-video">
+      <div class="frame">
+        <iframe src="https://www.youtube.com/embed/Yzhh9BuWKj8" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <div class="cap">A quick hello from Chris · 2 min</div>
     </div>
-    <header class="hero">
-        <div class="container">
-            <div class="tagline"><span class="spark">✦</span> You're booked <span class="spark">✦</span></div>
-            <h1>Thanks for scheduling</h1>
-            <div class="hero-statement">Traditional outbound is dead. What replaced it looks a lot like magic.<br><span class="accent">It's mostly infrastructure. Ours.</span></div>
-            <p class="subheader">Going through this page lets us skip the basics, so the call goes straight to the good stuff. Consider it a head start on the magic.</p>
-        </div>
-    </header>
+    <!-- PLACEHOLDER: Swap in real client logos from Chris's folder. Currently mirroring the hirecharm.com homepage reel. -->
+    <div class="logos">
+      <img src="assets/logos/channel-5.png" alt="Channel 5">
+      <img src="assets/logos/xprize.png" alt="XPRIZE">
+      <img src="assets/logos/pizzafy.png" alt="Pizzafy">
+      <img src="assets/logos/brooklyn-nets.png" alt="Brooklyn Nets">
+      <img src="assets/logos/la-clippers.png" alt="LA Clippers">
+      <img src="assets/logos/klutch-sports.png" alt="Klutch Sports">
+      <img src="assets/logos/nelk-full-send.png" alt="NELK Full Send">
+      <img src="assets/logos/yes-theory.png" alt="Yes Theory">
+      <img src="assets/logos/impact-theory.png" alt="Impact Theory">
+      <img src="assets/logos/jubilee.png" alt="Jubilee">
+      <img src="assets/logos/crime-junkie-audiochuck.png" alt="Crime Junkie">
+      <img src="assets/logos/wolf-entertainment.png" alt="Wolf Entertainment">
+      <img src="assets/logos/therapy-gecko.png" alt="Therapy Gecko">
+      <img src="assets/logos/birds-arent-real.png" alt="Birds Aren't Real">
+      <img src="assets/logos/drew-binsky.png" alt="Drew Binsky">
+      <img src="assets/logos/jeff-wittek.png" alt="Jeff Wittek">
+      <img src="assets/logos/karl-jacobs.png" alt="Karl Jacobs">
+      <img src="assets/logos/young-the-giant.png" alt="Young the Giant">
+      <img src="assets/logos/roku-merch.png" alt="Roku">
+      <img src="assets/logos/served-roddick.png" alt="Served by Roddick">
+    </div>
+    <span class="label company"><span class="spark">✦</span> You're in good company</span>
+  </div>
+</header>
 
-    <!-- ===== 2. MAIN VSL ===== -->
-    <section>
-        <div class="container">
-            <h2>A quick hello from Chris</h2>
-            <p class="section-intro">Two minutes on who we are, what we're going to cover, and why this page exists.</p>
-            <!-- PLACEHOLDER: Replace with the main thank-you VSL Chris records -->
-            <div class="vsl-block">
-                <iframe src="https://www.youtube.com/embed/Yzhh9BuWKj8" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </section>
+<!-- ═══ FLOURISH ═══ -->
+<div class="flourish"><span class="fx">✦</span></div>
 
-    <!-- ===== 3. LOGO REEL (moving, directly below VSL) ===== -->
-    <section class="reel-section">
-        <div class="container">
-            <h2>You're in good company</h2>
-        </div>
-        <!-- PLACEHOLDER: Swap in real client logos from Chris's folder. Currently mirroring the hirecharm.com homepage reel. -->
-        <div class="logo-marquee">
-            <div class="logo-track">
-                <img src="assets/client-1.svg" alt="Client logo">
-                <img src="assets/client-2.svg" alt="Client logo">
-                <img src="assets/client-3.svg" alt="Client logo">
-                <img src="assets/client-4.svg" alt="Client logo">
-                <img src="assets/client-5.svg" alt="Client logo">
-                <img src="assets/client-6.svg" alt="Client logo">
-                <img src="assets/client-7.svg" alt="Client logo">
-                <img src="assets/client-8.svg" alt="Client logo">
-                <img src="assets/client-9.svg" alt="Client logo">
-                <!-- duplicate set for seamless loop -->
-                <img src="assets/client-1.svg" alt="">
-                <img src="assets/client-2.svg" alt="">
-                <img src="assets/client-3.svg" alt="">
-                <img src="assets/client-4.svg" alt="">
-                <img src="assets/client-5.svg" alt="">
-                <img src="assets/client-6.svg" alt="">
-                <img src="assets/client-7.svg" alt="">
-                <img src="assets/client-8.svg" alt="">
-                <img src="assets/client-9.svg" alt="">
-            </div>
-        </div>
-    </section>
+<!-- ═══ Q&A VIDEOS ═══ -->
+<section class="s alt">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M10.2 8.6l5 3.4-5 3.4V8.6z" fill="currentColor"/></svg> Watch these to learn more</span>
+      <h2>The questions everyone asks.</h2>
+      <p class="intro">Short videos, a couple of minutes each. Watch what's relevant and skip what isn't.</p>
+    </div>
 
-    <!-- ===== 4. Q&A VIDEOS ===== -->
-    <section>
-        <div class="container">
-            <h2>The questions everyone asks</h2>
-            <p class="section-intro">Short videos, a couple of minutes each. Watch what's relevant and skip what isn't.</p>
+    <!-- PLACEHOLDER: Replace each embed with the real Q&A video -->
+    <div class="bento">
+      <div class="vtile">
+        <div class="frame"><iframe src="https://www.youtube.com/embed/lZJbcov8E7o" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="body"><div class="vnum">01</div><h3>Who is Charm?</h3><p>The short version of who we are and why we exist.</p></div>
+      </div>
+      <div class="vtile">
+        <div class="frame"><iframe src="https://www.youtube.com/embed/g0XJUF9FfOs" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="body"><div class="vnum">02</div><h3>What happens when you work with Charm?</h3><p>What actually happens when we work together: we read the situation first, then remedy it.</p></div>
+      </div>
+      <div class="vtile">
+        <div class="frame"><iframe src="https://www.youtube.com/embed/QBi7r1W-egE" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="body"><div class="vnum">03</div><h3>How long is this going to take?</h3><p>What the call covers and how we use the time.</p></div>
+      </div>
+      <div class="vtile">
+        <div class="frame"><iframe src="https://www.youtube.com/embed/xpMM9z-1JcM" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="body"><div class="vnum">04</div><h3>Is this the right time?</h3><p>How to know if you're ready, and what to do if you're not sure.</p></div>
+      </div>
+      <div class="vtile">
+        <div class="frame"><iframe src="https://www.youtube.com/embed/yBJA5Ox4HiY" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="body"><div class="vnum">05</div><h3>Who is Charm not for?</h3><p>We're not for everyone. Here's how to tell fast, before either of us spends an hour finding out.</p></div>
+      </div>
+      <div class="vtile">
+        <div class="frame"><iframe src="https://www.youtube.com/embed/tkI82nSQn14" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="body"><div class="vnum">06</div><h3>The infrastructure story</h3><p>Three channels, three things, and why the infrastructure is what you're really paying for.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="video-grid">
-                <!-- PLACEHOLDER: Replace each embed with the real Q&A video -->
-                <div class="video-card">
-                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/lZJbcov8E7o" allowfullscreen="" loading="lazy"></iframe></div>
-                    <div class="video-title">Who is Charm?</div>
-                    <div class="video-sub">The short version of who we are and why we exist.</div>
-                </div>
-                <div class="video-card">
-                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/g0XJUF9FfOs" allowfullscreen="" loading="lazy"></iframe></div>
-                    <div class="video-title">What happens when you work with Charm?</div>
-                    <div class="video-sub">What actually happens when we work together: we read the situation first, then remedy it.</div>
-                </div>
-                <div class="video-card">
-                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/QBi7r1W-egE" allowfullscreen="" loading="lazy"></iframe></div>
-                    <div class="video-title">How long is this going to take?</div>
-                    <div class="video-sub">What the call covers and how we use the time.</div>
-                </div>
-                <div class="video-card">
-                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/xpMM9z-1JcM" allowfullscreen="" loading="lazy"></iframe></div>
-                    <div class="video-title">Is this the right time?</div>
-                    <div class="video-sub">How to know if you're ready, and what to do if you're not sure.</div>
-                </div>
-                <div class="video-card">
-                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/yBJA5Ox4HiY" allowfullscreen="" loading="lazy"></iframe></div>
-                    <div class="video-title">Who is Charm not for?</div>
-                    <div class="video-sub">We're not for everyone. Here's how to tell fast, before either of us spends an hour finding out.</div>
-                </div>
-                <div class="video-card">
-                    <div class="video-frame"><iframe src="https://www.youtube.com/embed/tkI82nSQn14" allowfullscreen="" loading="lazy"></iframe></div>
-                    <div class="video-title">The infrastructure story</div>
-                    <div class="video-sub">Three channels, three things, and why the infrastructure is what you're really paying for.</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══ WHAT HAPPENS NEXT ═══ -->
+<section class="s">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M6 21V4.5M6 5h11l-2 3.5 2 3.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Here's how it works</span>
+      <h2>What happens next.</h2>
+      <p class="intro">No maze, no homework, no surprise steps.</p>
+    </div>
 
-    <!-- ===== 5. WHAT HAPPENS NEXT ===== -->
-    <section>
-        <div class="container">
-            <h2>What happens next</h2>
-            <p class="section-intro">No maze, no homework, no surprise steps.</p>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>You show up to the call</h3><p>That's it. That's the whole ask.</p></div>
+      <div class="step"><div class="n">02</div><h3>We listen</h3><p>You talk about your business, your goals, what you've tried. You get the floor.</p></div>
+      <div class="step"><div class="n">03</div><h3>We understand what's broken</h3><p>We reflect back what we heard and where the gap is. Usually it's infrastructure.</p></div>
+      <div class="step"><div class="n">04</div><h3>If it's a fit, we send a proposal</h3><p>You see exactly what we'd build and why. No mystery, no pressure.</p></div>
+    </div>
+  </div>
+</section>
 
-            <div class="how-it-works">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>You show up to the call</h3>
-                    <p>That's it. That's the whole ask.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>We listen</h3>
-                    <p>You talk about your business, your goals, what you've tried. You get the floor.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>We understand what's broken</h3>
-                    <p>We reflect back what we heard and where the gap is. Usually it's infrastructure.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>If it's a fit, we put together a proposal</h3>
-                    <p>You see exactly what we'd build and why. No mystery, no pressure.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══ READ & REMEDY ═══ -->
+<section class="s alt">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4 20L13.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.5 4.5l.85 2.15L20.5 7.5l-2.15.85L17.5 10.5l-.85-2.15L14.5 7.5l2.15-.85L17.5 4.5z" fill="currentColor"/></svg> The method</span>
+      <h2>We read first, then remedy.</h2>
+      <p class="intro">We don't hand you a package and hope it fits.</p>
+    </div>
 
-    <!-- ===== 6. HERE'S HOW IT WORKS (read and remedy) ===== -->
-    <section class="magic">
-        <div class="container">
-            <h2>Here's how it works</h2>
-            <p class="section-intro">We don't hand you a package and hope it fits. We read first, then remedy.</p>
+    <div class="duo">
+      <div class="cell">
+        <div class="step-n">01</div>
+        <h3>First, the read</h3>
+        <p>We get to know you and your business: what you're building, what's working, what's quietly leaking. No remedies until the read is done.</p>
+      </div>
+      <div class="cell tint">
+        <div class="step-n">02 <span class="spark">✦</span></div>
+        <h3>Then, the remedy</h3>
+        <p>Our wizards build the right enchantments for the specific things you told us, not a cookie-cutter package. Remedy, not menu.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="how-it-works" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>First, the read</h3>
-                    <p>We get to know you and your business: what you're building, what's working, what's quietly leaking. No remedies until the read is done.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Then, the remedy</h3>
-                    <p>Our wizards build the right enchantments for the specific things you told us, not a cookie-cutter package. Remedy, not menu.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="s">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5h15a1.5 1.5 0 011.5 1.5v7.5a1.5 1.5 0 01-1.5 1.5H10l-4.2 3v-3H4.5A1.5 1.5 0 013 14.5V7a1.5 1.5 0 011.5-1.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> Word of mouth</span>
+      <h2>What others have to say.</h2>
+    </div>
 
-    <!-- ===== 7. TESTIMONIALS ===== -->
-    <section>
-        <div class="container">
-            <h2>Here's what others say</h2>
-            <!-- PLACEHOLDER: Insert [TESTIMONIALS] when Chris's collection lands. Slots sized for written quotes; video testimonials can replace any card. -->
-            <div class="testimonials">
-                <div class="testimonial-card">
-                    <div class="quote">"[Testimonial 1: strongest ROI or infrastructure-value quote]"</div>
-                    <div class="attribution">[Client Name]</div>
-                    <div class="attribution-role">[Title] at [Company]</div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote">"[Testimonial 2: repeatability / 'they just handle it' angle]"</div>
-                    <div class="attribution">[Client Name]</div>
-                    <div class="attribution-role">[Title] at [Company]</div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote">"[Dream GTM testimonial slot, reserved]"</div>
-                    <div class="attribution">[Client Name]</div>
-                    <div class="attribution-role">[Title] at [Company]</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- PLACEHOLDER: Insert [TESTIMONIALS] when Chris's collection lands. Slots sized for written quotes; video testimonials can replace any cell. -->
+    <div class="quotes">
+      <div class="quote-cell">
+        <span class="qmark">&ldquo;</span>
+        <p class="q">"[Testimonial 1: strongest ROI or infrastructure-value quote]"</p>
+        <div class="who">[Client Name]</div>
+        <div class="role">[Title] at [Company]</div>
+      </div>
+      <div class="quote-cell tint">
+        <span class="qmark">&ldquo;</span>
+        <p class="q">"[Testimonial 2: repeatability / 'they just handle it' angle]"</p>
+        <div class="who">[Client Name]</div>
+        <div class="role">[Title] at [Company]</div>
+      </div>
+      <div class="quote-cell">
+        <span class="qmark">&ldquo;</span>
+        <p class="q">"[Dream GTM testimonial slot, reserved]"</p>
+        <div class="who">[Client Name]</div>
+        <div class="role">[Title] at [Company]</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- ===== 8. MEET THE FOUNDER ===== -->
-    <section>
-        <div class="container">
-            <div class="founder-section">
-                <div class="founder-image">
-                    <img src="assets/chris-booth.jpg" alt="Chris Booth, CEO and Founder of Charm" style="width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;">
-                </div>
-                <div class="founder-bio">
-                    <h3>Meet Chris Booth, CEO &amp; Founder</h3>
-                    <p>Chris built Charm because he watched too many founders fail at outbound for the wrong reasons: bad infrastructure, not bad strategy.</p>
-                    <p>He's run GTM at growth stage, scaled outbound teams, and seen what works and what's vaporware. That experience is what the wizards run on.</p>
-                    <p>When he's not building Charm, he's testing sequences that probably shouldn't work but do.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══ FOUNDER ═══ -->
+<section class="s alt">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 3.2l5.2 13.3H6.8L12 3.2z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M5 19.2c2 1 4.3 1.4 7 1.4s5-.4 7-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12 8.8l.5 1.4 1.4.1-1.1.9.4 1.4-1.2-.8-1.2.8.4-1.4-1.1-.9 1.4-.1.5-1.4z" fill="currentColor"/></svg> Who's behind it</span>
+      <h2>Meet Chris Booth.</h2>
+    </div>
+    <div class="founder">
+      <div class="photo"><img src="assets/chris-booth.jpg" alt="Chris Booth, CEO and Founder of Charm"></div>
+      <div class="bio">
+        <span class="label brand">CEO &amp; Founder</span>
+        <p>Chris built Charm because he watched too many founders fail at outbound for the wrong reasons: bad infrastructure, not bad strategy.</p>
+        <p>He's run GTM at growth stage, scaled outbound teams, and seen what works and what's vaporware. That experience is what the wizards run on.</p>
+        <p>When he's not building Charm, he's testing sequences that probably shouldn't work but do.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <div class="container">
-            <p>✦<span class="spark"></span>&copy; 2026 Charm. All rights reserved.</p>
-        </div>
-    </footer>
+<!-- ═══ FOOTER ═══ -->
+<footer class="bot">
+  <div class="container row">
+    <img class="charm" src="assets/charm-logo.svg" alt="Charm">
+    <div class="note">&copy; 2026 Charm <span class="spark">✦</span> All rights reserved</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (el) { el.classList.add('in'); }); return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 </body>
 </html>
