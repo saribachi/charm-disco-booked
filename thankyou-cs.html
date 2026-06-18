@@ -207,6 +207,16 @@
   .logos { background: linear-gradient(135deg, #6f49b2, #380c83); border-radius: 16px; padding: 32px 40px; box-shadow: 0 18px 50px -24px rgba(56,12,131,0.5); }
   .logos img { filter: brightness(0) invert(1) !important; opacity: 0.82 !important; }
   .logos img:hover { opacity: 1 !important; filter: brightness(0) invert(1) !important; }
+  /* whimsical wizard mascots */
+  .hero, section.s { position: relative; }
+  .wiz { position: absolute; pointer-events: none; z-index: 6; }
+  .wiz img { width: 100%; height: auto; display: block; filter: drop-shadow(0 14px 22px rgba(56,12,131,0.18)); }
+  .wiz-hero { bottom: 8px; left: 14px; width: 112px; }
+  .wiz-bento { top: 30px; right: 18px; width: 120px; }
+  .wiz-steps { top: 22px; right: 22px; width: 100px; transform: rotate(-7deg); }
+  .wiz-duo { top: 34px; left: 16px; width: 126px; }
+  .wiz-results { top: 26px; right: 14px; width: 150px; }
+  @media (max-width: 1180px) { .wiz { display: none; } }
 </style>
 </head>
 <body>
@@ -224,6 +234,7 @@
 
 <!-- ═══ HERO + MAIN VIDEO ═══ -->
 <header class="hero">
+  <img class="wiz wiz-hero" src="assets/wizards/wizard-cast.png" alt="" aria-hidden="true">
   <div class="container">
     <h1>You're on the calendar.<span class="accent">Here's your head start.</span></h1>
     <p class="sub">Going through this page before we talk lets us skip the basics, so the call goes straight to what's actually happening with your support. Start with the two-minute video.</p>
@@ -276,6 +287,7 @@
 
 <!-- ═══ Q&A VIDEOS ═══ -->
 <section class="s">
+  <img class="wiz wiz-bento" src="assets/wizards/wizard-orb.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <h2>The questions everyone asks.</h2>
@@ -314,6 +326,7 @@
 
 <!-- ═══ WHAT HAPPENS NEXT ═══ -->
 <section class="s alt">
+  <img class="wiz wiz-steps" src="assets/wizards/wizard-broom.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><span class="spark">✦</span> Here's how it works</span>
@@ -332,6 +345,7 @@
 
 <!-- ═══ HOW FLEX WORKS ═══ -->
 <section class="s">
+  <img class="wiz wiz-duo" src="assets/wizards/wizard-read.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><span class="spark">✦</span> The model</span>
@@ -368,6 +382,7 @@
 
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="s alt">
+  <img class="wiz wiz-results" src="assets/wizards/wizard-highfive.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><span class="spark">✦</span> Word of mouth</span>

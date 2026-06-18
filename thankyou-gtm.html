@@ -259,6 +259,16 @@
   .logos { background: linear-gradient(135deg, #6f49b2, #380c83); border-radius: 16px; padding: 32px 40px; box-shadow: 0 18px 50px -24px rgba(56,12,131,0.5); }
   .logos img { filter: brightness(0) invert(1) !important; opacity: 0.82 !important; }
   .logos img:hover { opacity: 1 !important; filter: brightness(0) invert(1) !important; }
+  /* whimsical wizard mascots */
+  .hero, section.s { position: relative; }
+  .wiz { position: absolute; pointer-events: none; z-index: 6; }
+  .wiz img { width: 100%; height: auto; display: block; filter: drop-shadow(0 14px 22px rgba(56,12,131,0.18)); }
+  .wiz-hero { bottom: 8px; left: 14px; width: 112px; }
+  .wiz-bento { top: 30px; right: 18px; width: 120px; }
+  .wiz-steps { top: 22px; right: 22px; width: 100px; transform: rotate(-7deg); }
+  .wiz-duo { top: 34px; left: 16px; width: 126px; }
+  .wiz-results { top: 26px; right: 14px; width: 150px; }
+  @media (max-width: 1180px) { .wiz { display: none; } }
 </style>
 </head>
 <body>
@@ -273,6 +283,7 @@
 
 <!-- ═══ HERO + MAIN VIDEO ═══ -->
 <header class="hero">
+  <img class="wiz wiz-hero" src="assets/wizards/wizard-cast.png" alt="" aria-hidden="true">
   <div class="container">
     <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3.5v3.5M16 3.5v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9 14.6l2.2 2.2 4-4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Your call is booked</span>
     <h1>You're on the calendar.<span class="accent">Here's your head start.</span></h1>
@@ -316,6 +327,7 @@
 
 <!-- ═══ Q&A VIDEOS ═══ -->
 <section class="s alt">
+  <img class="wiz wiz-bento" src="assets/wizards/wizard-orb.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M10.2 8.6l5 3.4-5 3.4V8.6z" fill="currentColor"/></svg> Watch these to learn more</span>
@@ -355,6 +367,7 @@
 
 <!-- ═══ WHAT HAPPENS NEXT ═══ -->
 <section class="s">
+  <img class="wiz wiz-steps" src="assets/wizards/wizard-broom.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M6 21V4.5M6 5h11l-2 3.5 2 3.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Here's how it works</span>
@@ -373,6 +386,7 @@
 
 <!-- ═══ READ & REMEDY ═══ -->
 <section class="s alt">
+  <img class="wiz wiz-duo" src="assets/wizards/wizard-read.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4 20L13.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.5 4.5l.85 2.15L20.5 7.5l-2.15.85L17.5 10.5l-.85-2.15L14.5 7.5l2.15-.85L17.5 4.5z" fill="currentColor"/></svg> The method</span>
@@ -397,6 +411,7 @@
 
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="s">
+  <img class="wiz wiz-results" src="assets/wizards/wizard-highfive.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5h15a1.5 1.5 0 011.5 1.5v7.5a1.5 1.5 0 01-1.5 1.5H10l-4.2 3v-3H4.5A1.5 1.5 0 013 14.5V7a1.5 1.5 0 011.5-1.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> Word of mouth</span>
