@@ -11,7 +11,7 @@
 <style>
   /*
     Charm Pricing Page
-    Single CTA target. All "Book a call" links point at the same booking URL below.
+    Single CTA target. All "Book a reading" links point at the same booking URL below.
     set --booking-url usage in the .book links (all reference the same href).
     Booking URL: https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c
   */
@@ -173,6 +173,18 @@
   .diag-item p { font-size: 1rem; line-height: 1.45; color: var(--ink); font-weight: 500; }
   .diag-cta { text-align: center; margin-top: 38px; }
 
+  /* FAQ accordion */
+  .faq { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item { border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: var(--shadow-card); overflow: hidden; }
+  .faq-item summary { list-style: none; cursor: pointer; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    font-weight: 600; font-size: 1.05rem; color: var(--ink); transition: color .15s ease; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--purple); }
+  .faq-item .chev { flex-shrink: 0; width: 20px; height: 20px; color: var(--purple); transition: transform .25s ease; }
+  .faq-item[open] .chev { transform: rotate(180deg); }
+  .faq-a { padding: 0 24px 22px; }
+  .faq-a p { color: var(--ink-soft); font-size: .98rem; line-height: 1.6; }
+
   /* Embedded booking calendar (the iframe content is cross-origin GHL; page CSS
      cannot reach inside it. Inner-form styling lives in GHL. See booking-form CSS below.) */
   #book { scroll-margin-top: 100px; }
@@ -274,7 +286,7 @@
       <a class="txt" href="#tiers">Pricing</a>
       <a class="txt" href="#proof">Why it converts</a>
       <a class="txt" href="#how">How it works</a>
-      <a class="book book-primary nav-cta" href="#book">Book a call</a>
+      <a class="book book-primary nav-cta" href="#book">Book a reading</a>
     </div>
   </div>
 </nav>
@@ -287,10 +299,10 @@
     <h1>We fill your pipeline with <span class="grad">qualified opportunities</span></h1>
     <p class="subhead">We build and run the outbound system that fills your pipeline, so your team closes instead of prospects.</p>
     <div class="hero-cta">
-      <a class="book book-primary" href="#book">Book a call <span class="book-arrow">&rarr;</span></a>
+      <a class="book book-primary" href="#book">Book a reading <span class="book-arrow">&rarr;</span></a>
       <a class="book book-ghost" href="#tiers">See what fits</a>
     </div>
-    <p class="reassure">30-minute fit call. No commitment.</p>
+    <p class="reassure">30-minute reading. No commitment.</p>
   </div>
 </header>
 
@@ -327,7 +339,7 @@
           <li><span class="check">&#10003;</span><span>Shared strategist</span></li>
           <li><span class="check">&#10003;</span><span>Replies flagged for your team to work</span></li>
         </ul>
-        <p class="bestfit"><span>Best fit</span>You have your own sales follow-up handled and want the outbound machine built and run.</p>        <a class="book book-ghost" href="#book">Book a call</a>
+        <p class="bestfit"><span>Best fit</span>You have your own sales follow-up handled and want the outbound machine built and run.</p>        <a class="book book-ghost" href="#book">Book a reading</a>
       </div>
 
       <!-- Growth -->
@@ -351,7 +363,7 @@
           <li><span class="check">&#10003;</span><span>Dedicated strategist</span></li>
           <li><span class="check">&#10003;</span><span>Performance reviews</span></li>
         </ul>
-        <p class="bestfit"><span>Best fit</span>You want the replies handled and qualified pipeline handed to your team.</p>        <a class="book book-primary" href="#book">Book a call</a>
+        <p class="bestfit"><span>Best fit</span>You want the replies handled and qualified pipeline handed to your team.</p>        <a class="book book-primary" href="#book">Book a reading</a>
       </div>
 
       <!-- Scale -->
@@ -375,7 +387,7 @@
           <li><span class="check">&#10003;</span><span>Complex CRM integration</span></li>
           <li><span class="check">&#10003;</span><span>Executive and C-level reporting</span></li>
         </ul>
-        <p class="bestfit"><span>Best fit</span>You want opportunities booked onto your calendar, not just surfaced.</p>        <a class="book book-primary" href="#book">Book a call</a>
+        <p class="bestfit"><span>Best fit</span>You want opportunities booked onto your calendar, not just surfaced.</p>        <a class="book book-primary" href="#book">Book a reading</a>
       </div>
 
     </div>
@@ -409,7 +421,7 @@
       <div class="diag-item"><span class="dnum">03</span><p>Your pipeline swings month to month with no system behind it.</p></div>
     </div>
     <div class="diag-cta">
-      <a class="book book-primary" href="#book">Book a call <span class="book-arrow">&rarr;</span></a>
+      <a class="book book-primary" href="#book">Book a reading <span class="book-arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -482,17 +494,61 @@
   </div>
 </section>
 
+<!-- ===== FAQ ===== -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">FAQ</span>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq">
+      <details class="faq-item">
+        <summary>What is a reading?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>A 30-minute call where we read your situation: what is working, what is quietly leaking, and whether outbound is the bottleneck. No remedies until the read is done.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How is this different from hiring an SDR?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>An SDR is one person you hire, train, and manage. We run the whole system for you: infrastructure, deliverability, campaigns, and replies. You get pipeline, not a headcount to build.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How soon do we see pipeline?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>Campaigns go live in the first few weeks, once the system is built and the infrastructure is warmed. Pipeline follows as replies start landing and we work them.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you work with our CRM and tools?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>Yes. Opportunities flow into the system your team already runs on. Light integration comes with Growth, complex integration with Scale.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What about deliverability?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>Full at every tier, warmed and monitored, never gated. It is the whole game and we treat it that way.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a long contract?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>We keep it flexible. The best monthly rate goes to longer commitments or paying up front, but you are never forced into a long term to start.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What if we are not ready for a full program?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>Run a single campaign from $1,000 to see the system work, then decide. We will turn it into a fit conversation on the reading.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Who is Charm not for?<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="faq-a"><p>Teams with no clear offer, or no capacity to close the meetings we book. If outbound is not your bottleneck, we will tell you on the read rather than sell you a remedy you do not need.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ===== BOOKING ===== -->
 <section class="booking-section" id="book">
   <div class="wrap">
     <div class="booking-grid reveal">
       <div class="booking-aside">
-        <span class="kicker">Book a call</span>
-        <h2>Book your fit call</h2>
-        <p class="lead">Tell us where you are. We will show you what fits. No pressure to pick the biggest plan.</p>
+        <span class="kicker">Book a reading</span>
+        <h2>Book your reading</h2>
+        <p class="lead">First the read: we get to know your business and where pipeline is quietly leaking. Then the remedy. No pressure to pick the biggest plan.</p>
         <ul class="vprops">
-          <li><span class="check">&#10003;</span><span>A 30-minute fit call, no commitment.</span></li>
-          <li><span class="check">&#10003;</span><span>We map where outbound is leaking pipeline for you.</span></li>
+          <li><span class="check">&#10003;</span><span>A 30-minute reading, no commitment.</span></li>
+          <li><span class="check">&#10003;</span><span>We read what is working and what is quietly leaking.</span></li>
           <li><span class="check">&#10003;</span><span>You leave with a clear next step, whether or not we work together.</span></li>
         </ul>
         <div class="cred">
@@ -502,8 +558,8 @@
         <p class="social">Trusted by founders and revenue teams running outbound at scale.</p>
       </div>
       <div class="booking-cal">
-        <iframe class="cal-frame" src="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c" id="KDdgICxdFa0FJQgNSt8c_booking" scrolling="no" title="Book a call with Charm"></iframe>
-        <p class="reassure">30-minute fit call. No commitment.</p>
+        <iframe class="cal-frame" src="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c" id="KDdgICxdFa0FJQgNSt8c_booking" scrolling="no" title="Book a reading with Charm"></iframe>
+        <p class="reassure">30-minute reading. No commitment.</p>
       </div>
     </div>
   </div>
