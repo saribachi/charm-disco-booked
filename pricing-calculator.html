@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Charm — Terms of Service Pricing Model</title>
+<title>Charm: Tier &amp; Term Pricing Model (Internal)</title>
 <style>
   :root{
     --ink:#1a1a17;
@@ -13,12 +13,11 @@
     --card:#ffffff;
     --line:#e6e2d8;
     --line-soft:#efece4;
-    --accent:#0f6e56;
-    --accent-soft:#e1f5ee;
+    --accent:#6f49b2;
+    --accent-soft:#f3edfb;
+    --accent-deep:#380c83;
     --gold:#854f0b;
     --gold-soft:#faeeda;
-    --coral:#993c1d;
-    --coral-soft:#faece7;
     --blue:#185fa5;
     --blue-soft:#e6f1fb;
     --warn:#a32d2d;
@@ -28,12 +27,16 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;padding:32px 20px 80px;}
-  .wrap{max-width:920px;margin:0 auto;}
+  .wrap{max-width:980px;margin:0 auto;}
   .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px;}
   h1{font-size:30px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px;}
-  .sub{color:var(--ink-soft);font-size:15px;margin-bottom:6px;}
+  .sub{color:var(--ink-soft);font-size:15px;margin-bottom:6px;max-width:760px;}
   .flag{display:inline-block;font-size:12px;background:var(--gold-soft);color:var(--gold);padding:4px 11px;border-radius:6px;font-weight:600;margin-top:10px;}
-  .grid-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:28px 0 8px;}
+
+  .section-label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:36px 0 14px;}
+
+  /* tier base inputs */
+  .grid-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:8px 0;}
   .inp{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
   .inp label{display:block;font-size:12.5px;color:var(--ink-soft);margin-bottom:8px;font-weight:500;}
   .inp .val{font-weight:600;color:var(--ink);}
@@ -41,44 +44,70 @@
   .inp .money{display:flex;align-items:center;gap:5px;}
   .inp .money span{font-size:18px;color:var(--ink-faint);}
   input[type=range]{width:100%;accent-color:var(--accent);margin-top:4px;cursor:pointer;}
+  .legend{font-size:12.5px;color:var(--ink-soft);margin:10px 0 0;}
   .warnbar{display:none;background:var(--warn-soft);color:var(--warn);font-size:13.5px;padding:10px 14px;border-radius:8px;margin:14px 0;font-weight:500;}
-  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0;}
-  .tier{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;position:relative;}
-  .tier.gold{border:2px solid var(--accent);}
-  .tier .ribbon{position:absolute;top:-10px;left:18px;background:var(--accent);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:5px;letter-spacing:.03em;}
-  .tier .tname{font-size:14px;font-weight:600;margin-bottom:2px;}
-  .tier .tprem{font-size:12.5px;color:var(--ink-faint);margin-bottom:14px;}
-  .tier .tprice{font-size:27px;font-weight:600;letter-spacing:-.02em;}
-  .tier .tprice .per{font-size:13px;color:var(--ink-faint);font-weight:400;}
-  .tier .tannual{font-size:13px;color:var(--ink-soft);margin-top:3px;}
-  .tier .tnote{font-size:12px;color:var(--ink-faint);margin-top:12px;padding-top:11px;border-top:1px solid var(--line-soft);}
-  .section-label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:36px 0 14px;}
+
+  /* matrix */
+  .matrix{width:100%;border-collapse:separate;border-spacing:0;margin-top:6px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  .matrix th,.matrix td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line-soft);}
+  .matrix thead th{font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;background:#fcfbf7;}
+  .matrix thead th.target{color:var(--accent-deep);background:var(--accent-soft);}
+  .matrix thead th .pct{display:block;font-size:11px;color:var(--ink-faint);text-transform:none;letter-spacing:0;font-weight:500;margin-top:2px;}
+  .matrix tbody tr:last-child td{border-bottom:none;}
+  .matrix .tcell .tname{font-size:14.5px;font-weight:600;}
+  .matrix .tcell .tnote{font-size:11.5px;color:var(--ink-faint);margin-top:2px;}
+  .matrix td.price{font-size:18px;font-weight:600;letter-spacing:-.01em;}
+  .matrix td.price .per{font-size:11px;color:var(--ink-faint);font-weight:400;}
+  .matrix td.price .yr{display:block;font-size:11px;color:var(--ink-faint);font-weight:400;margin-top:2px;}
+  .matrix td.target{background:var(--accent-soft);}
+  .matrix td.target .ribbon{display:inline-block;font-size:10px;font-weight:600;color:#fff;background:var(--accent);padding:1px 7px;border-radius:4px;margin-bottom:4px;letter-spacing:.02em;}
+
+  /* onboarding + addons */
   .onb{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;}
   .compare{background:var(--blue-soft);color:var(--blue);border-radius:var(--radius);padding:15px 18px;font-size:13.5px;margin-top:16px;line-height:1.6;}
   .compare strong{font-weight:600;}
+  .addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+  .acard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;}
+  .acard .an{font-size:13px;font-weight:600;color:var(--ink);}
+  .acard .ap{font-size:18px;font-weight:600;letter-spacing:-.01em;margin:4px 0 2px;}
+  .acard .ap .per{font-size:11px;color:var(--ink-faint);font-weight:400;}
+  .acard .ad{font-size:12px;color:var(--ink-faint);}
+
   .decisions{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px 4px;margin-top:18px;}
   .drow{display:flex;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line-soft);align-items:flex-start;}
   .drow:last-child{border-bottom:none;}
-  .dnum{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--gold-soft);color:var(--gold);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .dnum{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent-deep);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px;}
   .dtext{font-size:14px;color:var(--ink);}
   .dtext .q{font-weight:600;}
   .dtext .c{color:var(--ink-soft);font-size:13px;display:block;margin-top:2px;}
   footer{margin-top:40px;font-size:12px;color:var(--ink-faint);text-align:center;line-height:1.7;}
-  .legend{font-size:12.5px;color:var(--ink-soft);margin:-6px 0 0;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="eyebrow">Charm · Internal Reference</div>
-  <h1>Terms of Service Pricing Model</h1>
-  <p class="sub">Commitment-tiered pricing. The 12-month rate is the true target price, presented so longer commitments read as the discount. Every shorter term is a premium; month-to-month always sits highest.</p>
-  <span class="flag">Provisional — Grady's gut (5 / 10 / 25). For alignment with Chris.</span>
+  <h1>Tier &amp; Term Pricing Model</h1>
+  <p class="sub">The three public package tiers (Starter, Growth, Scale) priced across commitment terms. The price shown publicly is the 12-month rate, the true target. Every shorter term is a premium on top; month-to-month always sits highest. Drag the premiums to test, then read each tier straight off the matrix.</p>
+  <span class="flag">Provisional premiums: Grady's gut (5 / 10 / 25). For alignment with Chris.</span>
 
+  <div class="section-label">12-month base rate per tier: the public "from" price</div>
   <div class="grid-inputs">
     <div class="inp">
-      <label>12-month base rate / month</label>
-      <div class="money"><span>$</span><input type="number" id="base" value="7500" step="250" /></div>
+      <label>Starter · 12-mo / month</label>
+      <div class="money"><span>$</span><input type="number" id="bStarter" value="4000" step="250" /></div>
     </div>
+    <div class="inp">
+      <label>Growth · 12-mo / month</label>
+      <div class="money"><span>$</span><input type="number" id="bGrowth" value="6000" step="250" /></div>
+    </div>
+    <div class="inp">
+      <label>Scale · 12-mo / month</label>
+      <div class="money"><span>$</span><input type="number" id="bScale" value="8000" step="250" /></div>
+    </div>
+  </div>
+
+  <div class="section-label">Commitment premiums: shorter term, higher rate</div>
+  <div class="grid-inputs">
     <div class="inp">
       <label>6-month premium · <span class="val" id="p6lbl">+5%</span></label>
       <input type="range" id="p6" min="0" max="30" value="5" step="1" />
@@ -92,13 +121,19 @@
       <input type="range" id="pm" min="0" max="60" value="25" step="1" />
     </div>
   </div>
-  <p class="legend">Drag the premiums to test scenarios live. The model flags any structure that breaks the incentive ladder.</p>
+  <p class="legend">The matrix flags any structure that breaks the incentive ladder (shorter terms must never cost less).</p>
 
   <div class="warnbar" id="warn"></div>
 
-  <div class="tiers" id="tiers"></div>
+  <div class="section-label">Tier × term matrix: monthly rate</div>
+  <table class="matrix">
+    <thead>
+      <tr id="matHead"></tr>
+    </thead>
+    <tbody id="matBody"></tbody>
+  </table>
 
-  <div class="section-label">Onboarding fee — discount here, never on the monthly</div>
+  <div class="section-label">Onboarding fee: discount here, never on the monthly</div>
   <div class="onb">
     <div class="inp">
       <label>Standard onboarding (one-time)</label>
@@ -115,16 +150,32 @@
   </div>
   <div class="compare" id="compare"></div>
 
+  <div class="section-label">Add-ons &amp; entry: the rest of the public breakdown</div>
+  <div class="addons">
+    <div class="acard">
+      <div class="an">LinkedIn add-on</div>
+      <div class="ap">$500 to $1,000 <span class="per">/ account / mo</span></div>
+      <div class="ad">Available on any tier. Separate line, never bundled into the base. Multiplier on pipeline, priced per LinkedIn account.</div>
+    </div>
+    <div class="acard">
+      <div class="an">Single campaign (escape hatch)</div>
+      <div class="ap">from $1,000 <span class="per">one-off</span></div>
+      <div class="ad">Trial of the system for the buyer not ready for a program. Quiet line beneath the public tiers, never posted as a per-campaign rate.</div>
+    </div>
+  </div>
+
   <div class="section-label">Open decisions for Chris</div>
   <div class="decisions">
-    <div class="drow"><div class="dnum">1</div><div class="dtext"><span class="q">Lock the tier percentages.</span><span class="c">5 / 10 / 25 or 10 / 20 / 25+? Drag the sliders above to compare. Constraint: month-to-month must always exceed the 3-month premium.</span></div></div>
-    <div class="drow"><div class="dnum">2</div><div class="dtext"><span class="q">Confirm the renewal mechanic.</span><span class="c">Settled in the MSA: on expiry, auto-renews to month-to-month at the M2M rate unless the client re-signs a committed term. The premium covers domain renewals — no separate domain charge. We warn clients operationally (no contractual promise).</span></div></div>
-    <div class="drow"><div class="dnum">3</div><div class="dtext"><span class="q">Onboarding discount strategy.</span><span class="c">Discount the one-time fee, never the monthly, and let it expire after the initial term. Avoids the Sui situation (stuck at a permanently reduced retainer).</span></div></div>
-    <div class="drow"><div class="dnum">4</div><div class="dtext"><span class="q">Define a "gold-star" lead.</span><span class="c">12-month term on ACH auto-pay. This is the profile to weight the pipeline toward — predictable recurring revenue, strongest for company valuation.</span></div></div>
+    <div class="drow"><div class="dnum">1</div><div class="dtext"><span class="q">Lock the tier base rates.</span><span class="c">Public page currently anchors Starter $4,000 / Growth $6,000 / Scale $8,000 as the 12-month "from" prices. Confirm these are the true target rates the matrix builds premiums on.</span></div></div>
+    <div class="drow"><div class="dnum">2</div><div class="dtext"><span class="q">Lock the commitment premiums.</span><span class="c">5 / 10 / 25 or 10 / 20 / 25+? Drag the sliders. Constraint: month-to-month must always exceed the 3-month premium, and 3-month must be at least the 6-month.</span></div></div>
+    <div class="drow"><div class="dnum">3</div><div class="dtext"><span class="q">Confirm the renewal mechanic.</span><span class="c">On expiry, auto-renews to month-to-month at the M2M rate unless the client re-signs a committed term. Premium covers domain renewals: no separate domain charge.</span></div></div>
+    <div class="drow"><div class="dnum">4</div><div class="dtext"><span class="q">Onboarding discount strategy.</span><span class="c">Discount the one-time fee, never the monthly, and let it expire after the initial term. Avoids the Sui situation (stuck at a permanently reduced retainer).</span></div></div>
+    <div class="drow"><div class="dnum">5</div><div class="dtext"><span class="q">Define a "gold-star" lead.</span><span class="c">12-month term on ACH auto-pay. The profile to weight the pipeline toward: predictable recurring revenue, strongest for valuation.</span></div></div>
   </div>
 
   <footer>
     Internal pricing reference for the Charm + Chris + Grady alignment conversation.<br>
+    Mirrors the public page tiers (Starter / Growth / Scale). Public page shows monthly "from" prices only: never the premium ladder, the onboarding fee, or annual totals.<br>
     All figures provisional pending sign-off. Finalized terms route to legal review before use.
   </footer>
 </div>
@@ -133,50 +184,67 @@
 (function(){
   var fmt = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
   var el = function(id){ return document.getElementById(id); };
-  var tiersDef = [
-    {name:'12 months', sub:'Annual — target rate', pid:null, gold:true, note:'The price we actually want. Reads as the discount.'},
-    {name:'6 months', sub:'Mid commitment', pid:'p6', note:'Modest premium over annual.'},
-    {name:'3 months', sub:'Short / trial', pid:'p3', note:'Higher premium; shortest committed term.'},
-    {name:'Month-to-month', sub:'No commitment — highest', pid:'pm', note:'Default landing spot on renewal. Premium covers domain renewals.'}
+
+  var tiers = [
+    {name:'Starter', id:'bStarter', note:'Entry capacity · self-managed replies'},
+    {name:'Growth',  id:'bGrowth',  note:'Managed replies · dedicated strategist'},
+    {name:'Scale',   id:'bScale',   note:'Appointment setting · exec reporting'}
   ];
+  var terms = [
+    {name:'12 months', tag:'Target', pid:null},
+    {name:'6 months',  pid:'p6'},
+    {name:'3 months',  pid:'p3'},
+    {name:'Month-to-month', pid:'pm'}
+  ];
+
   function render(){
-    var base = Number(el('base').value) || 0;
     var p6 = Number(el('p6').value), p3 = Number(el('p3').value), pm = Number(el('pm').value);
     el('p6lbl').textContent = '+' + p6 + '%';
     el('p3lbl').textContent = '+' + p3 + '%';
     el('pmlbl').textContent = '+' + pm + '%';
     var prem = {p6:p6, p3:p3, pm:pm};
+
     var warn = el('warn');
-    if(pm <= p3){ warn.style.display='block'; warn.textContent='Month-to-month (+' + pm + '%) must exceed the 3-month premium (+' + p3 + '%) — the incentive ladder breaks otherwise.'; }
-    else if(p3 < p6){ warn.style.display='block'; warn.textContent='3-month (+' + p3 + '%) should be at least the 6-month premium (+' + p6 + '%) — shorter terms should never cost less.'; }
+    if(pm <= p3){ warn.style.display='block'; warn.textContent='Month-to-month (+' + pm + '%) must exceed the 3-month premium (+' + p3 + '%): the incentive ladder breaks otherwise.'; }
+    else if(p3 < p6){ warn.style.display='block'; warn.textContent='3-month (+' + p3 + '%) should be at least the 6-month premium (+' + p6 + '%): shorter terms should never cost less.'; }
     else { warn.style.display='none'; }
-    var wrap = el('tiers'); wrap.innerHTML='';
-    tiersDef.forEach(function(t){
+
+    // header
+    var head = el('matHead');
+    head.innerHTML = '<th>Tier</th>' + terms.map(function(t){
       var pct = t.pid ? prem[t.pid] : 0;
-      var monthly = base * (1 + pct/100);
-      var annual = monthly * 12;
-      var div = document.createElement('div');
-      div.className = 'tier' + (t.gold ? ' gold' : '');
-      var ribbon = t.gold ? '<div class="ribbon">Target</div>' : '';
-      var premLabel = pct > 0 ? '+' + pct + '% over base' : 'base rate';
-      div.innerHTML = ribbon +
-        '<div class="tname">' + t.name + '</div>' +
-        '<div class="tprem">' + t.sub + '</div>' +
-        '<div class="tprice">' + fmt(monthly) + '<span class="per">/mo</span></div>' +
-        '<div class="tannual">' + fmt(annual) + '/yr · ' + premLabel + '</div>' +
-        '<div class="tnote">' + t.note + '</div>';
-      wrap.appendChild(div);
-    });
+      var lbl = t.pid ? '+' + pct + '% premium' : 'base rate';
+      return '<th class="' + (t.pid ? '' : 'target') + '">' + t.name + '<span class="pct">' + lbl + '</span></th>';
+    }).join('');
+
+    // body
+    var body = el('matBody');
+    body.innerHTML = tiers.map(function(tier){
+      var base = Number(el(tier.id).value) || 0;
+      var cells = terms.map(function(t){
+        var pct = t.pid ? prem[t.pid] : 0;
+        var monthly = base * (1 + pct/100);
+        var annual = monthly * 12;
+        var ribbon = t.pid ? '' : '<span class="ribbon">Target</span><br>';
+        return '<td class="price ' + (t.pid ? '' : 'target') + '">' + ribbon + fmt(monthly) + '<span class="per">/mo</span>' +
+               '<span class="yr">' + fmt(annual) + '/yr</span></td>';
+      }).join('');
+      return '<tr><td class="tcell"><div class="tname">' + tier.name + '</div><div class="tnote">' + tier.note + '</div></td>' + cells + '</tr>';
+    }).join('');
+
+    // onboarding
     var onb = Number(el('onb').value) || 0;
     var od = Number(el('od').value);
     el('odlbl').textContent = od + '%';
     var disc = onb * (1 - od/100);
     el('onbDisc').textContent = fmt(disc);
     var savedOnb = onb - disc;
-    var monthlyDiscBad = base * 0.10 * 12;
-    el('compare').innerHTML = '<strong>Why discount onboarding, not the monthly:</strong> giving ' + fmt(savedOnb) + ' off the one-time onboarding fee costs you once. A comparable 10% monthly discount would bleed ' + fmt(monthlyDiscBad) + ' every year it runs. Discount the fee, protect the recurring.';
+    var growthBase = Number(el('bGrowth').value) || 0;
+    var monthlyDiscBad = growthBase * 0.10 * 12;
+    el('compare').innerHTML = '<strong>Why discount onboarding, not the monthly:</strong> giving ' + fmt(savedOnb) + ' off the one-time onboarding fee costs you once. A comparable 10% monthly discount on a Growth retainer would bleed ' + fmt(monthlyDiscBad) + ' every year it runs. Discount the fee, protect the recurring.';
   }
-  ['base','p6','p3','pm','onb','od'].forEach(function(id){ el(id).addEventListener('input', render); });
+
+  ['bStarter','bGrowth','bScale','p6','p3','pm','onb','od'].forEach(function(id){ el(id).addEventListener('input', render); });
   render();
 })();
 </script>
