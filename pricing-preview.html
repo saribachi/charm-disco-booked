@@ -158,6 +158,25 @@
   .li-copy p { color: var(--ink-soft); font-size: .97rem; margin-top: 3px; }
   .li-price { font-size: 1.4rem; font-weight: 800; color: var(--purple-deep); white-space: nowrap; letter-spacing: -.5px; }
   .li-price span { font-size: .82rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+
+  /* Best-fit self-selection line */
+  .bestfit { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .9rem; line-height: 1.45; color: var(--ink-soft); }
+  .bestfit span { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .9px; text-transform: uppercase; color: var(--purple); margin-bottom: 4px; }
+
+  /* Self-diagnosis section */
+  .diag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 760px) { .diag-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
+  .diag-item { display: flex; gap: 15px; align-items: flex-start; background: #fff; border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 26px 24px; box-shadow: var(--shadow-card); }
+  .diag-item .dnum { flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; background: var(--purple-soft);
+    color: var(--purple); font-size: .82rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+  .diag-item p { font-size: 1rem; line-height: 1.45; color: var(--ink); font-weight: 500; }
+  .diag-cta { text-align: center; margin-top: 38px; }
+
+  /* Embedded booking calendar */
+  #book { scroll-margin-top: 84px; }
+  .cal-panel { margin-top: 28px; background: #fff; border-radius: 20px; padding: 8px; box-shadow: 0 18px 50px rgba(0,0,0,.22); overflow: hidden; }
+  .cal-panel iframe { width: 100%; min-height: 720px; border: 0; display: block; border-radius: 14px; }
   .tier .book { margin-top: 24px; width: 100%; }
 
   .escape {
@@ -238,7 +257,7 @@
       <a class="txt" href="#tiers">Pricing</a>
       <a class="txt" href="#proof">Why it converts</a>
       <a class="txt" href="#how">How it works</a>
-      <a class="book book-primary nav-cta" href="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c">Book a call</a>
+      <a class="book book-primary nav-cta" href="#book">Book a call</a>
     </div>
   </div>
 </nav>
@@ -251,7 +270,7 @@
     <h1>We fill your pipeline with <span class="grad">qualified opportunities</span></h1>
     <p class="subhead">We build and run the outbound system that fills your pipeline, so your team closes instead of prospects.</p>
     <div class="hero-cta">
-      <a class="book book-primary" href="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c">Book a call <span class="book-arrow">&rarr;</span></a>
+      <a class="book book-primary" href="#book">Book a call <span class="book-arrow">&rarr;</span></a>
       <a class="book book-ghost" href="#tiers">See what fits</a>
     </div>
     <p class="reassure">30-minute fit call. No commitment.</p>
@@ -290,7 +309,8 @@
           <li><span class="check">&#10003;</span><span>Core reporting dashboard</span></li>
           <li><span class="check">&#10003;</span><span>Shared strategist</span></li>
           <li><span class="check">&#10003;</span><span>Replies flagged for your team to work</span></li>
-        </ul>        <a class="book book-ghost" href="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c">Book a call</a>
+        </ul>
+        <p class="bestfit"><span>Best fit</span>You have your own sales follow-up handled and want the outbound machine built and run.</p>        <a class="book book-ghost" href="#book">Book a call</a>
       </div>
 
       <!-- Growth -->
@@ -313,7 +333,8 @@
           <li><span class="check">&#10003;</span><span>Light CRM integration</span></li>
           <li><span class="check">&#10003;</span><span>Dedicated strategist</span></li>
           <li><span class="check">&#10003;</span><span>Performance reviews</span></li>
-        </ul>        <a class="book book-primary" href="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c">Book a call</a>
+        </ul>
+        <p class="bestfit"><span>Best fit</span>You want the replies handled and qualified pipeline handed to your team.</p>        <a class="book book-primary" href="#book">Book a call</a>
       </div>
 
       <!-- Scale -->
@@ -336,12 +357,13 @@
           <li><span class="check">&#10003;</span><span>Managed plus priority reply handling</span></li>
           <li><span class="check">&#10003;</span><span>Complex CRM integration</span></li>
           <li><span class="check">&#10003;</span><span>Executive and C-level reporting</span></li>
-        </ul>        <a class="book book-primary" href="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c">Book a call</a>
+        </ul>
+        <p class="bestfit"><span>Best fit</span>You want opportunities booked onto your calendar, not just surfaced.</p>        <a class="book book-primary" href="#book">Book a call</a>
       </div>
 
     </div>
 
-    <p class="escape">Not ready for a full program? <a href="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c">Run a single campaign to see the system work, from $1,000.</a></p>
+    <p class="escape">Not ready for a full program? <a href="#book">Run a single campaign to see the system work, from $1,000.</a></p>
     <p class="price-note">All prices monthly. Best rate goes to longer commitments or paying up front.</p>
 
     <div class="li-band">
@@ -353,6 +375,24 @@
         </div>
         <div class="li-price">From $500 <span>/ account / mo</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SELF-DIAGNOSIS ===== -->
+<section class="block" id="diagnose">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Is this you?</span>
+      <h2>If two of these sound familiar, outbound is your bottleneck</h2>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-item"><span class="dnum">01</span><p>Your reps are prospecting instead of closing.</p></div>
+      <div class="diag-item"><span class="dnum">02</span><p>Your emails land in spam and you cannot say why.</p></div>
+      <div class="diag-item"><span class="dnum">03</span><p>Your pipeline swings month to month with no system behind it.</p></div>
+    </div>
+    <div class="diag-cta">
+      <a class="book book-primary" href="#book">Book a call <span class="book-arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -426,12 +466,13 @@
 </section>
 
 <!-- ===== FINAL CTA ===== -->
-<section class="final">
-  <img class="wiz wiz-final" src="assets/wizards/wizard-highfive.png" alt="" aria-hidden="true" />
+<section class="final" id="book">
   <div class="final-card reveal">
-    <h2>Let us fill your pipeline so your team can close</h2>
+    <h2>Book your fit call</h2>
     <p>Tell us where you are. We will show you what fits. No pressure to pick the biggest plan.</p>
-    <a class="book book-primary" href="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c">Book a call <span class="book-arrow">&rarr;</span></a>
+    <div class="cal-panel">
+      <iframe src="https://api.leadconnectorhq.com/widget/booking/KDdgICxdFa0FJQgNSt8c" id="KDdgICxdFa0FJQgNSt8c_booking" scrolling="no" title="Book a call with Charm" style="width:100%;border:none;overflow:hidden;"></iframe>
+    </div>
     <p class="reassure">30-minute fit call. No commitment.</p>
   </div>
 </section>
@@ -443,6 +484,7 @@
   </div>
 </footer>
 
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 <script>
   // Reveal on scroll
   const io = new IntersectionObserver((entries) => {
