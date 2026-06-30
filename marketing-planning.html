@@ -1113,13 +1113,17 @@
 <!-- ===== EMBEDDED MARKDOWN (synced to v2.1 sources) ===== -->
 
 <script type="text/markdown" id="md-em-gtm">
-# Charm GTM Nurture Sequence (v2.1)
+# Charm GTM Nurture Sequence (v2.2)
 
-**Purpose:** 7 emails between booking and the call, every CTA pointing back to the thank-you page. The page is the payload. It doesn't matter which email they open.
+**Purpose:** 7 emails between booking and the call, every CTA pointing back to the thank-you page. The page is the payload. It doesn't matter which email they open, the resource is always one click away.
 
-**Voice:** Wizard lexicon at ~90%; Chris does the final pass. "Discovery call" never appears in prospect copy. It's just "the call."
+**Positioning (aligned to the pricing page):** Message-market fit for outbound. Most outbound fails on the message, not the volume. We find the message that books meetings, what to say and who to say it to, then scale it. Deliverability is table stakes (full at every tier, never gated), not the headline.
 
-**Style rules:** Read & Remedy lexicon. No em dashes in send copy. Doctor analogy retired; magic frame only.
+**Voice:** Wizard lexicon at ~90%; Chris does the final pass. Sharp first, magic second. "Discovery call" never appears in prospect copy. It's just "the call."
+
+**Style rules:** Read & Remedy lexicon. No em dashes in send copy (reads AI). Doctor analogy retired; magic frame only.
+
+**Thank-you page (clean URL, canonical):** https://go.hirecharm.com/thankyou-gtm
 
 ---
 
@@ -1128,29 +1132,33 @@
 | Email | Send | Beat |
 |-------|------|------|
 | 1 | Immediately on booking | Confirmation + the page |
-| 2 | +3 hours | Why we built Charm |
-| 3 | +7 hours (same-day evening) | Infrastructure is the real value |
+| 2 | +3 hours | The message, not the volume |
+| 3 | +7 hours (same-day evening) | Message-market fit is the value |
 | 4 | Day 1 | Your peers are already doing this |
 | 5 | Day 2 | The gap-sell |
 | 6 | Day 3 | We're ready |
 | 7 | Day of call (morning) | Day-of note |
 
-**Appointment-anchored layer:** T-24h short reminder (skip if Email 6 went out within 12 hours) plus a T-2h one-liner with the Meet link.
+**Appointment-anchored layer (on top of the above, from the GHL appointment field):**
+- **T-24h:** short reminder (can merge with Email 6 if the booking window is short; GHL rule: skip if Email 6 went out within the last 12 hours)
+- **T-2h:** one-liner with the Meet link
 
-**Guards (GHL):**
-- **Hard stop:** all sends cease the moment the appointment time passes
-- **Same-day branch:** call booked under 24h out gets Email 1 plus the T-2h reminder only
-- Copy locks here first; the GHL dynamic build is wired separately
+**Guards to wire in GHL:**
+- **Hard stop:** all sends cease the moment the appointment time passes (goal/exit on appointment datetime). Nobody gets a nurture email after the meeting.
+- **Same-day branch:** if the call is booked under 24 hours out, send Email 1 plus the T-2h reminder only. Light touch; don't fire 7 emails into a 6-hour window.
+- Copy locks here first. The GHL dynamic build gets wired separately.
 
 ---
 
 ## Email 1: Booking Confirmation
 
-**Subject:** Your call is booked for [Date/Time] · **Preview:** You're all set. Here's your head start.
+**Subject:** Your call is booked for [Date/Time]
+
+**Preview:** You're all set. Here's your head start.
 
 You're locked in for **[DATE & TIME]**. Here's your **[GOOGLE MEET LINK]**.
 
-Before we hop on, spend five minutes here: **[THANK YOU PAGE LINK]**
+Before we hop on, spend five minutes here: **https://go.hirecharm.com/thankyou-gtm**
 
 It answers the questions everyone asks: who we are, what working with us actually looks like, how long this takes. Go through it and we skip the basics on the call and get straight to the good stuff.
 
@@ -1161,97 +1169,119 @@ It answers the questions everyone asks: who we are, what working with us actuall
 
 We'll get our read on the situation, then show you exactly what we'd do about it.
 
-See you then. **Chris** · Charm
+See you then.
+
+**Chris** · Charm
 
 ---
 
-## Email 2: Why We Built Charm
+## Email 2: The Message, Not the Volume
 
-**Subject:** Why we built Charm · **Preview:** Traditional outbound is dead. Here's what replaced it.
+**Subject:** Why we built Charm
 
-Most outbound today is spray-and-pray: buy a list, run a sequence, light a candle. It doesn't work. Never has.
+**Preview:** Most outbound fails on the message, not the volume.
 
-What actually works looks a lot like magic from the outside. And like most magic, it's mostly unglamorous machinery underneath:
+Most outbound fails for one reason, and it's not the one everyone blames. It isn't volume. It's the message.
 
-- A domain and IP reputation that actually lands emails
+Teams buy a bigger list, run a heavier sequence, send more, and wonder why nothing books. Sending more of the wrong message to the wrong people just gets you ignored faster.
+
+What actually works is finding the message that books meetings, what to say and who to say it to, then scaling that. That is the hard part, and it is the part we do.
+
+Underneath it sits the unglamorous machinery that makes any of it land:
+
+- A domain and IP reputation that actually reaches the inbox
 - A legitimate warmup so you don't get blacklisted
 - Data pipelines so nobody's hand-updating spreadsheets
 - Words that read like a human wrote them. Because one did.
 
-That machinery is what we build. The enchantments that do the work while you sleep.
+We build the machinery so the message lands, then we find the message that works and scale it. The enchantments that do the work while you sleep.
 
-**Want to see how it fits together?** **[THANK YOU PAGE LINK]**
+**Want to see how it fits together?** It's all on the page: **https://go.hirecharm.com/thankyou-gtm**
 
-Talk soon. **Chris**
+Talk soon.
+
+**Chris**
 
 ---
 
-## Email 3: Infrastructure Is the Real Value
+## Email 3: Message-Market Fit Is the Real Value
 
-**Subject:** Why companies hire us (it's not the copywriting) · **Preview:** The unglamorous magic nobody talks about.
+**Subject:** Why companies hire us (it's not more volume)
 
-Here's what people think they're hiring us for: "someone to write my sequences and run my outbound."
+**Preview:** Anyone can send more. That was never the hard part.
 
-Here's what they're actually hiring us for: "I never want to think about domain reputation, deliverability, data quality, or compliance again."
+Here's what people think they're hiring us for: "someone to send more outbound."
 
-The second one is worth 10x the first.
+Here's what they're actually hiring us for: "find the message that books meetings, and the people to send it to, then run the whole thing."
 
-You can learn to write a decent cold email. You're probably not going to run your own server infrastructure and IP warmup without hiring a full-time person. And if your emails don't land in the inbox, the copy never mattered.
+The second one is the whole game. Anyone can send more email. Finding what to say and who to say it to, the message that actually gets replies, is the hard part. That's what we do.
 
-That's the unglamorous magic. It's also the part nobody else does right.
+Deliverability still has to be perfect, or the best message in the world never lands. So we treat it as table stakes: warmed, monitored, full at every tier, never gated. But deliverability gets you to the inbox. The message is what books the meeting.
 
-**The full picture is on the page:** **[THANK YOU PAGE LINK]**
+We test what to say and who to say it to, find what works, then scale it. You get the right message at scale, not a louder version of the wrong one.
 
-See you at the call. **Chris**
+**The full picture is on the page:** **https://go.hirecharm.com/thankyou-gtm**
+
+See you at the call.
+
+**Chris**
 
 ---
 
 ## Email 4: Your Peers Are Already Doing This
 
-**Subject:** How HelloHero built $30M in pipeline in 3 months · **Preview:** They were in the same spot you're in now.
+**Subject:** How HelloHero built $30M in pipeline in 3 months
+
+**Preview:** They were in the same spot you're in now.
 
 You're not the first to take this call. A couple of the teams we run outbound for:
 
-**HelloHero.** We mapped every decision maker at every single high school in the United States, then built and ran the outbound to reach them. Over $30M in pipeline in 3 months.
+**HelloHero.** We mapped every decision maker at every single high school in the United States, then found the message that landed and ran the outbound to reach them. Over $30M in pipeline in 3 months.
 
-**Spout Water.** Over 700 positive responses in 4 months, including names like The North Face and Costco.
+**SpoutWater.** Over 700 positive responses in 4 months, including names like The North Face and Costco.
 
-Same playbook both times. We got the leads, we built the infrastructure, we wrote the words. They decided what they wanted to say. We did the rest.
+Same playbook both times. We found the message that booked meetings, what to say and who to say it to, then scaled what worked. Not luck. A system, run the same way every time.
 
-That's the whole point. This works because the system is built and a team runs it the same way every time, not because anyone got lucky.
+**More proof is on the page:** **https://go.hirecharm.com/thankyou-gtm**
 
-**More proof is on the page:** **[THANK YOU PAGE LINK]**
+Looking forward to it.
 
-Looking forward to it. **Chris**
+**Chris**
 
 ---
 
 ## Email 5: The Gap-Sell
 
-**Subject:** Quick question for the call · **Preview:** You already know the question I'm going to ask.
+**Subject:** Quick question for the call
+
+**Preview:** You already know the question I'm going to ask.
 
 You already know the question I'm going to ask on the call, so here it is early:
 
 **Do you think the system you've got right now actually gets you where you want to go?**
 
-Most founders say no. They're doing outbound, but it's not predictable, it's not professional, and it's not producing the volume they need.
+Most founders say no. They're sending plenty and still not booking the meetings they need. That's almost always a message problem, not a volume problem.
 
 That's the gap. On the call we'll ask:
 - What's the goal? (Revenue, deal count, whatever you actually measure)
 - How far off are you?
 - What would have to change?
 
-If the answer is "leads and infrastructure," we're probably a fit. If it's something else, we'll tell you that too.
+If the gap is the message and who you're putting it in front of, we're probably a fit. If it's something else, we'll tell you that too.
 
-**Prep is on the page if you want it:** **[THANK YOU PAGE LINK]**
+**Prep is on the page if you want it:** **https://go.hirecharm.com/thankyou-gtm**
 
-See you soon. **Chris**
+See you soon.
+
+**Chris**
 
 ---
 
 ## Email 6: We're Ready
 
-**Subject:** We're ready for [DATE] · **Preview:** Here's exactly what's going to happen.
+**Subject:** We're ready for [DATE]
+
+**Preview:** Here's exactly what's going to happen.
 
 Quick one. We're looking forward to this.
 
@@ -1263,29 +1293,37 @@ Here's how the call goes:
 
 No pressure, no pitch theater. The wizards are ready when you are.
 
-**Last look before the call:** **[THANK YOU PAGE LINK]**
+**Last look before the call:** **https://go.hirecharm.com/thankyou-gtm**
 
-See you there. **Chris** · Charm
+See you there.
+
+**Chris** · Charm
 
 ---
 
 ## Email 7: Day-of Note
 
-**Subject:** Today at [TIME], link inside · **Preview:** Ready when you are.
+**Subject:** Today at [TIME], link inside
+
+**Preview:** Ready when you are.
 
 We're on for today at **[TIME]**. Join here: **[GOOGLE MEET LINK]**
 
-If anything's changed, just reply to this email. **Chris**
+If anything's changed, just reply to this email.
+
+**Chris**
 
 ---
 
 ## Appointment-Anchored Reminders (layered)
 
 **T-24h:**
-> **Subject:** Tomorrow at [TIME]. Quick note: we're on for tomorrow at **[TIME]**. Link's here when you need it: **[GOOGLE MEET LINK]**. If you haven't seen the page yet, it's worth five minutes: **[THANK YOU PAGE LINK]**. Chris
+> **Subject:** Tomorrow at [TIME]
+> Quick note: we're on for tomorrow at **[TIME]**. Link's here when you need it: **[GOOGLE MEET LINK]**. If you haven't seen the page yet, it's worth five minutes: **https://go.hirecharm.com/thankyou-gtm**. Chris
 
 **T-2h:**
-> **Subject:** See you at [TIME], link inside. **[GOOGLE MEET LINK]**. See you in a couple hours. Chris
+> **Subject:** See you at [TIME], link inside
+> **[GOOGLE MEET LINK]**. See you in a couple hours. Chris
 
 *(Logistics, not nagging. No "confirm your attendance" language anywhere.)*
 
@@ -1293,21 +1331,29 @@ If anything's changed, just reply to this email. **Chris**
 
 ## Flags for Chris & Sarah
 
-- [x] Email 4: real customer names + metrics live (HelloHero $30M pipeline / 3mo · Spout Water 700+ positive responses / 4mo incl. The North Face + Costco)
+- [x] Realigned to message-market-fit positioning (mirrors pricing page: "message problem, not a volume problem"; deliverability framed as table stakes)
+- [x] Thank-you links set to the clean canonical URL (https://go.hirecharm.com/thankyou-gtm)
+- [x] Email 4: real customer names + metrics live (HelloHero $30M pipeline / 3mo · SpoutWater 700+ positive responses / 4mo incl. The North Face + Costco). NOTE: "SpoutWater" spelling aligned to the testimonial on the thank-you page.
 - [ ] Chris voice pass on all 7 + reminders
-- [x] Lexicon locked: Read & Remedy (reflected in Emails 1, 6)
+- [x] Lexicon locked: Read & Remedy (reflected across the sequence)
 - [x] Style pass: em dashes removed, doctor analogy retired
 - [ ] GHL build: booking-anchored sends + appointment layer + hard-stop guard + same-day branch
 </script>
 
 <script type="text/markdown" id="md-em-cs">
-# Charm CS-Flex Nurture Sequence (v2.1)
+# Charm CS-Flex Nurture Sequence (v2.2)
 
 **Purpose:** 7 emails between booking and the call, every CTA pointing back to the CS thank-you page. These leads are tagged **CS-Flex** in GHL.
 
-**The offer:** Flex. $2.50 per ticket solved, ~30% the cost of a typical service agent, Charm sets up the whole system (helpdesk, QA, training, coaching), manages end to end, charges only when a ticket is fully resolved. ICP: D2C / e-commerce.
+**The offer this sequence sells:** Flex. $2.50 per ticket solved, ~30% the cost of a typical service agent, Charm sets up the whole system (helpdesk, QA, training, coaching), manages it end to end, and only charges when a ticket is fully resolved. ICP: D2C / e-commerce.
 
-**Style rules:** Read & Remedy lexicon. No em dashes in send copy. Doctor analogy retired; magic frame only.
+**Positioning note:** Message-market fit is the GTM/outbound story (see the pricing page and the GTM sequence). It does NOT apply here. CS-Flex sells on resolved-ticket economics, flexible capacity, and coached quality. What carries across from the new positioning is the Read & Remedy frame ("first the read, then the remedy") and the clean thank-you link, both reflected below.
+
+**Voice:** Wizard lexicon at ~90% (advocates, wizards, coaching); Chris does the final pass. "Discovery call" never appears. It's just "the call."
+
+**Style rules:** Read & Remedy lexicon. No em dashes in send copy (reads AI). Doctor analogy retired; magic frame only.
+
+**Thank-you page (clean URL, canonical):** https://go.hirecharm.com/thankyou-cs
 
 ---
 
@@ -1323,19 +1369,23 @@ If anything's changed, just reply to this email. **Chris**
 | 6 | Day 3 | The gap-sell |
 | 7 | Day of call (morning) | Day-of note |
 
-**Appointment-anchored layer:** T-24h + T-2h (same templates as GTM, CS page link). **Guards:** hard stop at appointment time · same-day branch (under 24h: Email 1 + T-2h only).
+**Appointment-anchored layer:** T-24h reminder + T-2h link one-liner (same templates as GTM, CS page link).
+
+**Guards (GHL):** hard stop at appointment time · same-day branch (under 24h out: Email 1 + T-2h only) · copy locks here first, dynamic build wired separately.
 
 ---
 
 ## Email 1: Booking Confirmation
 
-**Subject:** Your call is booked for [Date/Time] · **Preview:** Let's fix your ticket queue.
+**Subject:** Your call is booked for [Date/Time]
+
+**Preview:** Let's fix your ticket queue.
 
 You're locked in for **[DATE & TIME]**. Here's your **[GOOGLE MEET LINK]**.
 
-Before we talk, spend five minutes here: **[THANK YOU PAGE LINK]**
+Before we talk, spend five minutes here: **https://go.hirecharm.com/thankyou-cs**
 
-It covers how Flex works ($2.50 a ticket, solved. Yes, really), who our advocates are, and what the call is actually about.
+It covers how Flex works ($2.50 a ticket, solved. Yes, really), who our advocates are, and what the call is actually about. Go through it and we skip the basics and get straight to what's happening with your support.
 
 **Worth thinking about before we hop on:**
 - Your ticket volume (per day, and when it spikes)
@@ -1344,13 +1394,17 @@ It covers how Flex works ($2.50 a ticket, solved. Yes, really), who our advocate
 
 We'll get our read on the situation, then show you exactly what we'd do about it.
 
-See you then. **Chris** · Charm
+See you then.
+
+**Chris** · Charm
 
 ---
 
 ## Email 2: Why Support Staffing Matters
 
-**Subject:** Support isn't a cost center. It's where customers decide to stay. · **Preview:** Treat it like a cost and they'll leave like one.
+**Subject:** Support isn't a cost center. It's where customers decide to stay.
+
+**Preview:** Treat it like a cost and they'll leave like one.
 
 Most teams treat support like a cost to shrink: cheapest hire, biggest knowledge base, fewest humans.
 
@@ -1363,15 +1417,19 @@ What works:
 - Advocates who know your product cold, and sound like you, not like a script
 - Real humans solving real problems
 
-That's Flex. **How it works is on the page:** **[THANK YOU PAGE LINK]**
+That's Flex. **How it works is on the page:** **https://go.hirecharm.com/thankyou-cs**
 
-Talk soon. **Chris**
+Talk soon.
+
+**Chris**
 
 ---
 
 ## Email 3: The Operational Advantage
 
-**Subject:** You don't have to hire for seasonality · **Preview:** This changes everything in e-commerce.
+**Subject:** You don't have to hire for seasonality
+
+**Preview:** This changes everything in e-commerce.
 
 E-commerce support has a math problem: your volume spikes at launches, holidays, Black Friday, and your team is a fixed number. So you panic-hire temps, train them mid-crisis, half don't work out, and in January you're paying people to watch an empty queue.
 
@@ -1379,15 +1437,19 @@ Flex deletes that whole cycle. You tell us "we're expecting 3x next month." We s
 
 Not cheaper because we cut corners. Cheaper because you only pay when a customer actually gets helped.
 
-**The model's on the page:** **[THANK YOU PAGE LINK]**
+**The model's on the page:** **https://go.hirecharm.com/thankyou-cs**
 
-See you at the call. **Chris**
+See you at the call.
+
+**Chris**
 
 ---
 
 ## Email 4: E-commerce Teams Using This Model
 
-**Subject:** [PLACEHOLDER: real e-comm customer name/category] + how they run support now · **Preview:** You're not the first to solve this.
+**Subject:** [PLACEHOLDER: real e-comm customer name/category] + how they run support now
+
+**Preview:** You're not the first to solve this.
 
 You're not alone in this. E-commerce teams like **[CUSTOMER 1]**, **[CUSTOMER 2]**, and **[CUSTOMER 3]** already run their queues on Flex.
 
@@ -1395,15 +1457,19 @@ You're not alone in this. E-commerce teams like **[CUSTOMER 1]**, **[CUSTOMER 2]
 
 The point: this model works. Not as a band-aid. It actually solves the scaling math that in-house teams can't.
 
-**Testimonials are on the page:** **[THANK YOU PAGE LINK]**
+**Testimonials are on the page:** **https://go.hirecharm.com/thankyou-cs**
 
-Looking forward to it. **Chris**
+Looking forward to it.
+
+**Chris**
 
 ---
 
 ## Email 5: Coaching or Condoning
 
-**Subject:** If you're not coaching, you're condoning · **Preview:** The line we run our whole support operation on.
+**Subject:** If you're not coaching, you're condoning
+
+**Preview:** The line we run our whole support operation on.
 
 Here's a line we live by at Charm: **if you're not coaching, you're condoning.**
 
@@ -1413,15 +1479,19 @@ Flex bakes the coaching in. Every advocate gets QA'd and coached constantly; new
 
 You don't pay extra for any of that. It's just how the magic gets made.
 
-**More on the page:** **[THANK YOU PAGE LINK]**
+**More on the page:** **https://go.hirecharm.com/thankyou-cs**
 
-Talk soon. **Chris**
+Talk soon.
+
+**Chris**
 
 ---
 
 ## Email 6: The Gap-Sell
 
-**Subject:** Quick question for the call · **Preview:** You already know the question I'm going to ask.
+**Subject:** Quick question for the call
+
+**Preview:** You already know the question I'm going to ask.
 
 You already know the question I'm going to ask on the call, so here it is early:
 
@@ -1434,30 +1504,38 @@ On the call we'll ask:
 - What's it costing you, in people, in churn, in your own time?
 - What would support look like if it just... worked?
 
-If the answer is "flexible capacity without the hiring chaos," Flex is probably your fit.
+If the answer is "flexible capacity without the hiring chaos," Flex is probably your fit. If it's something else, we'll tell you that too.
 
-**Prep is on the page:** **[THANK YOU PAGE LINK]**
+**Prep is on the page:** **https://go.hirecharm.com/thankyou-cs**
 
-See you soon. **Chris**
+See you soon.
+
+**Chris**
 
 ---
 
 ## Email 7: Day-of Note
 
-**Subject:** Today at [TIME], link inside · **Preview:** Ready when you are.
+**Subject:** Today at [TIME], link inside
+
+**Preview:** Ready when you are.
 
 We're on for today at **[TIME]**. Join here: **[GOOGLE MEET LINK]**
 
-If anything's changed, just reply to this email. **Chris**
+If anything's changed, just reply to this email.
+
+**Chris**
 
 ---
 
 ## Flags for Chris & Sarah
 
+- [x] Thank-you links set to the clean canonical URL (https://go.hirecharm.com/thankyou-cs)
 - [ ] Email 4: real e-commerce customer name/category + one real metric (required input)
 - [ ] Chris voice pass on all 7
 - [x] Lexicon locked: Read & Remedy (reflected in Emails 1, 6)
 - [x] Style pass: em dashes removed, doctor analogy retired
+- [x] Positioning checked: message-market fit is GTM-only and intentionally NOT used here
 - [ ] GHL build: CS-Flex tag + booking-anchored sends + appointment layer + guards
 
 > ASSUMPTION: Buyer persona is an e-commerce ops/CS leader (sometimes the founder at smaller D2C brands). The dedicated-agents offer is deliberately absent from this sequence. It's a post-read conversation on the call, not a funnel message.
