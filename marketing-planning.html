@@ -221,6 +221,8 @@
   </div>
   <div class="tabs">
     <button class="tab active" data-panel="overview">Overview</button>
+    <button class="tab" data-panel="vsl-gtm">VSL <span class="badge gtm">GTM</span></button>
+    <button class="tab" data-panel="vsl-cs">VSL <span class="badge cs">CS-FLEX</span></button>
     <button class="tab" data-panel="ty-gtm">Thank-You <span class="badge gtm">GTM</span></button>
     <button class="tab" data-panel="ty-cs">Thank-You <span class="badge cs">CS-FLEX</span></button>
     <button class="tab" data-panel="em-gtm">Emails <span class="badge gtm">GTM</span></button>
@@ -244,6 +246,16 @@
         <p>All assets revised per Chris's walkthrough, plus a style pass. The lexicon: enchantments (engines), spell books (frameworks), advocates and advocates-in-training (service agents), wizards (senior people), "doing magic on your behalf," and <strong>read &amp; remedy</strong> in place of diagnose and prescribe. The doctor analogy is retired entirely. Em dashes are stripped from all copy so nothing reads AI. Thank-you pages render live from source files; markdown tabs are embedded copies synced to this revision.</p>
 
         <div class="overview-grid">
+          <div class="asset-card">
+            <h3>VSL Landing <span class="pill gtm">GTM</span></h3>
+            <div class="file">gtm.hirecharm.com</div>
+            <p style="font-size:13.5px">Top of funnel for the GTM route: "CharmBook, 90-Day GTM Engine." The published VSL landing page where outbound prospects land and book the call. Everything downstream (thank-you page, email sequence, call, deck) flows from here.</p>
+          </div>
+          <div class="asset-card">
+            <h3>VSL Landing <span class="pill cs">CS-Flex</span></h3>
+            <div class="file">cs.hirecharm.com</div>
+            <p style="font-size:13.5px">Top of funnel for the CS route: "CharmBook, 90-Day Customer Success Engine." The published VSL landing page where D2C/e-commerce prospects land and book the call, feeding the CS-Flex thank-you page and sequence.</p>
+          </div>
           <div class="asset-card">
             <h3>Thank-You Page <span class="pill gtm">GTM</span></h3>
             <div class="file">thankyou-gtm.html</div>
@@ -333,6 +345,8 @@
   </div>
 
   <!-- THANK YOU PAGES (live iframes) -->
+  <div class="panel" id="vsl-gtm"><iframe src="https://gtm.hirecharm.com/" title="GTM VSL Landing, gtm.hirecharm.com" loading="lazy"></iframe></div>
+  <div class="panel" id="vsl-cs"><iframe src="https://cs.hirecharm.com/" title="CS-Flex VSL Landing, cs.hirecharm.com" loading="lazy"></iframe></div>
   <div class="panel" id="ty-gtm"><iframe src="thankyou-gtm" title="Thank You GTM"></iframe></div>
   <div class="panel" id="ty-cs"><iframe src="thankyou-cs" title="Thank You CS Flex"></iframe></div>
 
