@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Let's talk when you have room | Charm</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap">
+<!--
+  META PIXEL: PAGEVIEW ONLY ON THIS PAGE.
+  Never Lead, CompleteRegistration or Schedule. Lead is the optimization target on all
+  three ad sets, so firing it here teaches Meta to go and find more people who fail the
+  qualification gate. To measure DQ volume use the custom event DQ_AtCapacity; custom events
+  are trackable and never become optimization targets by accident.
+
+  The larger risk is not this page. iClosed's own Meta integration has a "Disqualified"
+  trigger, and that is what fires conversions now. Map it to a custom event or to
+  nothing at all. Do not map it to Lead. Verify in Events Manager after building.
+-->
+<style>
+    :root{
+      --bg:#ffffff; --bg-soft:#f7f5fb; --brand:#6f49b2; --brand-deep:#380c83;
+      --brand-soft:#7d4cad; --brand-tint:#f3edfb; --ink:#17181b; --line:#e8e6ed; --mute:#6b6772;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family:'Inter Tight',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
+    }
+    .bar{background:#fff; border-bottom:1px solid var(--line); padding:1.1rem 1.5rem;}
+    .bar .mark{font-weight:800; font-size:1.1rem; letter-spacing:-0.02em; color:var(--ink);}
+    .wrap{max-width:41rem; margin:0 auto; padding:3.25rem 1.5rem 4.5rem;}
+    .kicker{
+      font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+      color:var(--brand); margin:0 0 1.1rem;
+    }
+    .kicker::before{content:"\2726"; margin-right:.5rem;}
+    h1{
+      font-size:clamp(1.85rem,5vw,2.7rem); font-weight:800; line-height:1.12;
+      letter-spacing:-0.025em; text-wrap:balance; margin:0 0 1.5rem;
+    }
+    p{margin:0 0 1.15rem; max-width:38rem;}
+    .lede{font-size:1.09rem;}
+    strong{font-weight:700;}
+    .said{
+      background:var(--brand-tint); border-left:3px solid var(--brand);
+      padding:1.1rem 1.35rem; margin:0 0 1.75rem; border-radius:0 6px 6px 0;
+    }
+    .said .label{
+      display:block; font-size:.7rem; font-weight:700; letter-spacing:.13em;
+      text-transform:uppercase; color:var(--brand-deep); margin-bottom:.35rem;
+    }
+    .said .answer{font-weight:600; color:var(--ink); margin:0;}
+    .rule{border:0; border-top:1px solid var(--line); margin:2.5rem 0;}
+    .next{background:var(--bg-soft); border:1px solid var(--line); border-radius:10px; padding:1.75rem;}
+    .next h2{font-size:1.16rem; font-weight:700; letter-spacing:-0.01em; margin:0 0 .7rem;}
+    .next p{font-size:.97rem; color:var(--mute);}
+    .next p:last-of-type{margin-bottom:1.3rem;}
+    .btn{
+      display:inline-block; background:var(--brand); color:#fff; text-decoration:none;
+      font-weight:600; font-size:.97rem; padding:.8rem 1.5rem; border-radius:7px;
+      transition:background .15s ease;
+    }
+    .btn:hover,.btn:focus-visible{background:var(--brand-deep);}
+    .btn:focus-visible{outline:3px solid var(--brand-soft); outline-offset:2px;}
+    .next .alt{font-size:.88rem; color:var(--mute); margin:.9rem 0 0;}
+    .next .alt a{color:var(--brand); font-weight:600;}
+    .fix{margin-top:2.5rem; padding-top:1.75rem; border-top:1px solid var(--line);}
+    .fix h2{font-size:1rem; font-weight:700; margin:0 0 .55rem;}
+    .fix p{font-size:.95rem; color:var(--mute); margin-bottom:.9rem;}
+    .fix a{color:var(--brand); font-weight:600;}
+    .closer{
+      margin-top:2.75rem; font-size:1.02rem; font-weight:600; color:var(--brand-deep);
+      font-style:italic;
+    }
+    footer{border-top:1px solid var(--line); padding:1.75rem 1.5rem; text-align:center;}
+    footer p{font-size:.85rem; color:var(--mute); margin:0 auto; max-width:38rem;}
+    @media (max-width:34rem){ .wrap{padding-top:2.25rem;} }
+
+</style>
+</head>
+<body>
+<header class="bar"><span class="mark">charm</span></header>
+<main class="wrap">
+<p class="kicker">We're not going to book that call</p>
+<h1>Let's talk when you have room</h1>
+
+<div class="said">
+  <span class="label">What you told us</span>
+  <p class="answer">Could you service 20 more qualified meetings next month?
+  No, we're at capacity</p>
+</div>
+
+<p class="lede">You told us you couldn't service 20 more meetings next month. So filling
+your calendar right now would create a problem instead of solving one.</p>
+
+<p>Honestly, this is the best reason to get turned down by us. It means the constraint on
+your business isn't pipeline. Buying more of it would just move the bottleneck somewhere
+more expensive.</p>
+
+<p>Fix delivery capacity first. Then come get the pipeline.</p>
+
+<hr class="rule">
+
+<div class="next">
+  <h2>We'll check back in 90 days</h2>
+  <p>No call needed. We already have your details. When you have room to fill, you'll
+  hear from us, or you can come straight back to the booking page.</p>
+  <!-- The 90 day check-in runs off the iclosed-dq-capacity tag in GHL, so there is
+       nothing for the visitor to opt into here.
+       SLOT: Flex cross-sell belongs here, but only once the CS lane exists in iClosed.
+       Today the CS funnel still runs on the GHL scheduler, a separate system. -->
+  <a class="btn" href="https://app.iclosed.io/e/hirecharm/revenue-engine">Book when you're ready</a>
+</div>
+
+<div class="fix">
+  <h2>Think we read that wrong?</h2>
+  <p>If that answer was about this month specifically and you're hiring into it, book
+  again.</p>
+  <p><a href="https://app.iclosed.io/e/hirecharm/revenue-engine">Book a reading</a></p>
+</div>
+
+<p class="closer">This isn't a no. It's a not yet.</p>
+</main>
+<footer><p>Charm builds outbound engines for B2B companies ready to service what they fill.</p></footer>
+</body>
+</html>
