@@ -147,6 +147,8 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   }
   .hero-video:hover .frame { transform: translateY(-6px); box-shadow: 0 64px 130px -44px rgba(56,12,131,0.5), 0 22px 54px -18px rgba(0,0,0,0.2); }
   .hero-video .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .hero-video .frame wistia-player { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  wistia-player[media-id='siu2mrid58']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/siu2mrid58/swatch'); filter: blur(5px); }
   .hero-video .cap { margin: 16px auto 0; font-family: 'Inter Tight', sans-serif; font-size: 12px; color: var(--mute); letter-spacing: 0.03em; }
 
   /* ─── proof logo row ─── */
@@ -364,12 +366,14 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3.5v3.5M16 3.5v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9 14.6l2.2 2.2 4-4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Your call is booked</span>
     <h1>You're on the calendar. <span class="accent">Here's your head start.</span></h1>
     <p class="sub">Most of what people ask us on the call is already answered below. Watch first, then bring whatever's left.</p>
-    <!-- PLACEHOLDER: Replace with the main thank-you VSL Chris records -->
+    <!-- Main thank-you video: Wistia siu2mrid58 ("TY Page - GTM", 2:27). Swapped from the YouTube placeholder Nov 22 2026. -->
     <div class="hero-video">
       <div class="frame">
-        <iframe src="https://www.youtube.com/embed/Yzhh9BuWKj8" allowfullscreen="" loading="lazy"></iframe>
+        <script src="https://fast.wistia.com/player.js" async></script>
+        <script src="https://fast.wistia.com/embed/siu2mrid58.js" async type="module"></script>
+        <wistia-player media-id="siu2mrid58" aspect="1.7777777777777777"></wistia-player>
       </div>
-      <div class="cap">A quick hello from Chris · 2 min</div>
+      <div class="cap">Watch this before your call · 2 min</div>
     </div>
     <!-- ═══ DO THESE BEFORE YOUR CALL: sits directly under the hero video ═══ -->
     <div class="prep-wrap" id="next">
