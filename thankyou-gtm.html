@@ -688,33 +688,27 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
       var ua = navigator.userAgent || '';
       var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
       var isAndroid = /Android/.test(ua);
-      function androidIntent(pkg, web) { return 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=' + pkg + ';S.browser_fallback_url=' + encodeURIComponent(web) + ';end'; }
+      function androidIntent(pkg) { return 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=' + pkg + ';end'; }
       var W = { gmail: 'https://mail.google.com/mail/u/0/#search/invitation', outlook: 'https://outlook.office.com/mail/', gcal: 'https://calendar.google.com/calendar/u/0/r', ocal: 'https://outlook.office.com/calendar/' };
       var sets = {
         email: { title: 'Open your email app', opts: [
-          { label: 'Gmail', ios: 'googlegmail://', android: androidIntent('com.google.android.gm', W.gmail), web: W.gmail },
-          { label: 'Outlook', ios: 'ms-outlook://', android: androidIntent('com.microsoft.office.outlook', W.outlook), web: W.outlook },
+          { label: 'Gmail', ios: 'googlegmail://', android: androidIntent('com.google.android.gm'), web: W.gmail },
+          { label: 'Outlook', ios: 'ms-outlook://', android: androidIntent('com.microsoft.office.outlook'), web: W.outlook },
           { label: 'Apple Mail', ios: 'message://', iosOnly: true }
         ] },
         calendar: { title: 'Open your calendar app', opts: [
-          { label: 'Google Calendar', ios: 'googlecalendar://', android: androidIntent('com.google.android.calendar', W.gcal), web: W.gcal },
-          { label: 'Outlook Calendar', ios: 'ms-outlook://calendar', android: androidIntent('com.microsoft.office.outlook', W.ocal), web: W.ocal },
+          { label: 'Google Calendar', ios: 'googlecalendar://', android: androidIntent('com.google.android.calendar'), web: W.gcal },
+          { label: 'Outlook Calendar', ios: 'ms-outlook://calendar', android: androidIntent('com.microsoft.office.outlook'), web: W.ocal },
           { label: 'Apple Calendar', ios: 'calshow://', iosOnly: true }
         ] }
       };
       var sheet = document.getElementById('sheet'), list = document.getElementById('sheet-list'), ttl = document.getElementById('sheet-title');
       function closeSheet() { sheet.hidden = true; }
       function go(o) {
-        if (isIOS && o.ios) {
-          var left = false, onVis = function () { if (document.hidden) left = true; };
-          document.addEventListener('visibilitychange', onVis);
-          window.location.href = o.ios;
-          setTimeout(function () { document.removeEventListener('visibilitychange', onVis); if (!left && !document.hidden && o.web) window.open(o.web, '_blank', 'noopener'); }, 1500);
-        } else if (isAndroid && o.android) {
-          window.location.href = o.android;
-        } else if (o.web) {
-          window.open(o.web, '_blank', 'noopener');
-        }
+        /* phones: open the chosen app only, never a browser page. Computers: open the web version in a new tab. */
+        if (isIOS && o.ios) { window.location.href = o.ios; }
+        else if (isAndroid && o.android) { window.location.href = o.android; }
+        else if (o.web) { window.open(o.web, '_blank', 'noopener'); }
         closeSheet();
       }
       function openSheet(kind) {
