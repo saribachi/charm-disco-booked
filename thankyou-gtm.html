@@ -353,6 +353,14 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     .qa-up .sec-head { margin-bottom: 14px; }
     .swipe-cue { margin: 12px 0 0; }
   }
+  /* spacing around the Q&A carousel: needs section.s.* specificity to beat the generic section.s padding */
+  section.s.qa-up { padding-top: 48px; padding-bottom: 16px; }
+  section.s.dm-up { padding-top: 15px; padding-bottom: 40px; }
+  @media (max-width: 880px) {
+    section.s.qa-up { padding-top: 32px; padding-bottom: 0; }
+    section.s.qa-up .bento { padding-bottom: 4px; }
+    section.s.dm-up { padding-top: 16px; padding-bottom: 32px; }
+  }
   .pbtn[hidden], .prep-when[hidden] { display: none; }
   .pbtn:hover { background: var(--brand-deep); }
   .pbtn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
