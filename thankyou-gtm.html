@@ -361,6 +361,16 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     section.s.qa-up .bento { padding-bottom: 4px; }
     section.s.dm-up { padding-top: 16px; padding-bottom: 32px; }
   }
+  /* app chooser sheet */
+  .sheet-back { position: fixed; inset: 0; z-index: 100; background: rgba(23,24,27,0.5); display: flex; align-items: flex-end; justify-content: center; }
+  .sheet-back[hidden] { display: none; }
+  .sheet { width: 100%; max-width: 440px; background: #fff; border-radius: 20px 20px 0 0; padding: 26px 22px calc(22px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -20px 60px -20px rgba(0,0,0,0.35); }
+  .sheet h3 { margin: 0; font-size: 22px; letter-spacing: -0.02em; text-align: center; }
+  .sheet-sub { margin: 6px 0 18px; text-align: center; color: var(--mute); font-size: 15px; }
+  .sheet-list { display: grid; gap: 10px; }
+  .sheet-list .pbtn { width: 100%; }
+  .sheet-close { width: 100%; margin-top: 12px; }
+  @media (min-width: 700px) { .sheet-back { align-items: center; } .sheet { border-radius: 20px; } }
   .pbtn[hidden], .prep-when[hidden] { display: none; }
   .pbtn:hover { background: var(--brand-deep); }
   .pbtn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
@@ -417,9 +427,8 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
         </div>
         <p class="prep-find">Find your invite</p>
         <div class="prep-actions">
-          <a class="pbtn" href="https://mail.google.com/mail/u/0/#search/invitation" target="_blank" rel="noopener">Open Gmail</a>
-          <a class="pbtn ghost" href="https://outlook.office.com/mail/" target="_blank" rel="noopener">Open Outlook</a>
-          <a class="pbtn ghost" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener">Open Google Calendar</a>
+          <button class="pbtn" type="button" data-open="email">Open email app</button>
+          <button class="pbtn ghost" type="button" data-open="calendar">Open calendar app</button>
         </div>
         <p class="prep-when" id="prepwhen" hidden></p>
       </div>
@@ -652,6 +661,16 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     els.forEach(function (el) { io.observe(el); });
   })();
 </script>
+<!-- App chooser (email / calendar) opened by the quick-link buttons -->
+<div class="sheet-back" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <h3 id="sheet-title">Open your email app</h3>
+    <p class="sheet-sub">Pick the one you use.</p>
+    <div class="sheet-list" id="sheet-list"></div>
+    <button class="pbtn ghost sheet-close" type="button" id="sheet-close">Cancel</button>
+  </div>
+</div>
+
 <script>
   (function () {
     var q = new URLSearchParams(location.search);
@@ -663,6 +682,55 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     /* Add to calendar only shows when the booking redirect passes ?start= (otherwise the event would have no time) */
     if (cal && st) { cal.href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('Call with Charm') + '&dates=' + fmt(st) + '/' + fmt(en); cal.hidden = false; }
     if (w && when) { w.textContent = 'Your call: ' + when; w.hidden = false; }
+
+    /* ---- quick links: open the phone's email / calendar app, with a chooser ---- */
+    (function () {
+      var ua = navigator.userAgent || '';
+      var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var isAndroid = /Android/.test(ua);
+      function androidIntent(pkg, web) { return 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=' + pkg + ';S.browser_fallback_url=' + encodeURIComponent(web) + ';end'; }
+      var W = { gmail: 'https://mail.google.com/mail/u/0/#search/invitation', outlook: 'https://outlook.office.com/mail/', gcal: 'https://calendar.google.com/calendar/u/0/r', ocal: 'https://outlook.office.com/calendar/' };
+      var sets = {
+        email: { title: 'Open your email app', opts: [
+          { label: 'Gmail', ios: 'googlegmail://', android: androidIntent('com.google.android.gm', W.gmail), web: W.gmail },
+          { label: 'Outlook', ios: 'ms-outlook://', android: androidIntent('com.microsoft.office.outlook', W.outlook), web: W.outlook },
+          { label: 'Apple Mail', ios: 'message://', iosOnly: true }
+        ] },
+        calendar: { title: 'Open your calendar app', opts: [
+          { label: 'Google Calendar', ios: 'googlecalendar://', android: androidIntent('com.google.android.calendar', W.gcal), web: W.gcal },
+          { label: 'Outlook Calendar', ios: 'ms-outlook://calendar', android: androidIntent('com.microsoft.office.outlook', W.ocal), web: W.ocal },
+          { label: 'Apple Calendar', ios: 'calshow://', iosOnly: true }
+        ] }
+      };
+      var sheet = document.getElementById('sheet'), list = document.getElementById('sheet-list'), ttl = document.getElementById('sheet-title');
+      function closeSheet() { sheet.hidden = true; }
+      function go(o) {
+        if (isIOS && o.ios) {
+          var left = false, onVis = function () { if (document.hidden) left = true; };
+          document.addEventListener('visibilitychange', onVis);
+          window.location.href = o.ios;
+          setTimeout(function () { document.removeEventListener('visibilitychange', onVis); if (!left && !document.hidden && o.web) window.open(o.web, '_blank', 'noopener'); }, 1500);
+        } else if (isAndroid && o.android) {
+          window.location.href = o.android;
+        } else if (o.web) {
+          window.open(o.web, '_blank', 'noopener');
+        }
+        closeSheet();
+      }
+      function openSheet(kind) {
+        var set = sets[kind]; ttl.textContent = set.title; list.innerHTML = '';
+        set.opts.forEach(function (o, n) {
+          if (o.iosOnly && !isIOS) return;
+          var b = document.createElement('button'); b.type = 'button'; b.className = 'pbtn' + (n ? ' ghost' : ''); b.textContent = o.label;
+          b.addEventListener('click', function () { go(o); }); list.appendChild(b);
+        });
+        sheet.hidden = false;
+      }
+      document.querySelectorAll('[data-open]').forEach(function (b) { b.addEventListener('click', function () { openSheet(b.getAttribute('data-open')); }); });
+      document.getElementById('sheet-close').addEventListener('click', closeSheet);
+      sheet.addEventListener('click', function (e) { if (e.target === sheet) closeSheet(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
+    })();
     var dm = document.getElementById('dmbtn');
     if (dm) dm.addEventListener('click', function () {
       var text = "I booked a call with Charm about outbound" + (when ? ' on ' + when : '') + ". I'd like you on the call with me.";
