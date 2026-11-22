@@ -727,7 +727,16 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     })();
     var dm = document.getElementById('dmbtn');
     if (dm) dm.addEventListener('click', function () {
-      var text = "I booked a call with Charm about outbound" + (when ? ' on ' + when : '') + ". I'd like you on the call with me.";
+      /* same shape as the iClosed confirmation text ("You're scheduled for [event] on [date] at [time]"), written for a partner */
+      var tz = q.get('timeZone'), dateStr = '', timeStr = '';
+      if (st) {
+        var o1 = { weekday: 'long', month: 'long', day: 'numeric' }, o2 = { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' };
+        if (tz) { o1.timeZone = tz; o2.timeZone = tz; }
+        try { dateStr = st.toLocaleDateString([], o1); timeStr = st.toLocaleTimeString([], o2); }
+        catch (e) { o1 = { weekday: 'long', month: 'long', day: 'numeric' }; o2 = { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }; dateStr = st.toLocaleDateString([], o1); timeStr = st.toLocaleTimeString([], o2); }
+      }
+      var text = "Hey, I booked a call with Charm" + (dateStr ? " for " + dateStr + " at " + timeStr : "") + ". Charm builds and runs cold outbound for B2B companies, and I'd like you on the call with me since it's a decision we'd make together. " +
+        (dateStr ? "Can you hold that time? " : "I'll send you the time. ") + "I'll forward you the calendar invite from my email.";
       if (navigator.share) { navigator.share({ title: 'Join my call with Charm', text: text }).catch(function () {}); }
       else { location.href = 'mailto:?subject=' + encodeURIComponent('Join my call with Charm') + '&body=' + encodeURIComponent(text); }
     });
