@@ -336,6 +336,15 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .prep-widget { margin-top: 24px; }
   .pbtn.ghost { background: transparent; color: var(--brand-deep); border: 1px solid var(--line-2); box-shadow: none; }
   .pbtn.ghost:hover { background: var(--brand-tint); border-color: var(--brand); }
+  .qa-up { padding-top: 48px; }
+  .logo-band { padding: 8px 0 56px; text-align: center; }
+  .logo-band .logos { margin-top: 0; }
+  .logo-band .company { margin-top: 24px; color: var(--mute); }
+  @media (max-width: 600px) {
+    .qa-up { padding-top: 32px; }
+    .logo-band { padding-bottom: 40px; }
+    .prep-intro { font-size: 15px; margin-bottom: 13px; }
+  }
   .pbtn[hidden], .prep-when[hidden] { display: none; }
   .pbtn:hover { background: var(--brand-deep); }
   .pbtn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
@@ -399,28 +408,11 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
         <p class="prep-when" id="prepwhen" hidden></p>
       </div>
     </div>
-    <!-- Client logos: same B2B set as the apply.hirecharm.com strip (Nov 16 2026). Replaced the old creator/sports reel. -->
-    <div class="logos">
-      <span class="wm">SUTRO</span>
-      <img src="assets/clients-b2b/inkd.png" alt="Ink'd Stores">
-      <img src="assets/clients-b2b/stone-products.svg" alt="Stone Products Unlimited">
-      <span class="wm">path.</span>
-      <img src="assets/clients-b2b/highline.svg" alt="Highline">
-      <img src="assets/clients-b2b/orderlymeds.png" alt="OrderlyMeds">
-      <img src="assets/clients-b2b/selery.png" alt="Selery">
-      <img src="assets/clients-b2b/camereye.png" alt="CamerEye">
-      <img src="assets/clients-b2b/poolify.webp" alt="Poolify">
-      <img src="assets/clients-b2b/lsc100.svg" alt="LSC100">
-    </div>
-    <span class="label company"><span class="spark">✦</span> You're in good company</span>
   </div>
 </header>
 
-<!-- ═══ FLOURISH ═══ -->
-<div class="flourish"><span class="fx">✦</span></div>
-
 <!-- ═══ Q&A VIDEOS ═══ -->
-<section class="s alt">
+<section class="s alt qa-up">
   <img class="wiz wiz-bento" src="assets/wizards/wizard-orb.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
@@ -459,6 +451,29 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     <p class="swipe-cue">Swipe for more &rarr;</p>
   </div>
 </section>
+
+<!-- ═══ CLIENT LOGOS (moved below the Q&A carousel) ═══ -->
+<section class="logo-band">
+  <div class="container">
+    <!-- Client logos: same B2B set as the apply.hirecharm.com strip (Nov 16 2026). Replaced the old creator/sports reel. -->
+    <div class="logos">
+      <span class="wm">SUTRO</span>
+      <img src="assets/clients-b2b/inkd.png" alt="Ink'd Stores">
+      <img src="assets/clients-b2b/stone-products.svg" alt="Stone Products Unlimited">
+      <span class="wm">path.</span>
+      <img src="assets/clients-b2b/highline.svg" alt="Highline">
+      <img src="assets/clients-b2b/orderlymeds.png" alt="OrderlyMeds">
+      <img src="assets/clients-b2b/selery.png" alt="Selery">
+      <img src="assets/clients-b2b/camereye.png" alt="CamerEye">
+      <img src="assets/clients-b2b/poolify.webp" alt="Poolify">
+      <img src="assets/clients-b2b/lsc100.svg" alt="LSC100">
+    </div>
+    <span class="label company"><span class="spark">✦</span> You're in good company</span>
+  </div>
+</section>
+
+<!-- ═══ FLOURISH ═══ -->
+<div class="flourish"><span class="fx">✦</span></div>
 
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="s">
