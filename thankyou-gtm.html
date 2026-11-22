@@ -273,7 +273,7 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     .quotes { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
-    .hero { padding-top: 8px; }
+    .hero { padding-top: 36px; }
     .hero h1 { font-size: 7vw; white-space: nowrap; }
     .qa-title { font-size: 8vw; }
     .qa-intro { display: none; }
@@ -315,14 +315,38 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .case .by .who { font-size: 14px; font-weight: 600; color: var(--ink); }
   .case .by .role { font-size: 12px; color: var(--mute); margin-top: 2px; }
   @media (max-width: 880px) { .cases { grid-template-columns: 1fr; } .case { padding: 28px 22px; } }
+
+  /* ─── pre-call checklist + decision-maker card (structure borrowed from the Rank Ignition TY page) ─── */
+  .prep { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 30px 30px 32px; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.26), 0 2px 8px -4px rgba(56,12,131,0.08); }
+  .prep-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+  .prep-list li { display: flex; gap: 14px; align-items: flex-start; color: var(--mute); font-size: 16px; line-height: 1.5; }
+  .prep-list li b { color: var(--ink); font-weight: 600; }
+  .prep-ck { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--brand); margin-top: 2px; position: relative; }
+  .prep-ck::after { content: ""; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid var(--brand); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .prep-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  .prep-when { margin: 16px 0 0; color: var(--ink); font-weight: 600; font-size: 15px; }
+  .pbtn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 30px; border: 0; border-radius: 999px; background: var(--brand); color: #fff; font: 600 15px/1 'Inter Tight', sans-serif; text-decoration: none; cursor: pointer; box-shadow: 0 10px 28px -10px rgba(56,12,131,0.5); transition: background .2s ease; }
+  .pbtn[hidden], .prep-when[hidden] { display: none; }
+  .pbtn:hover { background: var(--brand-deep); }
+  .pbtn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .dm-card { max-width: 960px; margin: 0 auto; background: var(--brand-tint); border: 1px solid rgba(111,73,178,0.18); border-radius: 18px; padding: 30px 34px; display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .dm-card h2 { margin: 10px 0 0; font-size: clamp(24px, 3.6vw, 34px); letter-spacing: -0.02em; line-height: 1.15; }
+  .dm-card p { margin: 10px 0 0; color: var(--mute); max-width: 52ch; }
+  .swipe-cue { display: none; margin: 16px 0 0; text-align: center; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+  @media (max-width: 880px) {
+    /* Q&A videos become a swipe carousel on phones and tablets */
+    .bento { display: flex; grid-template-columns: none; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; margin: 0 -20px; padding: 4px 20px 18px; scrollbar-width: none; }
+    .bento::-webkit-scrollbar { display: none; }
+    .bento .vtile { flex: 0 0 82%; scroll-snap-align: center; }
+    .bento .vtile:hover { transform: none; }
+    .swipe-cue { display: block; }
+    .prep { padding: 24px 20px 26px; }
+    .pbtn { width: 100%; }
+    .dm-card { padding: 26px 22px; }
+  }
 </style>
 </head>
 <body>
-
-<!-- ═══ BRAND BAR ═══ -->
-<div class="brandbar">
-  <img src="assets/charm-logo.svg" alt="Charm">
-</div>
 
 <!-- ═══ HERO + MAIN VIDEO ═══ -->
 <header class="hero">
@@ -357,6 +381,29 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
 
 <!-- ═══ FLOURISH ═══ -->
 <div class="flourish"><span class="fx">✦</span></div>
+
+<!-- ═══ DO THESE BEFORE YOUR CALL (new, sits right under the hero video) ═══ -->
+<section class="s" id="next">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3.5v3.5M16 3.5v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9 14.6l2.2 2.2 4-4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Before your call</span>
+      <h2>Do these before your call.</h2>
+      <p class="intro">Takes two minutes. It's what keeps your slot held.</p>
+    </div>
+    <div class="prep">
+      <ul class="prep-list">
+        <li><span class="prep-ck" aria-hidden="true"></span><div><b>Accept the calendar invite.</b> Open the invite in your email and click Yes. Until you do, your time isn't held.</div></li>
+        <li><span class="prep-ck" aria-hidden="true"></span><div><b>Watch your texts and email.</b> Reminders come from our team, and a quick reply tells us you're coming.</div></li>
+        <li><span class="prep-ck" aria-hidden="true"></span><div><b>Watch the videos below.</b> Most of what people ask us on the call is already answered there.</div></li>
+      </ul>
+      <!-- ACCEPT-INVITE LINK: add the iClosed link here when RJ has it -->
+      <div class="prep-actions">
+        <a class="pbtn" id="addcal" href="https://calendar.google.com/calendar/render?action=TEMPLATE" target="_blank" rel="noopener" hidden>Add to calendar</a>
+      </div>
+      <p class="prep-when" id="prepwhen" hidden></p>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ Q&A VIDEOS ═══ -->
 <section class="s alt">
@@ -395,50 +442,7 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
         <div class="body"><div class="vnum">06</div><h3>The infrastructure story</h3><p>Three channels, three things, and why the infrastructure is what you're really paying for.</p></div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ═══ WHAT HAPPENS NEXT ═══ -->
-<section class="s">
-  <img class="wiz wiz-steps" src="assets/wizards/wizard-broom.png" alt="" aria-hidden="true">
-  <div class="container reveal">
-    <div class="sec-head">
-      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M6 21V4.5M6 5h11l-2 3.5 2 3.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Here's how it works</span>
-      <h2>What happens next.</h2>
-      <p class="intro">No maze, no homework, no surprise steps.</p>
-    </div>
-
-    <div class="steps">
-      <div class="step"><div class="n">01</div><h3>You show up to the call</h3><p>That's it. That's the whole ask.</p></div>
-      <div class="step"><div class="n">02</div><h3>We listen</h3><p>You talk about your business, your goals, what you've tried. You get the floor.</p></div>
-      <div class="step"><div class="n">03</div><h3>We understand what's broken</h3><p>We reflect back what we heard and where the gap is. Usually it's infrastructure.</p></div>
-      <div class="step"><div class="n">04</div><h3>If it's a fit, we send a proposal</h3><p>You see exactly what we'd build and why. No mystery, no pressure.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ READ & REMEDY ═══ -->
-<section class="s alt">
-  <img class="wiz wiz-duo" src="assets/wizards/wizard-read.png" alt="" aria-hidden="true">
-  <div class="container reveal">
-    <div class="sec-head">
-      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4 20L13.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.5 4.5l.85 2.15L20.5 7.5l-2.15.85L17.5 10.5l-.85-2.15L14.5 7.5l2.15-.85L17.5 4.5z" fill="currentColor"/></svg> The method</span>
-      <h2>We read first, then remedy.</h2>
-      <p class="intro">We don't hand you a package and hope it fits.</p>
-    </div>
-
-    <div class="duo">
-      <div class="cell">
-        <div class="step-n">01</div>
-        <h3>First, the read</h3>
-        <p>We get to know you and your business: what you're building, what's working, what's quietly leaking. No remedies until the read is done.</p>
-      </div>
-      <div class="cell tint">
-        <div class="step-n">02 <span class="spark">✦</span></div>
-        <h3>Then, the remedy</h3>
-        <p>Our wizards build the right enchantments for the specific things you told us, not a cookie-cutter package. Remedy, not menu.</p>
-      </div>
-    </div>
+    <p class="swipe-cue">Swipe for more &rarr;</p>
   </div>
 </section>
 
@@ -506,6 +510,50 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   </div>
 </section>
 
+<!-- ═══ WHAT HAPPENS NEXT ═══ -->
+<section class="s">
+  <img class="wiz wiz-steps" src="assets/wizards/wizard-broom.png" alt="" aria-hidden="true">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M6 21V4.5M6 5h11l-2 3.5 2 3.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Here's how it works</span>
+      <h2>What happens next.</h2>
+      <p class="intro">No maze, no homework, no surprise steps.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>You show up to the call</h3><p>That's it. That's the whole ask.</p></div>
+      <div class="step"><div class="n">02</div><h3>We listen</h3><p>You talk about your business, your goals, what you've tried. You get the floor.</p></div>
+      <div class="step"><div class="n">03</div><h3>We understand what's broken</h3><p>We reflect back what we heard and where the gap is. Usually it's infrastructure.</p></div>
+      <div class="step"><div class="n">04</div><h3>If it's a fit, we send a proposal</h3><p>You see exactly what we'd build and why. No mystery, no pressure.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ READ & REMEDY ═══ -->
+<section class="s alt">
+  <img class="wiz wiz-duo" src="assets/wizards/wizard-read.png" alt="" aria-hidden="true">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4 20L13.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.5 4.5l.85 2.15L20.5 7.5l-2.15.85L17.5 10.5l-.85-2.15L14.5 7.5l2.15-.85L17.5 4.5z" fill="currentColor"/></svg> The method</span>
+      <h2>We read first, then remedy.</h2>
+      <p class="intro">We don't hand you a package and hope it fits.</p>
+    </div>
+
+    <div class="duo">
+      <div class="cell">
+        <div class="step-n">01</div>
+        <h3>First, the read</h3>
+        <p>We get to know you and your business: what you're building, what's working, what's quietly leaking. No remedies until the read is done.</p>
+      </div>
+      <div class="cell tint">
+        <div class="step-n">02 <span class="spark">✦</span></div>
+        <h3>Then, the remedy</h3>
+        <p>Our wizards build the right enchantments for the specific things you told us, not a cookie-cutter package. Remedy, not menu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ FOUNDER ═══ -->
 <section class="s alt">
   <div class="container reveal">
@@ -521,6 +569,20 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
         <p>He's run GTM at growth stage, scaled outbound teams, and seen what works and what's vaporware. That experience is what the wizards run on.</p>
         <p>When he's not building Charm, he's testing sequences that probably shouldn't work but do.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DECISION-MAKER ASK ═══ -->
+<section class="s">
+  <div class="container reveal">
+    <div class="dm-card">
+      <div>
+        <span class="label brand"><span class="spark">✦</span> Does anyone else have a say?</span>
+        <h2>Bring your partner or co-founder.</h2>
+        <p>If someone else signs off on a decision like this, have them on the call so we only have to do this once.</p>
+      </div>
+      <button class="pbtn" type="button" id="dmbtn">Send them the details</button>
     </div>
   </div>
 </section>
@@ -543,6 +605,25 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
     els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search);
+    function toDate(x) { if (!x) return null; var n = Number(x); var t = isNaN(n) ? Date.parse(x) : (x.length < 12 ? n * 1000 : n); return isNaN(t) ? null : new Date(t); }
+    var st = toDate(q.get('start')), en = toDate(q.get('end')) || (st ? new Date(st.getTime() + 30 * 60000) : null);
+    function fmt(t) { return t.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+    var when = st ? st.toLocaleString([], { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '';
+    var cal = document.getElementById('addcal'), w = document.getElementById('prepwhen');
+    /* Add to calendar only shows when the booking redirect passes ?start= (otherwise the event would have no time) */
+    if (cal && st) { cal.href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('Call with Charm') + '&dates=' + fmt(st) + '/' + fmt(en); cal.hidden = false; }
+    if (w && when) { w.textContent = 'Your call: ' + when; w.hidden = false; }
+    var dm = document.getElementById('dmbtn');
+    if (dm) dm.addEventListener('click', function () {
+      var text = "I booked a call with Charm about outbound" + (when ? ' on ' + when : '') + ". I'd like you on the call with me.";
+      if (navigator.share) { navigator.share({ title: 'Join my call with Charm', text: text }).catch(function () {}); }
+      else { location.href = 'mailto:?subject=' + encodeURIComponent('Join my call with Charm') + '&body=' + encodeURIComponent(text); }
+    });
   })();
 </script>
 </body>
