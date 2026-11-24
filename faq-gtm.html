@@ -73,7 +73,7 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .label .ico { width: 17px; height: 17px; flex: none; display: block; }
 
   /* ─── ✦ flourish divider ─── */
-  .flourish { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 56px 0; }
+  .flourish { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 14px 0; }
   .flourish::before, .flourish::after { content: ""; height: 1px; width: 70px; background: linear-gradient(to right, transparent, var(--line-2)); }
   .flourish::after { background: linear-gradient(to left, transparent, var(--line-2)); }
   .flourish .fx { color: var(--brand); font-size: 16px; }
@@ -95,7 +95,7 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .brandbar img { height: 24px; vertical-align: middle; }
 
   /* ─── hero ─── */
-  .hero { position: relative; overflow: hidden; padding: 84px 0 68px; text-align: center; }
+  .hero { position: relative; overflow: hidden; padding: 50px 0 34px; text-align: center; }
   .hero::before {
     content: ""; position: absolute; top: -240px; left: 50%; transform: translateX(-50%);
     width: 920px; height: 640px; pointer-events: none; z-index: 0;
@@ -125,8 +125,8 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .sparkles .s7 { top: 7%; left: 46%; font-size: 11px; opacity: 0.35; animation: tw 4s ease-in-out infinite 0.6s; }
   @keyframes tw { 0%, 100% { opacity: 0.2; transform: scale(0.9); } 50% { opacity: 0.7; transform: scale(1.1); } }
   .hero h1 {
-    font-size: clamp(46px, 6.2vw, 84px); line-height: 1.0; font-weight: 700;
-    letter-spacing: -0.04em; margin: 0 auto 22px; max-width: 960px; color: var(--ink);
+    font-size: clamp(42px, 6.2vw, 80px); line-height: 1.0; font-weight: 700;
+    letter-spacing: -0.04em; margin: 0 auto 22px; max-width: none; color: var(--ink);
   }
   .hero h1 .accent {
     display: block;
@@ -140,7 +140,7 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .hero .sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--mute); margin: 0 auto; max-width: 580px; line-height: 1.55; }
 
   /* ─── hero video (the centerpiece) ─── */
-  .hero-video { max-width: 940px; margin: 56px auto 0; }
+  .hero-video { max-width: 940px; margin: 22px auto 0; }
   .hero-video .frame {
     position: relative; aspect-ratio: 16 / 9; border-radius: 22px; overflow: hidden;
     background: var(--dark); border: 1px solid rgba(111,73,178,0.22);
@@ -149,6 +149,8 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   }
   .hero-video:hover .frame { transform: translateY(-6px); box-shadow: 0 64px 130px -44px rgba(56,12,131,0.5), 0 22px 54px -18px rgba(0,0,0,0.2); }
   .hero-video .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .hero-video .frame wistia-player { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  wistia-player[media-id='siu2mrid58']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/siu2mrid58/swatch'); filter: blur(5px); }
   .hero-video .cap { margin: 16px auto 0; font-family: 'Inter Tight', sans-serif; font-size: 12px; color: var(--mute); letter-spacing: 0.03em; }
 
   /* ─── proof logo row ─── */
@@ -275,7 +277,10 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     .quotes { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
-    .hero { padding-top: 8px; }
+    .hero { padding-top: 22px; }
+    .hero h1 { font-size: 7vw; white-space: nowrap; }
+    .qa-title { font-size: 8vw; }
+    .qa-intro { display: none; }
   }
 
   /* logo reel: translucent frosted banner + full-color logos */
@@ -293,89 +298,141 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .wiz-results { top: 14px; right: 12px; width: 200px; }
   @media (max-width: 1200px) { .wiz { display: none; } }
 
-  /* ─── booking buttons (FAQ pages) ─── */
-  .cta-row { text-align: center; margin-top: 40px; }
-  .hero .cta-row { margin-top: 34px; }
-  .btn-book {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--brand); color: #fff; text-decoration: none;
-    font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
-    padding: 16px 32px; border-radius: 999px;
-    box-shadow: 0 16px 36px -16px rgba(56,12,131,0.65);
-    transition: background .15s ease, transform .15s ease;
+  /* logo reel: text wordmarks + uneven logo heights */
+  .logos .wm { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--ink-2); }
+  .logos img { max-width: 150px; object-fit: contain; }
+  /* testimonials: featured video + case cards */
+  .t-video { max-width: 760px; margin: 0 auto 44px; text-align: center; }
+  .t-video .frame { position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; background: var(--dark); border: 1px solid rgba(111,73,178,0.22); box-shadow: 0 36px 80px -36px rgba(56,12,131,0.4); }
+  .t-video .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .t-video .cap { margin-top: 14px; font-size: 13px; color: var(--mute); letter-spacing: 0.02em; }
+  .t-video .cap strong { color: var(--ink); }
+  .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+  .case { background: #fff; padding: 34px 32px; border: 1px solid rgba(255,255,255,0.7); border-radius: 18px; text-align: left; display: flex; flex-direction: column; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.26), 0 2px 8px -4px rgba(56,12,131,0.07); }
+  .case h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; margin: 0 0 14px; color: var(--ink); }
+  .case .cq { font-size: 15.5px; color: var(--ink-2); line-height: 1.55; margin: 0 0 18px; font-weight: 500; }
+  .case .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+  .case .chip { background: var(--brand-tint); border-radius: 10px; padding: 8px 12px; font-size: 12px; color: var(--mute); line-height: 1.2; }
+  .case .chip b { display: block; font-size: 17px; color: var(--brand-deep); letter-spacing: -0.02em; }
+  .case .by { margin-top: auto; display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
+  .case .by img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
+  .case .by .who { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .case .by .role { font-size: 12px; color: var(--mute); margin-top: 2px; }
+  @media (max-width: 880px) { .cases { grid-template-columns: 1fr; } .case { padding: 28px 22px; } }
+
+  /* ─── pre-call checklist + decision-maker card (structure borrowed from the Rank Ignition TY page) ─── */
+  .prep { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 30px 30px 32px; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.26), 0 2px 8px -4px rgba(56,12,131,0.08); }
+  .prep-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+  .prep-list li { display: flex; gap: 14px; align-items: flex-start; color: var(--mute); font-size: 16px; line-height: 1.5; }
+  .prep-list li b { color: var(--ink); font-weight: 600; }
+  .prep-ck { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--brand); margin-top: 2px; position: relative; }
+  .prep-ck::after { content: ""; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid var(--brand); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .prep-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  .prep-when { margin: 16px 0 0; color: var(--ink); font-weight: 600; font-size: 15px; }
+  .pbtn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 30px; border: 0; border-radius: 999px; background: var(--brand); color: #fff; font: 600 15px/1 'Inter Tight', sans-serif; text-decoration: none; cursor: pointer; box-shadow: 0 10px 28px -10px rgba(56,12,131,0.5); transition: background .2s ease; }
+  .prep-wrap { margin: 44px auto 0; text-align: left; }
+  .prep-title { margin: 0; text-align: center; font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
+  .prep-intro { margin: 12px 0 26px; text-align: center; font-size: 17px; color: var(--mute); }
+  .prep-find { margin: 26px 0 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+  .prep-actions { margin-top: 0; }
+  .prep-widget { margin-top: 24px; }
+  .pbtn.ghost { background: transparent; color: var(--brand-deep); border: 1px solid var(--line-2); box-shadow: none; }
+  .pbtn.ghost:hover { background: var(--brand-tint); border-color: var(--brand); }
+  .qa-up { padding-top: 48px; }
+  .logo-band { padding: 8px 0 56px; text-align: center; }
+  .logo-band .logos { margin-top: 0; }
+  .logo-band .company { margin-top: 24px; color: var(--mute); }
+  @media (max-width: 600px) {
+    .qa-up { padding-top: 32px; }
+    .logo-band { padding-bottom: 40px; }
+    .prep-intro { font-size: 15px; margin-bottom: 13px; }
   }
-  .btn-book:hover { background: var(--brand-deep); transform: translateY(-1px); }
-  .btn-book:focus-visible { outline: 3px solid var(--brand-tint); outline-offset: 3px; }
-  .btn-book .spark { font-size: 0.8em; opacity: 0.85; }
+  .dm-up { padding: 8px 0 40px; }
+  .logo-band { padding-top: 0; }
+  .qa-up { padding-bottom: 26px; }
+  @media (max-width: 880px) {
+    .qa-up { padding-bottom: 2px; }
+    .qa-up .sec-head { margin-bottom: 14px; }
+    .swipe-cue { margin: 12px 0 0; }
+  }
+  /* spacing around the Q&A carousel: needs section.s.* specificity to beat the generic section.s padding */
+  section.s.qa-up { padding-top: 48px; padding-bottom: 16px; }
+  section.s.dm-up { padding-top: 15px; padding-bottom: 40px; }
+  @media (max-width: 880px) {
+    section.s.qa-up { padding-top: 32px; padding-bottom: 0; }
+    section.s.qa-up .bento { padding-bottom: 4px; }
+    section.s.dm-up { padding-top: 16px; padding-bottom: 32px; }
+  }
+  /* app chooser sheet */
+  .sheet-back { position: fixed; inset: 0; z-index: 100; background: rgba(23,24,27,0.5); display: flex; align-items: flex-end; justify-content: center; }
+  .sheet-back[hidden] { display: none; }
+  .sheet { width: 100%; max-width: 440px; background: #fff; border-radius: 20px 20px 0 0; padding: 26px 22px calc(22px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -20px 60px -20px rgba(0,0,0,0.35); }
+  .sheet h3 { margin: 0; font-size: 22px; letter-spacing: -0.02em; text-align: center; }
+  .sheet-sub { margin: 6px 0 18px; text-align: center; color: var(--mute); font-size: 15px; }
+  .sheet-list { display: grid; gap: 10px; }
+  .sheet-list .pbtn { width: 100%; }
+  .sheet-close { width: 100%; margin-top: 12px; }
+  @media (min-width: 700px) { .sheet-back { align-items: center; } .sheet { border-radius: 20px; } }
+  .pbtn[hidden], .prep-when[hidden] { display: none; }
+  .pbtn:hover { background: var(--brand-deep); }
+  .pbtn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .dm-card { max-width: 960px; margin: 0 auto; background: var(--brand-tint); border: 1px solid rgba(111,73,178,0.18); border-radius: 18px; padding: 30px 34px; display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .dm-card h2 { margin: 10px 0 0; font-size: clamp(24px, 3.6vw, 34px); letter-spacing: -0.02em; line-height: 1.15; }
+  .dm-card p { margin: 10px 0 0; color: var(--mute); max-width: 52ch; }
+  .swipe-cue { display: none; margin: 16px 0 0; text-align: center; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+  @media (max-width: 880px) {
+    /* Q&A videos become a swipe carousel on phones and tablets */
+    .bento { display: flex; grid-template-columns: none; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; margin: 0 -20px; padding: 4px 20px 18px; scrollbar-width: none; }
+    .bento::-webkit-scrollbar { display: none; }
+    .bento .vtile { flex: 0 0 82%; scroll-snap-align: center; }
+    .bento .vtile:hover { transform: none; }
+    .swipe-cue { display: block; }
+    .prep { padding: 24px 20px 26px; }
+    .pbtn { width: 100%; }
+    .prep-wrap { margin-top: 32px; }
+    .dm-card { padding: 26px 22px; }
+  }
+
+  /* ─── FAQ page: booking button rows + echo lines (buttons reuse .pbtn) ─── */
+  .cta-row { text-align: center; margin-top: 36px; }
+  .hero .cta-row { margin-top: 30px; }
   .cta-row .fine { font-size: 13px; color: var(--mute); margin: 12px 0 0; }
   .vtile .echo { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line-2); font-size: 13.5px; color: var(--ink-2); font-style: italic; }
 </style>
 </head>
 <body>
 
-<!-- ═══ UTILITY BAR ═══ -->
-<div class="utilbar">Short videos, straight answers <span class="spark">✦</span> watch what helps, then grab a time</div>
-
-<!-- ═══ BRAND BAR ═══ -->
-<div class="brandbar">
-  <img src="assets/charm-logo.svg" alt="Charm">
-</div>
-
 <!-- ═══ HERO + MAIN VIDEO ═══ -->
 <header class="hero">
   <img class="wiz wiz-hero" src="assets/wizards/wizard-cast.png" alt="" aria-hidden="true">
   <div class="container">
     <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3.5v3.5M16 3.5v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9 14.6l2.2 2.2 4-4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Before you book</span>
-    <h1>Questions before we talk?<span class="accent">Chris has answers.</span></h1>
-    <p class="sub">Most people want to know the same few things before they book. Chris answers them here, a couple of minutes each. Start with the hello.</p>
-    <!-- PLACEHOLDER: Replace with the main thank-you VSL Chris records -->
+    <h1>Questions before we talk? <span class="accent">Chris has answers.</span></h1>
+    <p class="sub">Most people want to know the same few things before they book. Chris answers them below, a couple of minutes each. Start here.</p>
+    <!-- Main thank-you video: Wistia siu2mrid58 ("TY Page - GTM", 2:27). Swapped from the YouTube placeholder Nov 22 2026. -->
     <div class="hero-video">
       <div class="frame">
-        <iframe src="https://www.youtube.com/embed/Yzhh9BuWKj8" allowfullscreen="" loading="lazy"></iframe>
+        <script src="https://fast.wistia.com/player.js" async></script>
+        <script src="https://fast.wistia.com/embed/siu2mrid58.js" async type="module"></script>
+        <wistia-player media-id="siu2mrid58" aspect="1.7777777777777777"></wistia-player>
       </div>
-      <div class="cap">A quick hello from Chris · 2 min</div>
+      <div class="cap">Start here · 2 min</div>
     </div>
     <div class="cta-row">
-      <a class="btn-book" data-book="top" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call <span class="spark">✦</span></a>
+      <a class="pbtn" data-book="top" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call</a>
     </div>
-    <!-- PLACEHOLDER: Swap in real client logos from Chris's folder. Currently mirroring the hirecharm.com homepage reel. -->
-    <div class="logos">
-      <img src="assets/logos/channel-5.png" alt="Channel 5">
-      <img src="assets/logos/xprize.png" alt="XPRIZE">
-      <img src="assets/logos/pizzafy.png" alt="Pizzafy">
-      <img src="assets/logos/brooklyn-nets.png" alt="Brooklyn Nets">
-      <img src="assets/logos/la-clippers.png" alt="LA Clippers">
-      <img src="assets/logos/klutch-sports.png" alt="Klutch Sports">
-      <img src="assets/logos/nelk-full-send.png" alt="NELK Full Send">
-      <img src="assets/logos/yes-theory.png" alt="Yes Theory">
-      <img src="assets/logos/impact-theory.png" alt="Impact Theory">
-      <img src="assets/logos/jubilee.png" alt="Jubilee">
-      <img src="assets/logos/crime-junkie-audiochuck.png" alt="Crime Junkie">
-      <img src="assets/logos/wolf-entertainment.png" alt="Wolf Entertainment">
-      <img src="assets/logos/therapy-gecko.png" alt="Therapy Gecko">
-      <img src="assets/logos/birds-arent-real.png" alt="Birds Aren't Real">
-      <img src="assets/logos/drew-binsky.png" alt="Drew Binsky">
-      <img src="assets/logos/jeff-wittek.png" alt="Jeff Wittek">
-      <img src="assets/logos/karl-jacobs.png" alt="Karl Jacobs">
-      <img src="assets/logos/young-the-giant.png" alt="Young the Giant">
-      <img src="assets/logos/roku-merch.png" alt="Roku">
-      <img src="assets/logos/served-roddick.png" alt="Served by Roddick">
-    </div>
-    <span class="label company"><span class="spark">✦</span> You're in good company</span>
   </div>
 </header>
 
-<!-- ═══ FLOURISH ═══ -->
-<div class="flourish"><span class="fx">✦</span></div>
-
 <!-- ═══ Q&A VIDEOS ═══ -->
-<section class="s alt">
+<section class="s alt qa-up">
   <img class="wiz wiz-bento" src="assets/wizards/wizard-orb.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M10.2 8.6l5 3.4-5 3.4V8.6z" fill="currentColor"/></svg> Watch what's relevant</span>
-      <h2>What people ask before they book.</h2>
-      <p class="intro">Short videos, a couple of minutes each. Watch what's relevant and skip what isn't.</p>
+      <h2 class="qa-title">What people ask before they book.</h2>
+      <p class="intro qa-intro">Short videos, a couple of minutes each. Watch what's relevant and skip what isn't.</p>
+      <p class="swipe-cue">Swipe for more &rarr;</p>
     </div>
 
     <!-- PLACEHOLDER: Replace each embed with the real Q&A video -->
@@ -406,43 +463,60 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
       </div>
     </div>
     <div class="cta-row">
-      <a class="btn-book" data-book="videos" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call <span class="spark">✦</span></a>
+      <a class="pbtn" data-book="videos" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ READ & REMEDY ═══ -->
-<section class="s">
-  <img class="wiz wiz-duo" src="assets/wizards/wizard-read.png" alt="" aria-hidden="true">
+<!-- ═══ DECISION-MAKER ASK ═══ -->
+<section class="s dm-up">
   <div class="container reveal">
-    <div class="sec-head">
-      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4 20L13.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.5 4.5l.85 2.15L20.5 7.5l-2.15.85L17.5 10.5l-.85-2.15L14.5 7.5l2.15-.85L17.5 4.5z" fill="currentColor"/></svg> The method</span>
-      <h2>We read first, then remedy.</h2>
-      <p class="intro">We don't hand you a package and hope it fits.</p>
-    </div>
-
-    <div class="duo">
-      <div class="cell">
-        <div class="step-n">01</div>
-        <h3>First, the read</h3>
-        <p>We get to know you and your business: what you're building, what's working, what's quietly leaking. No remedies until the read is done.</p>
+    <div class="dm-card">
+      <div>
+        <span class="label brand"><span class="spark">✦</span> Does anyone else have a say?</span>
+        <h2>Bring your partner or co-founder.</h2>
+        <p>If someone else signs off on a decision like this, send them this page and pick a time that works for both of you, so we only have to do this once.</p>
       </div>
-      <div class="cell tint">
-        <div class="step-n">02 <span class="spark">✦</span></div>
-        <h3>Then, the remedy</h3>
-        <p>Our wizards build the right enchantments for the specific things you told us, not a cookie-cutter package. Remedy, not menu.</p>
-      </div>
+      <button class="pbtn" type="button" id="dmbtn">Send them this page</button>
     </div>
   </div>
 </section>
+
+<!-- ═══ CLIENT LOGOS (moved below the Q&A carousel) ═══ -->
+<section class="logo-band">
+  <div class="container">
+    <!-- Client logos: same B2B set as the apply.hirecharm.com strip (Nov 16 2026). Replaced the old creator/sports reel. -->
+    <div class="logos">
+      <span class="wm">SUTRO</span>
+      <img src="assets/clients-b2b/inkd.png" alt="Ink'd Stores">
+      <img src="assets/clients-b2b/stone-products.svg" alt="Stone Products Unlimited">
+      <span class="wm">path.</span>
+      <img src="assets/clients-b2b/highline.svg" alt="Highline">
+      <img src="assets/clients-b2b/orderlymeds.png" alt="OrderlyMeds">
+      <img src="assets/clients-b2b/selery.png" alt="Selery">
+      <img src="assets/clients-b2b/camereye.png" alt="CamerEye">
+      <img src="assets/clients-b2b/poolify.webp" alt="Poolify">
+      <img src="assets/clients-b2b/lsc100.svg" alt="LSC100">
+    </div>
+    <span class="label company"><span class="spark">✦</span> You're in good company</span>
+  </div>
+</section>
+
+<!-- ═══ FLOURISH ═══ -->
+<div class="flourish"><span class="fx">✦</span></div>
 
 <!-- ═══ TESTIMONIALS ═══ -->
-<section class="s alt">
+<section class="s">
   <img class="wiz wiz-results" src="assets/wizards/wizard-highfive.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5h15a1.5 1.5 0 011.5 1.5v7.5a1.5 1.5 0 01-1.5 1.5H10l-4.2 3v-3H4.5A1.5 1.5 0 013 14.5V7a1.5 1.5 0 011.5-1.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> Word of mouth</span>
       <h2>What others have to say.</h2>
+    </div>
+
+    <div class="t-video">
+      <div class="frame"><iframe src="https://fast.wistia.net/embed/iframe/5pbwena194" allowfullscreen="" loading="lazy" title="Ryan McGovern, Search Atlas"></iframe></div>
+      <div class="cap"><strong>Ryan McGovern</strong>, Search Atlas &middot; 9.5x ROI &middot; 30 days</div>
     </div>
 
     <!-- All 3 GTM testimonial slots filled (McGovern/SearchAtlas, Sapovits/Ink'd Stores, Vollmer/SpoutWater). Video testimonials can replace any cell later. -->
@@ -464,6 +538,57 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
         <p class="q">"We've gotten phenomenal, excellent, excellent results. I just need to focus on closing them. Charm is giving me leads every day. 240,000 emails sent, almost 700 positive responses, and they reduced our support ticket volume by 50% in a single month. We did $120,000 in sales last month. These guys handle both sides of the house for us."</p>
         <div class="who">Reuben Vollmer</div>
         <div class="role">CEO at SpoutWater</div>
+      </div>
+    </div>
+    <div class="cases">
+      <div class="case">
+        <h3>185 positive replies in 19 days.</h3>
+        <p class="cq">&ldquo;We’re very happy. We love the results.&rdquo;</p>
+        <div class="chips"><div class="chip"><b>185</b>Positive replies</div><div class="chip"><b>19</b>Days</div></div>
+        <div class="by"><img src="assets/people/nykelle.jpg" alt="Nykelle Schlofman"><div><div class="who">Nykelle Schlofman</div><div class="role">CEO &amp; Co-Founder, Path.</div></div></div>
+      </div>
+      <div class="case">
+        <h3>32 email campaigns into the restaurant groups that decide once for every patio.</h3>
+        <p class="cq">&ldquo;They’ve been fantastic partners as we build out our outreach and campaigns.&rdquo;</p>
+        <div class="chips"><div class="chip"><b>100+</b>Positive replies</div><div class="chip"><b>32</b>Campaigns tested</div><div class="chip"><b>5.2%</b>Reply rate</div><div class="chip"><b>Ballyhoo · Crave · Bluewater</b>Groups booked</div></div>
+        <div class="by"><img src="assets/people/raj.jpg" alt="Raj Tilwa"><div><div class="who">Raj Tilwa</div><div class="role">Co-Founder, Focal</div></div></div>
+      </div>
+      <div class="case">
+        <h3>684 architects and designers answered an email about stone.</h3>
+        <p class="cq">&ldquo;I wouldn’t be where we are now if it wasn’t for your support.&rdquo;</p>
+        <div class="chips"><div class="chip"><b>55,683</b>Emails sent</div><div class="chip"><b>684</b>Responses</div><div class="chip"><b>63</b>Positive replies</div><div class="chip"><b>Landry Design · Smithsonian</b>Replied</div></div>
+        <div class="by"><img src="assets/people/ricky.jpg" alt="Bhoumik &lsquo;Ricky&rsquo; Sheth"><div><div class="who">Bhoumik &lsquo;Ricky&rsquo; Sheth</div><div class="role">CEO, Stone Products Unlimited</div></div></div>
+      </div>
+      <div class="case">
+        <h3>From one pool at a time to 700 retail stores.</h3>
+        <p class="cq">&ldquo;We’ve worked with Charm across a few projects, and they’ve consistently delivered, especially in helping us build early B2B motion and customer success scaffolding.&rdquo;</p>
+        <div class="chips"><div class="chip"><b>700</b>Retail stores</div><div class="chip"><b>Solenis</b>Distribution partnership</div></div>
+        <div class="by"><img src="assets/people/ravi.jpg" alt="Ravi Kurani"><div><div class="who">Ravi Kurani</div><div class="role">President and Dir. of Product, Sutro</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ READ & REMEDY ═══ -->
+<section class="s alt">
+  <img class="wiz wiz-duo" src="assets/wizards/wizard-read.png" alt="" aria-hidden="true">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M4 20L13.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.5 4.5l.85 2.15L20.5 7.5l-2.15.85L17.5 10.5l-.85-2.15L14.5 7.5l2.15-.85L17.5 4.5z" fill="currentColor"/></svg> The method</span>
+      <h2>We read first, then remedy.</h2>
+      <p class="intro">We don't hand you a package and hope it fits.</p>
+    </div>
+
+    <div class="duo">
+      <div class="cell">
+        <div class="step-n">01</div>
+        <h3>First, the read</h3>
+        <p>We get to know you and your business: what you're building, what's working, what's quietly leaking. No remedies until the read is done.</p>
+      </div>
+      <div class="cell tint">
+        <div class="step-n">02 <span class="spark">✦</span></div>
+        <h3>Then, the remedy</h3>
+        <p>Our wizards build the right enchantments for the specific things you told us, not a cookie-cutter package. Remedy, not menu.</p>
       </div>
     </div>
   </div>
@@ -497,7 +622,7 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
       <p class="intro">Pick a time for a 20-minute call. You talk, we listen, and you leave with a clear next step either way.</p>
     </div>
     <div class="cta-row">
-      <a class="btn-book" data-book="end" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call <span class="spark">✦</span></a>
+      <a class="pbtn" data-book="end" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call</a>
       <p class="fine">No homework, no pressure.</p>
     </div>
   </div>
@@ -523,25 +648,31 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
     els.forEach(function (el) { io.observe(el); });
   })();
 </script>
-
 <script>
-  /* Booking-link attribution. Every booking button gets UTMs so iClosed can tell Zanele's
-     bookings from ads and the website. Defaults below; utm_source / utm_medium / utm_campaign /
-     utm_term on this page's own URL override them (e.g. ?utm_campaign=followup-2).
-     utm_content is always the button position (top | videos | end). */
   (function () {
+    /* Decision-maker share: sends this page (with its UTMs, so a partner's booking still credits Zanele) */
+    var dm = document.getElementById('dmbtn');
+    if (dm) dm.addEventListener('click', function () {
+      var url = location.href;
+      var text = "I'm looking at booking a call with Charm. They build and run cold outbound for B2B companies, and I'd like you on the call since it's a decision we'd make together. Their page has a few short videos worth watching first: " + url;
+      if (navigator.share) { navigator.share({ title: 'Join my call with Charm', text: text }).catch(function () {}); }
+      else { location.href = 'mailto:?subject=' + encodeURIComponent('Join my call with Charm') + '&body=' + encodeURIComponent(text); }
+    });
+
+    /* Booking-link attribution. Every booking button gets UTMs so iClosed (and the Slack booking post)
+       show Zanele's bookings apart from ads and the website. utm_source / utm_medium / utm_campaign /
+       utm_term on this page's own URL override the defaults (e.g. ?utm_campaign=followup-2).
+       utm_content is always the button position (top | videos | end). */
     var DEFAULTS = { utm_source: 'zanele', utm_medium: 'email', utm_campaign: 'faq-gtm' };
-    var incoming = new URLSearchParams(window.location.search);
+    var incoming = new URLSearchParams(location.search);
     document.querySelectorAll('a[data-book]').forEach(function (a) {
       try {
-        var url = new URL(a.getAttribute('href'));
-        Object.keys(DEFAULTS).forEach(function (k) { url.searchParams.set(k, DEFAULTS[k]); });
-        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term'].forEach(function (k) {
-          var v = incoming.get(k); if (v) url.searchParams.set(k, v);
-        });
-        url.searchParams.set('utm_content', a.getAttribute('data-book'));
-        a.setAttribute('href', url.toString());
-      } catch (e) { /* leave the plain booking link in place */ }
+        var u = new URL(a.getAttribute('href'));
+        Object.keys(DEFAULTS).forEach(function (k) { u.searchParams.set(k, DEFAULTS[k]); });
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term'].forEach(function (k) { var v = incoming.get(k); if (v) u.searchParams.set(k, v); });
+        u.searchParams.set('utm_content', a.getAttribute('data-book'));
+        a.setAttribute('href', u.toString());
+      } catch (e) { /* leave the plain booking link */ }
     });
   })();
 </script>
