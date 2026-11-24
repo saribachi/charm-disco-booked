@@ -397,7 +397,29 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   .cta-row { text-align: center; margin-top: 36px; }
   .hero .cta-row { margin-top: 30px; }
   .cta-row .fine { font-size: 13px; color: var(--mute); margin: 12px 0 0; }
-  .vtile .echo { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line-2); font-size: 13.5px; color: var(--ink-2); font-style: italic; }
+  .hero-echo { margin: 10px auto 0; max-width: 620px; font-size: 15px; color: var(--ink-2); font-style: italic; }
+  /* jump links */
+  .jump { margin: 30px auto 0; max-width: 860px; }
+  .jump-label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); margin-bottom: 12px; }
+  .jump-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .jump-list a { display: inline-block; padding: 9px 16px; border-radius: 999px; background: #fff; border: 1px solid var(--line-2); color: var(--brand-deep); font-size: 14px; font-weight: 500; text-decoration: none; transition: background .15s, border-color .15s; }
+  .jump-list a:hover { background: var(--brand-tint); border-color: var(--brand); }
+  /* one row per question */
+  .faq-rows { display: grid; gap: 28px; }
+  .faq-row { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0; align-items: stretch; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 48px -28px rgba(56,12,131,0.28), 0 2px 8px -4px rgba(0,0,0,0.06); scroll-margin-top: 24px; }
+  .faq-row.flip .frame { order: 2; }
+  .faq-row .frame { position: relative; aspect-ratio: 16 / 9; background: var(--dark); }
+  .faq-row .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .faq-text { padding: 30px 34px; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+  .faq-text .vnum { font-size: 11px; letter-spacing: 0.1em; color: var(--brand); margin-bottom: 8px; }
+  .faq-text h3 { font-size: clamp(20px, 2.2vw, 26px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 10px; color: var(--ink); }
+  .faq-text p { font-size: 15px; color: var(--mute); line-height: 1.6; margin: 0; }
+  .faq-text .echo { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line-2); color: var(--ink-2); font-style: italic; }
+  @media (max-width: 880px) {
+    .faq-row { grid-template-columns: 1fr; }
+    .faq-row.flip .frame { order: 0; }
+    .faq-text { padding: 22px 22px 26px; }
+  }
 </style>
 </head>
 <body>
@@ -407,16 +429,27 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   <img class="wiz wiz-hero" src="assets/wizards/wizard-cast.png" alt="" aria-hidden="true">
   <div class="container">
     <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3.5v3.5M16 3.5v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9 14.6l2.2 2.2 4-4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Before you book</span>
-    <h1>Questions before we talk? <span class="accent">Chris has answers.</span></h1>
-    <p class="sub">Most people want to know the same few things before they book. Chris answers them below, a couple of minutes each. Start here.</p>
-    <!-- Main thank-you video: Wistia siu2mrid58 ("TY Page - GTM", 2:27). Swapped from the YouTube placeholder Nov 22 2026. -->
+    <h1>Questions before we talk? <span class="accent">Start with who we are.</span></h1>
+    <p class="sub">Six short answers from Chris, a couple of minutes each. This first one is who we are and why we exist.</p>
+    <!-- HERO VIDEO: "Who is Charm?" (YouTube) stands in for the thank-you video, which thanks people for booking.
+         SLOT: when the editor's cut of Wistia siu2mrid58 (booking mentions removed) is ready, it can go back here
+         and "Who is Charm?" moves to the top of the questions below. -->
     <div class="hero-video">
       <div class="frame">
-        <script src="https://fast.wistia.com/player.js" async></script>
-        <script src="https://fast.wistia.com/embed/siu2mrid58.js" async type="module"></script>
-        <wistia-player media-id="siu2mrid58" aspect="1.7777777777777777"></wistia-player>
+        <iframe src="https://www.youtube-nocookie.com/embed/lZJbcov8E7o?rel=0" title="Who is Charm?" allowfullscreen="" loading="lazy"></iframe>
       </div>
-      <div class="cap">Start here · 2 min</div>
+      <div class="cap">Who is Charm? · Chris Booth, CEO &amp; Founder</div>
+      <p class="hero-echo">"We find the message that books meetings, what to say and who to say it to, then scale it."</p>
+    </div>
+    <div class="jump">
+      <span class="jump-label">Jump to a question</span>
+      <div class="jump-list">
+        <a href="#q-work">What would working with you look like?</a>
+        <a href="#q-pay">What am I actually paying for?</a>
+        <a href="#q-notfor">What if Charm isn't right for me?</a>
+        <a href="#q-time">Is now the right time?</a>
+        <a href="#q-call">How much of my time does this take?</a>
+      </div>
     </div>
     <div class="cta-row">
       <a class="pbtn" data-book="top" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call</a>
@@ -424,43 +457,61 @@ src="https://www.facebook.com/tr?id=1343380347350131&ev=PageView&noscript=1"
   </div>
 </header>
 
-<!-- ═══ Q&A VIDEOS ═══ -->
-<section class="s alt qa-up">
+<!-- ═══ THE QUESTIONS ═══ -->
+<section class="s alt">
   <img class="wiz wiz-bento" src="assets/wizards/wizard-orb.png" alt="" aria-hidden="true">
   <div class="container reveal">
     <div class="sec-head">
       <span class="label brand"><svg class="ico" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M10.2 8.6l5 3.4-5 3.4V8.6z" fill="currentColor"/></svg> Watch what's relevant</span>
-      <h2 class="qa-title">What people ask before they book.</h2>
-      <p class="intro qa-intro">Short videos, a couple of minutes each. Watch what's relevant and skip what isn't.</p>
-      <p class="swipe-cue">Swipe for more &rarr;</p>
+      <h2>What people ask before they book.</h2>
+      <p class="intro">A couple of minutes each. Watch what's relevant and skip what isn't.</p>
     </div>
-
-    <!-- PLACEHOLDER: Replace each embed with the real Q&A video -->
-    <div class="bento">
-      <div class="vtile">
-        <div class="frame"><iframe src="https://www.youtube.com/embed/lZJbcov8E7o" allowfullscreen="" loading="lazy"></iframe></div>
-        <div class="body"><div class="vnum">01</div><h3>Who is Charm, exactly?</h3><p>The short version of who we are and why we exist.</p><p class="echo">"We find the message that books meetings, what to say and who to say it to, then scale it."</p></div>
-      </div>
-      <div class="vtile">
-        <div class="frame"><iframe src="https://www.youtube.com/embed/g0XJUF9FfOs" allowfullscreen="" loading="lazy"></iframe></div>
-        <div class="body"><div class="vnum">02</div><h3>What would working with you look like?</h3><p>What actually happens when we work together: we read the situation first, then remedy it.</p><p class="echo">"We read first, then remedy. Nothing gets built until we know what's working and what's leaking."</p></div>
-      </div>
-      <div class="vtile">
-        <div class="frame"><iframe src="https://www.youtube.com/embed/QBi7r1W-egE" allowfullscreen="" loading="lazy"></iframe></div>
-        <div class="body"><div class="vnum">03</div><h3>How much of my time does this take?</h3><p>What the call covers and how we use the time.</p><p class="echo">"It's a 20-minute call. You talk, we listen, and you leave with a clear next step either way."</p></div>
-      </div>
-      <div class="vtile">
-        <div class="frame"><iframe src="https://www.youtube.com/embed/xpMM9z-1JcM" allowfullscreen="" loading="lazy"></iframe></div>
-        <div class="body"><div class="vnum">04</div><h3>Is now the right time?</h3><p>How to know if you're ready, and what to do if you're not sure.</p><p class="echo">"If outbound isn't booking the meetings it should, it's time. If you're not sure, that's what the call is for."</p></div>
-      </div>
-      <div class="vtile">
-        <div class="frame"><iframe src="https://www.youtube.com/embed/yBJA5Ox4HiY" allowfullscreen="" loading="lazy"></iframe></div>
-        <div class="body"><div class="vnum">05</div><h3>What if Charm isn't right for me?</h3><p>We're not for everyone. Here's how to tell fast, before either of us spends an hour finding out.</p><p class="echo">"We'd rather tell you on day one than have you work it out in month three."</p></div>
-      </div>
-      <div class="vtile">
-        <div class="frame"><iframe src="https://www.youtube.com/embed/tkI82nSQn14" allowfullscreen="" loading="lazy"></iframe></div>
-        <div class="body"><div class="vnum">06</div><h3>What am I actually paying for?</h3><p>Three channels, three things, and why the infrastructure is what you're really paying for.</p><p class="echo">"Three channels, three things. The infrastructure is what you're paying for, and it's full at every tier."</p></div>
-      </div>
+    <div class="faq-rows">
+      <article class="faq-row" id="q-work">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/g0XJUF9FfOs?rel=0" title="What would working with you look like?" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="faq-text">
+          <div class="vnum">02</div>
+          <h3>What would working with you look like?</h3>
+          <p>We read the situation first: what you sell, who buys it, what's working and what's quietly leaking. Then we build the remedy for those specific things, not a package off a menu.</p>
+          <p class="echo">"We read first, then remedy. Nothing gets built until we know what's working and what's leaking."</p>
+        </div>
+      </article>
+      <article class="faq-row flip" id="q-pay">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/tkI82nSQn14?rel=0" title="What am I actually paying for?" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="faq-text">
+          <div class="vnum">03</div>
+          <h3>What am I actually paying for?</h3>
+          <p>Three channels, three things, and the infrastructure that runs them. That infrastructure is what gets outbound into inboxes and turns replies into meetings, and you get all of it at every tier.</p>
+          <p class="echo">"Three channels, three things. The infrastructure is what you're paying for, and it's never gated by tier."</p>
+        </div>
+      </article>
+      <article class="faq-row" id="q-notfor">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/yBJA5Ox4HiY?rel=0" title="What if Charm isn't right for me?" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="faq-text">
+          <div class="vnum">04</div>
+          <h3>What if Charm isn't right for me?</h3>
+          <p>We're not for everyone. Chris says plainly who it isn't for, so you can tell in two minutes instead of finding out an hour into a call.</p>
+          <p class="echo">"We'd rather tell you on day one than have you work it out in month three."</p>
+        </div>
+      </article>
+      <article class="faq-row flip" id="q-time">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/xpMM9z-1JcM?rel=0" title="Is now the right time?" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="faq-text">
+          <div class="vnum">05</div>
+          <h3>Is now the right time?</h3>
+          <p>How to know if you're ready, and what to do if you're not sure yet.</p>
+          <p class="echo">"If outbound isn't booking the meetings it should, it's time. If you're not sure, that's what the call is for."</p>
+        </div>
+      </article>
+      <article class="faq-row" id="q-call">
+        <div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/QBi7r1W-egE?rel=0" title="How much of my time does this take?" allowfullscreen="" loading="lazy"></iframe></div>
+        <div class="faq-text">
+          <div class="vnum">06</div>
+          <h3>How much of my time does this take?</h3>
+          <p>What the call covers and how we use the time. It's 20 minutes, and you do most of the talking.</p>
+          <p class="echo">"It's a 20-minute call. You talk, we listen, and you leave with a clear next step either way."</p>
+        </div>
+      </article>
     </div>
     <div class="cta-row">
       <a class="pbtn" data-book="videos" href="https://app.iclosed.io/e/hirecharm/discovery-charm-gtm">Book your call</a>
