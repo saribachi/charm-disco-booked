@@ -473,22 +473,31 @@
 </script>
 
 <script>
-  /* Booking-link attribution. Every booking button gets UTMs so iClosed can tell Zanele's
-     bookings from ads and the website. Defaults below; utm_source / utm_medium / utm_campaign /
-     utm_term on this page's own URL override them (e.g. ?utm_campaign=followup-2).
-     utm_content is always the button position (top | videos | end). */
+  /* Booking-link attribution. iClosed records a contact's referrerUrl, and a plain link only gives it
+     the bare origin (browsers trim cross-site referrers), so path and UTMs were lost. Match the site's
+     iClosed embed instead: pass the full page URL, tagged, as referrerUrl on the booking link.
+     Tags: utm_source=zanele, utm_medium=email, utm_campaign=faq-cs by default; utm_source / utm_medium /
+     utm_campaign / utm_term on this page's own URL override them (e.g. ?utm_campaign=followup-2).
+     utm_content is the button position (top | videos | end). */
   (function () {
-    var DEFAULTS = { utm_source: 'zanele', utm_medium: 'email', utm_campaign: 'faq-cs' };
-    var incoming = new URLSearchParams(window.location.search);
+    var TAGS = { utm_source: 'zanele', utm_medium: 'email', utm_campaign: 'faq-cs' };
+    var incoming = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term'].forEach(function (k) { var v = incoming.get(k); if (v) TAGS[k] = v; });
+    function tag(u) { Object.keys(TAGS).forEach(function (k) { u.searchParams.set(k, TAGS[k]); }); return u; }
+    try {
+      /* Put the tags in this page's own URL too, so the browser referrer carries them */
+      var page = tag(new URL(location.href));
+      if (page.href !== location.href) history.replaceState(history.state, '', page.href);
+    } catch (e) {}
     document.querySelectorAll('a[data-book]').forEach(function (a) {
       try {
-        var url = new URL(a.getAttribute('href'));
-        Object.keys(DEFAULTS).forEach(function (k) { url.searchParams.set(k, DEFAULTS[k]); });
-        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term'].forEach(function (k) {
-          var v = incoming.get(k); if (v) url.searchParams.set(k, v);
-        });
-        url.searchParams.set('utm_content', a.getAttribute('data-book'));
-        a.setAttribute('href', url.toString());
+        var pos = a.getAttribute('data-book');
+        var ref = tag(new URL(location.href)); ref.searchParams.set('utm_content', pos);
+        var u = tag(new URL(a.getAttribute('href')));
+        u.searchParams.set('utm_content', pos);
+        u.searchParams.set('referrerUrl', ref.href);
+        a.setAttribute('href', u.href);
+        a.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
       } catch (e) { /* leave the plain booking link in place */ }
     });
   })();
